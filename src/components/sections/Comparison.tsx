@@ -3,27 +3,27 @@ import { Check } from "lucide-react"
 const comparisonData = [
     {
         feature: "強制力",
-        plusCommit: { text: "◎ (ストイック)", value: true },
+        plusCommit: { text: "◎ (毎日管理)", value: true },
         companyA: { text: "△ (自主性任せ)", value: "partial" },
         companyB: { text: "× (なし)", value: false },
     },
     {
-        feature: "サポート",
-        plusCommit: { text: "◎ (個別徹底)", value: true },
+        feature: "技術サポート",
+        plusCommit: { text: "◎ (マネタイズまで)", value: true },
         companyA: { text: "○ (カリキュラム内)", value: "partial" },
         companyB: { text: "× (なし)", value: false },
     },
     {
-        feature: "コスト",
-        plusCommit: { text: "◎ (9,980円/月)", value: true },
-        companyA: { text: "△ (50万円〜)", value: "partial" },
-        companyB: { text: "◎ (0円〜)", value: true },
+        feature: "コミュニティ",
+        plusCommit: { text: "◎ (K-zoku参加)", value: true },
+        companyA: { text: "△ (卒業後なし)", value: "partial" },
+        companyB: { text: "× (孤独)", value: false },
     },
     {
-        feature: "柔軟性",
-        plusCommit: { text: "◎ (個人メニュー)", value: true },
-        companyA: { text: "△ (固定メニュー)", value: "partial" },
-        companyB: { text: "◎ (自由)", value: true },
+        feature: "コスト",
+        plusCommit: { text: "◎ (9,980円〜)", value: true },
+        companyA: { text: "△ (50万円〜)", value: "partial" },
+        companyB: { text: "◎ (0円〜)", value: true },
     },
 ]
 

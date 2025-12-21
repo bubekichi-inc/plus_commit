@@ -11,18 +11,21 @@ export function Header() {
                 </div>
 
                 <nav className="hidden md:flex items-center gap-8">
-                    <Link href="#about" className="text-sm font-bold uppercase tracking-wider text-zinc-400 hover:text-primary-500 transition-colors">
-                        Training
+                    <Link href="/about" className="text-sm font-bold uppercase tracking-wider text-zinc-400 hover:text-primary-500 transition-colors">
+                        About
                     </Link>
-                    <Link href="#comparison" className="text-sm font-bold uppercase tracking-wider text-zinc-400 hover:text-primary-500 transition-colors">
-                        Stats
+                    <Link href="/members" className="text-sm font-bold uppercase tracking-wider text-zinc-400 hover:text-primary-500 transition-colors">
+                        Members
                     </Link>
-                    <Link href="#pricing" className="text-sm font-bold uppercase tracking-wider text-zinc-400 hover:text-primary-500 transition-colors">
-                        Membership
+                    <Link href="/#pricing" className="text-sm font-bold uppercase tracking-wider text-zinc-400 hover:text-primary-500 transition-colors">
+                        Pricing
+                    </Link>
+                    <Link href="/contact" className="text-sm font-bold uppercase tracking-wider text-zinc-400 hover:text-primary-500 transition-colors">
+                        Contact
                     </Link>
                     <Button size="sm" className="bg-primary-600 hover:bg-primary-500 text-white font-bold italic uppercase rounded-none skew-x-[-10deg] px-6 border-2 border-primary-600 hover:border-primary-400" asChild>
-                        <Link href="#pricing">
-                            <span className="skew-x-[10deg]">無料体験に参加</span>
+                        <Link href="/contact">
+                            <span className="skew-x-[10deg]">無料相談</span>
                         </Link>
                     </Button>
                 </nav>

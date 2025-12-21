@@ -1,23 +1,23 @@
-import { MessageCircle, CheckSquare, Flame } from "lucide-react"
+import { MessageCircle, Users, Code2 } from "lucide-react"
 
 const features = [
     {
+        icon: Code2,
+        title: "CURRICULUM",
+        subtitle: "実践的カリキュラム",
+        description: "未経験からエンジニアになるために必要な技術を網羅。手を動かしながら学ぶスタイルで、現場で通用するスキルを習得します。",
+    },
+    {
+        icon: Users,
+        title: "COMMUNITY",
+        subtitle: "エンジニアコミュニティ",
+        description: "同じ志を持つ仲間と切磋琢磨できる環境。技術的な質問やキャリアの相談も活発に行われ、モチベーションを維持できます。",
+    },
+    {
         icon: MessageCircle,
-        title: "CHAT SUPPORT",
-        subtitle: "チャットサポート",
-        description: "技術的な質問からキャリア相談まで、いつでも相談可能。24時間以内のレスポンスを保証。",
-    },
-    {
-        icon: CheckSquare,
-        title: "TASK MANAGEMENT",
-        subtitle: "徹底的なタスク管理",
-        description: "目標から逆算した日々のメニューを管理。ストイックなトレーナーが進捗をチェック。",
-    },
-    {
-        icon: Flame,
-        title: "MOTIVATION",
-        subtitle: "モチベーション維持",
-        description: "「サボったら詰められる」という程よい緊張感が、あなたの学習リミッターを解除する。",
+        title: "SUPPORT",
+        subtitle: "徹底したサポート体制",
+        description: "現役エンジニアによる技術指導とキャリア支援。あなたの目標達成を全力でバックアップします。(※プランにより内容は異なります)",
     },
 ]
 

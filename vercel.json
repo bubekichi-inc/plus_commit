@@ -1,14 +1,23 @@
 {
-
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "git": {
     "deploymentEnabled": {
       "develop": false,
       "stripe": false,
-      "pre": false,
-      "ui": false,
       "lp": false,
       "main": true
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "business.plus-commit.com"
+        }
+      ],
+      "destination": "/business/:path*"
+    }
+  ]
 }
