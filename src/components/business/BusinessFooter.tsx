@@ -42,7 +42,6 @@ export function BusinessFooter() {
                         <div className="text-xl font-black tracking-tight text-white flex items-center gap-2 mb-6">
                             <span className="text-blue-500">PLUS</span>
                             <span>COMMIT</span>
-                            <span className="text-[10px] font-bold bg-blue-500 text-white px-1.5 py-0.5 ml-1">BUSINESS</span>
                         </div>
                         <p className="text-slate-500 text-sm leading-relaxed mb-6">
                             テクノロジーの力で、あらゆるビジネスの<br />
@@ -94,7 +93,8 @@ export function BusinessFooter() {
                     <div>
                         <h3 className="text-white font-bold mb-4 text-sm">採用情報</h3>
                         <ul className="space-y-3 text-sm text-slate-500">
-                            <li><Link href="/business/contact" className="hover:text-blue-400 transition-colors">募集職種</Link></li>
+                            <li><Link href="/business/recruit" className="hover:text-blue-400 transition-colors">採用トップ</Link></li>
+                            <li><Link href="/business/recruit" className="hover:text-blue-400 transition-colors">募集職種</Link></li>
                         </ul>
                     </div>
                 </div>

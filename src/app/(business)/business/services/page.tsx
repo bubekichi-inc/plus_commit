@@ -193,6 +193,57 @@ export default function ServicesPage() {
                     </div>
                 </section>
 
+                {/* Owned Products & Media */}
+                <section className="py-24 border-t border-slate-800 bg-slate-900/30">
+                    <div className="container mx-auto px-4">
+                        <div className="text-center mb-16">
+                            <div className="text-blue-400 font-medium mb-2 tracking-wider">OWNED PRODUCTS & MEDIA</div>
+                            <h2 className="text-4xl font-black tracking-tight text-white">自社プロダクト・運営メディア</h2>
+                            <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
+                                自社サービスの開発・運営で得た「実践的な知見」を、お客様のプロジェクトに還元します。
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-12">
+                            {/* K-zoku */}
+                            <div className="flex flex-col">
+                                <div className="aspect-video bg-slate-800 border border-slate-700 mb-6 flex items-center justify-center relative overflow-hidden group">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent"></div>
+                                    <span className="text-2xl font-black italic text-slate-700 group-hover:text-blue-500/30 transition-colors">K-zoku</span>
+                                </div>
+                                <div className="text-blue-400 font-bold mb-2 tracking-widest uppercase text-xs">Application Development</div>
+                                <h3 className="text-2xl font-bold text-white mb-4">K-zoku（継続）</h3>
+                                <p className="text-slate-400 mb-6 leading-relaxed">
+                                    「継続を科学する」をコンセプトにした努力記録アプリ。
+                                    ゲーミフィケーション、データ分析、リアルタイム通知、複雑な状態管理など、
+                                    高度な技術要素を盛り込んだ自社プロダクトです。
+                                </p>
+                                <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 self-start" asChild>
+                                    <Link href="https://k-zoku.com/" target="_blank">公式サイトを見る</Link>
+                                </Button>
+                            </div>
+
+                            {/* 個人開発研究所 */}
+                            <div className="flex flex-col">
+                                <div className="aspect-video bg-slate-800 border border-slate-700 mb-6 flex items-center justify-center relative overflow-hidden group">
+                                    <div className="absolute inset-0 bg-gradient-to-bl from-blue-500/10 to-transparent"></div>
+                                    <span className="text-2xl font-black italic text-slate-700 group-hover:text-blue-500/30 transition-colors">Media</span>
+                                </div>
+                                <div className="text-blue-400 font-bold mb-2 tracking-widest uppercase text-xs">Technical Media</div>
+                                <h3 className="text-2xl font-bold text-white mb-4">個人開発研究所</h3>
+                                <p className="text-slate-400 mb-6 leading-relaxed">
+                                    月間数万PVを誇るエンジニア向け技術メディア。
+                                    SEO対策、コンテンツマーケティング、広告運用、コミュニティ運営など、
+                                    メディア運営におけるノウハウを体系化しています。
+                                </p>
+                                <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 self-start" asChild>
+                                    <Link href="https://personal-dev.net/" target="_blank">メディアを見る</Link>
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* CTA */}
                 <section className="py-24 border-t border-slate-800">
                     <div className="container mx-auto px-4 text-center">

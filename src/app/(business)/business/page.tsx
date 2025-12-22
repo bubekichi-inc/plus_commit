@@ -360,6 +360,44 @@ export default function BusinessHomePage() {
                     </div>
                 </section>
 
+                {/* Owned Products Section */}
+                <section className="py-24 border-t border-slate-800">
+                    <div className="container mx-auto px-4">
+                        <div className="text-center mb-16">
+                            <div className="text-blue-400 font-bold tracking-wider text-sm mb-2">OWNED PRODUCTS & MEDIA</div>
+                            <h2 className="text-4xl font-black tracking-tight text-white">自社プロダクト・運営メディア</h2>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* K-zoku */}
+                            <div className="group relative bg-slate-900 border border-slate-800 p-8 hover:border-blue-500/50 transition-all">
+                                <div className="text-blue-500 font-bold mb-4 tracking-widest uppercase text-xs">Self-Developed Application</div>
+                                <h3 className="text-3xl font-bold text-white mb-4">K-zoku</h3>
+                                <p className="text-slate-400 mb-6 leading-relaxed">
+                                    意志に頼らず「仕組み」で解決する、新感覚の努力記録アプリ。
+                                    自社開発で培った高度なデータ分析と行動経済学の知見を、受託開発にも還元しています。
+                                </p>
+                                <Link href="https://k-zoku.com/" target="_blank" className="text-blue-400 font-medium hover:underline flex items-center gap-2">
+                                    公式サイトを見る <span className="text-xl">→</span>
+                                </Link>
+                            </div>
+
+                            {/* 個人開発研究所 */}
+                            <div className="group relative bg-slate-900 border border-slate-800 p-8 hover:border-blue-500/50 transition-all">
+                                <div className="text-blue-500 font-bold mb-4 tracking-widest uppercase text-xs">Owned Media</div>
+                                <h3 className="text-3xl font-bold text-white mb-4">個人開発研究所</h3>
+                                <p className="text-slate-400 mb-6 leading-relaxed">
+                                    エンジニアの挑戦を支える技術メディア。
+                                    最新の技術スタックからマネタイズ戦略まで、自社での検証結果に基づいた「本物の知見」を発信しています。
+                                </p>
+                                <Link href="https://personal-dev.net/" target="_blank" className="text-blue-400 font-medium hover:underline flex items-center gap-2">
+                                    メディアを見る <span className="text-xl">→</span>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* Recruit Section */}
                 <section className="py-24 border-t border-slate-800 bg-slate-900/50">
                     <div className="container mx-auto px-4">
@@ -375,7 +413,7 @@ export default function BusinessHomePage() {
                                     経験やスキルよりも、成長意欲とチャレンジ精神を重視します。
                                 </p>
                                 <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800" asChild>
-                                    <Link href="/business/contact">採用情報を見る</Link>
+                                    <Link href="/business/recruit">採用情報を見る</Link>
                                 </Button>
                             </div>
                             <div className="grid grid-cols-2 gap-4">

@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { DomainSwitcher } from "@/components/ui/DomainSwitcher"
 
 const menuItems = [
     {
@@ -30,6 +31,10 @@ const menuItems = [
         href: "/business/works",
     },
     {
+        label: "採用情報",
+        href: "/business/recruit",
+    },
+    {
         label: "お問い合わせ",
         href: "/business/contact",
     },
@@ -41,11 +46,15 @@ export function BusinessHeader() {
     return (
         <header className="fixed top-0 left-0 w-full z-50 border-b border-slate-800 bg-slate-950/95 backdrop-blur-md">
             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-                <Link href="/business" className="text-xl font-black tracking-tight text-white flex items-center gap-2">
-                    <span className="text-blue-500">PLUS</span>
-                    <span>COMMIT</span>
-                    <span className="text-[10px] font-bold bg-blue-500 text-white px-1.5 py-0.5 ml-1">BUSINESS</span>
-                </Link>
+                <div className="flex items-center gap-8">
+                    <Link href="/business" className="text-xl font-black tracking-tight text-white flex items-center gap-2">
+                        <span className="text-blue-500">PLUS</span>
+                        <span>COMMIT</span>
+                    </Link>
+                    <div className="hidden lg:block">
+                        <DomainSwitcher />
+                    </div>
+                </div>
 
                 <nav className="hidden md:flex items-center">
                     {menuItems.map((item) => (
