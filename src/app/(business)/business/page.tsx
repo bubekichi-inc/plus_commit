@@ -1,41 +1,9 @@
-"use client"
-
 import { BusinessHeader } from "@/components/business/BusinessHeader"
 import { BusinessFooter } from "@/components/business/BusinessFooter"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { useState } from "react"
-
-const services = [
-    {
-        id: "coding",
-        label: "CODING",
-        title: "コーディングの力で、\nビジネスを形にする。",
-        description: "デザインカンプからの正確なコーディング、レスポンシブ対応、\nCMS組み込みまで。制作会社様のパートナーとして支援します。",
-        link: "/business/services",
-    },
-    {
-        id: "dx",
-        label: "DX CONSULTING", 
-        title: "デジタルで、\n業務を変革する。",
-        description: "業務プロセスの可視化からツール選定、導入支援まで。\n貴社のDX推進をトータルでサポートします。",
-        link: "/business/services",
-    },
-    {
-        id: "development",
-        label: "DEVELOPMENT",
-        title: "テクノロジーで、\n新しい価値を創る。",
-        description: "Webサイト制作からWebアプリケーション開発まで。\nモダンな技術スタックで、最適なソリューションを提供します。",
-        link: "/business/services",
-    },
-]
-
-const news = [
-    { date: "2025.12.20", category: "お知らせ", title: "年末年始の営業について" },
-    { date: "2025.12.15", category: "実績", title: "大手メーカー様のコーポレートサイトリニューアルを担当しました" },
-    { date: "2025.12.01", category: "サービス", title: "業務自動化サービスの提供を開始しました" },
-    { date: "2025.11.20", category: "お知らせ", title: "DXコンサルティングサービスをリニューアルしました" },
-]
+import { BusinessHero } from "@/components/business/BusinessHero"
+import { getNewsList } from "@/lib/microcms"
 
 const pickups = [
     {
@@ -55,86 +23,14 @@ const pickups = [
     },
 ]
 
-export default function BusinessHomePage() {
-    const [activeService, setActiveService] = useState(0)
+export default async function BusinessHomePage() {
+    const { contents: news } = await getNewsList({ limit: 4 })
 
     return (
         <>
             <BusinessHeader />
             <main className="min-h-screen pt-20">
-                {/* Hero Section - Nyle style with tabs */}
-                <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950" />
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent" />
-                    
-                    {/* Animated background elements */}
-                    <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-                    <div className="absolute bottom-20 left-20 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl" />
-                    
-                    <div className="container mx-auto px-4 relative z-10">
-                        <div className="grid lg:grid-cols-2 gap-12 items-center">
-                            <div>
-                                {/* Service tabs */}
-                                <div className="flex gap-1 mb-8">
-                                    {services.map((service, index) => (
-                                        <button
-                                            key={service.id}
-                                            onClick={() => setActiveService(index)}
-                                            className={`px-4 py-2 text-xs font-bold tracking-wider transition-all ${
-                                                activeService === index
-                                                    ? "bg-blue-500 text-white"
-                                                    : "bg-slate-800/50 text-slate-400 hover:bg-slate-800"
-                                            }`}
-                                        >
-                                            {service.label}
-                                        </button>
-                                    ))}
-                                </div>
-                                
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 text-white leading-tight whitespace-pre-line">
-                                    {services[activeService].title}
-                                </h1>
-                                <p className="text-lg text-slate-400 mb-8 leading-relaxed whitespace-pre-line">
-                                    {services[activeService].description}
-                                </p>
-                                <Link 
-                                    href={services[activeService].link}
-                                    className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-blue-300 transition-colors"
-                                >
-                                    サービスを詳しく見る
-                                    <span className="text-xl">→</span>
-                                </Link>
-                            </div>
-                            
-                            {/* Service indicator */}
-                            <div className="hidden lg:flex justify-end">
-                                <div className="text-right">
-                                    <div className="text-[12rem] font-black text-blue-500/10 leading-none">
-                                        0{activeService + 1}
-                                    </div>
-                                    <div className="text-slate-500 font-medium -mt-8">
-                                        / 0{services.length}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {/* Service navigation dots */}
-                        <div className="flex gap-2 mt-12">
-                            {services.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setActiveService(index)}
-                                    className={`h-1 transition-all ${
-                                        activeService === index
-                                            ? "w-12 bg-blue-500"
-                                            : "w-6 bg-slate-700 hover:bg-slate-600"
-                                    }`}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </section>
+                <BusinessHero />
 
                 {/* News Section */}
                 <section className="py-16 border-t border-slate-800">
@@ -146,15 +42,17 @@ export default function BusinessHomePage() {
                             </Link>
                         </div>
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {news.map((item, index) => (
+                            {news.map((item) => (
                                 <Link 
-                                    key={index}
-                                    href="#"
+                                    key={item.id}
+                                    href={`/business/news/${item.id}`}
                                     className="group p-4 bg-slate-900/50 border border-slate-800 hover:border-blue-500/50 transition-colors"
                                 >
                                     <div className="flex items-center gap-3 mb-2">
-                                        <span className="text-xs text-blue-400 font-medium">{item.category}</span>
-                                        <span className="text-xs text-slate-500">{item.date}</span>
+                                        <span className="text-xs text-blue-400 font-medium">{item.category?.name || "お知らせ"}</span>
+                                        <span className="text-xs text-slate-500">
+                                            {new Date(item.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                        </span>
                                     </div>
                                     <p className="text-sm text-slate-300 group-hover:text-white transition-colors line-clamp-2">
                                         {item.title}
@@ -434,17 +332,6 @@ export default function BusinessHomePage() {
                 </section>
             </main>
             <BusinessFooter />
-            
-            {/* CSS for scroll animation */}
-            <style jsx>{`
-                @keyframes scroll {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
-                }
-                .animate-scroll {
-                    animation: scroll 20s linear infinite;
-                }
-            `}</style>
         </>
     )
 }

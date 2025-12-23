@@ -11,7 +11,7 @@ export function Header() {
                         <span className="text-primary-500">プラス</span>
                         <span>コミット</span>
                     </Link>
-                    <div className="hidden lg:block">
+                    <div className="flex items-center">
                         <DomainSwitcher />
                     </div>
                 </div>

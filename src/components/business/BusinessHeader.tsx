@@ -34,10 +34,6 @@ const menuItems = [
         label: "採用情報",
         href: "/business/recruit",
     },
-    {
-        label: "お問い合わせ",
-        href: "/business/contact",
-    },
 ]
 
 export function BusinessHeader() {
@@ -51,7 +47,7 @@ export function BusinessHeader() {
                         <span className="text-blue-500">PLUS</span>
                         <span>COMMIT</span>
                     </Link>
-                    <div className="hidden lg:block">
+                    <div className="flex items-center">
                         <DomainSwitcher />
                     </div>
                 </div>
@@ -94,12 +90,6 @@ export function BusinessHeader() {
                     ))}
                     
                     <div className="ml-4 flex items-center gap-3">
-                        <Link 
-                            href="https://plus-commit.com" 
-                            className="text-xs text-slate-500 hover:text-slate-300 transition-colors"
-                        >
-                            個人向けサービス
-                        </Link>
                         <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 rounded-none" asChild>
                             <Link href="/business/contact">
                                 お問い合わせ
