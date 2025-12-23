@@ -6,8 +6,8 @@ import { getNewsList } from "@/lib/microcms"
 export default async function NewsListPage() {
     const { contents: news } = await getNewsList()
     
-    // おすすめ記事を抽出
-    const specialNews = news.filter((item) => item.special)
+    // おすすめ記事を抽出（special が明示的に true の場合のみ）
+    const specialNews = news.filter((item) => item.special === true)
 
     return (
         <>
