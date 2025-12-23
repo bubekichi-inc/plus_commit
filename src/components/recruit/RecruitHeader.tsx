@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/components/auth/AuthProvider"
@@ -19,19 +20,17 @@ export function RecruitHeader({ onLoginClick }: RecruitHeaderProps) {
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/recruit" className="flex items-center gap-3 group">
-          <div className="relative">
-            <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center transform group-hover:rotate-6 transition-transform">
-              <span className="text-black font-black text-lg">+</span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-white font-black tracking-tight text-lg leading-none">
-              PLUS COMMIT
-            </span>
-            <span className="text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase">
-              Careers
-            </span>
-          </div>
+          <Image
+            src="/general/logo-pc.png"
+            alt="Plus Commit"
+            width={160}
+            height={36}
+            className="h-9 w-auto"
+            priority
+          />
+          <span className="text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase border-l border-emerald-400/30 pl-3">
+            Careers
+          </span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -59,6 +59,11 @@ export function BusinessHero() {
                             ))}
                         </div>
                         
+                        <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 mb-8">
+                            <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                            <span className="text-blue-400 text-sm font-bold tracking-wider">1億総エンジニア社会の実現へ</span>
+                        </div>
+                        
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 text-white leading-tight whitespace-pre-line">
                             {services[activeService].title}
                         </h1>

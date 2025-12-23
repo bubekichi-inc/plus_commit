@@ -53,16 +53,13 @@ export default function RecruitPage() {
                         </motion.div>
                         
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] mb-8">
-                            <span className="block">自ら考え、</span>
-                            <span className="block">自ら形にする。</span>
-                            <span className="block bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                                技術で未来を。
-                            </span>
+                            <span className="block">1億総エンジニア</span>
+                            <span className="block italic text-emerald-400">社会を創る。</span>
                         </h1>
                         
                         <p className="text-xl text-white/60 leading-relaxed max-w-2xl mx-auto mb-12">
-                            プラスコミットは、単にコードを書く集団ではありません。<br className="hidden md:block" />
-                            お客様のビジネス課題を技術で解決し、新しい価値を共に創り上げるパートナーです。
+                            プラスコミットは、誰もが技術を武器に自由に生きられる社会を目指しています。<br className="hidden md:block" />
+                            自ら考え、自ら形にする。そのマインドを持った仲間と共に、新しい未来を創り上げます。
                         </p>
                         
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">

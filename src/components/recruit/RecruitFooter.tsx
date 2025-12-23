@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 export function RecruitFooter() {
   return (
@@ -8,17 +9,16 @@ export function RecruitFooter() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/recruit" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
-                <span className="text-black font-black text-lg">+</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white font-black tracking-tight text-lg leading-none">
-                  PLUS COMMIT
-                </span>
-                <span className="text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase">
-                  Careers
-                </span>
-              </div>
+              <Image
+                src="/general/logo-pc.png"
+                alt="Plus Commit"
+                width={160}
+                height={36}
+                className="h-9 w-auto"
+              />
+              <span className="text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase border-l border-emerald-400/30 pl-3">
+                Careers
+              </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-md">
               私たちは、技術の力でビジネスを次のステージへ導くプロフェッショナル集団です。
@@ -67,12 +67,12 @@ export function RecruitFooter() {
                 </a>
               </li>
               <li>
-                <a href="https://business.plus-commit.com" className="text-white/50 hover:text-emerald-400 text-sm transition-colors">
-                  事業紹介サイト
+                <a href="https://plus-commit.com/career" className="text-white/50 hover:text-emerald-400 text-sm transition-colors">
+                  キャリア支援
                 </a>
               </li>
               <li>
-                <a href="https://business.plus-commit.com/contact" className="text-white/50 hover:text-emerald-400 text-sm transition-colors">
+                <a href="https://plus-commit.com/contact" className="text-white/50 hover:text-emerald-400 text-sm transition-colors">
                   お問い合わせ
                 </a>
               </li>
@@ -97,4 +97,3 @@ export function RecruitFooter() {
     </footer>
   )
 }
-

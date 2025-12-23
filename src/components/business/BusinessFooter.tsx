@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 export function BusinessFooter() {
     return (
@@ -39,9 +40,14 @@ export function BusinessFooter() {
             <div className="container mx-auto px-4 py-16">
                 <div className="grid md:grid-cols-6 gap-12 mb-12">
                     <div className="md:col-span-2">
-                        <div className="text-xl font-black tracking-tight text-white flex items-center gap-2 mb-6">
-                            <span className="text-blue-500">PLUS</span>
-                            <span>COMMIT</span>
+                        <div className="mb-6">
+                            <Image
+                                src="/general/logo-pc.png"
+                                alt="Plus Commit"
+                                width={160}
+                                height={36}
+                                className="h-9 w-auto"
+                            />
                         </div>
                         <p className="text-slate-500 text-sm leading-relaxed mb-6">
                             テクノロジーの力で、あらゆるビジネスの<br />

@@ -1,0 +1,120 @@
+# Plus Commit Inc.
+
+> 「1億総エンジニア社会」を創る。
+
+Plus Commit（プラスコミット）は、Web制作・開発、DXコンサルティング、業務自動化を提供するIT企業です。誰もが技術を武器に活躍できる社会の実現を目指しています。
+
+## 会社概要
+
+- 会社名: Plus Commit Inc.（プラスコミット）
+- ウェブサイト: https://plus-commit.com/
+- 採用サイト: https://recruit.plus-commit.com/
+- 事業内容: Web制作・開発、DXコンサルティング、コーディング代行、業務自動化
+
+## サービス
+
+### コーディング代行
+デザインカンプからの正確なコーディングを代行。Figma/XD/Photoshopからのコーディング、レスポンシブ対応、CMS組み込みまで対応。
+- 料金目安: 5万円〜
+- 納期目安: 1〜2週間
+
+### DXコンサルティング
+デジタル技術を活用した業務改革を支援。戦略立案から導入・運用まで伴走。
+- 料金目安: 月額10万円〜
+- 期間目安: 3ヶ月〜
+
+### Web制作
+コーポレートサイト、LP、ECサイトなど。企画・デザイン・開発をワンストップで対応。
+- 料金目安: 30万円〜
+- 納期目安: 4〜8週間
+
+### Webアプリケーション開発
+業務システム、SaaS、会員サイトなど。モダンな技術スタックで開発。
+- 料金目安: 100万円〜
+- 納期目安: 2〜6ヶ月
+
+### 業務自動化
+手作業を自動化し、生産性を向上。RPAやAPI連携で業務効率化を実現。
+- 料金目安: 20万円〜
+- 納期目安: 2〜4週間
+
+## 取り扱い技術
+
+### フロントエンド
+- React
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Vue.js
+
+### バックエンド
+- Node.js
+- Go
+- Python
+- PHP
+
+### インフラ・クラウド
+- AWS
+- Google Cloud Platform
+- Vercel
+- Docker
+
+### CMS
+- WordPress
+- microCMS
+- Contentful
+
+## 自社プロダクト・メディア
+
+### K-zoku（継続）
+意志に頼らず「仕組み」で解決する、新感覚の努力記録アプリ。
+- URL: https://k-zoku.com
+
+### 個人開発研究所
+エンジニアの挑戦を支える技術メディア。最新の技術スタックからマネタイズ戦略まで発信。
+- URL: https://personal-dev.net
+
+### Plus Commit Career（プラスコミットキャリア）
+IT転職・独立を目指す方のためのキャリア支援サービス。
+- URL: https://plus-commit.com/career
+
+## 採用情報
+
+Plus Commitでは、自ら考え、自ら形にする技術者を募集しています。
+
+### 募集職種
+- エンジニア（フロントエンド・バックエンド）
+- DXコンサルタント
+- ディレクター
+- デザイナー
+
+### 働き方
+- フルリモート・フレックス制導入
+- 最新MacBook Pro貸与
+- 書籍・セミナー費用全額負担
+- 副業OK（申請制）
+
+### 大切にしている価値観
+1. Output First - 完璧よりも、まずは形にすること
+2. Stay Professional - 常に最新を学び、最高を提供すること
+3. Challenge Boundaries - 既成概念にとらわれず挑戦すること
+
+詳細: https://recruit.plus-commit.com
+
+## お問い合わせ
+
+- お問い合わせフォーム: https://plus-commit.com/contact
+- メール: business@plus-commit.com
+- 営業時間: 平日 10:00 - 19:00
+
+## サイトマップ
+
+- トップページ: https://plus-commit.com
+- サービス: https://plus-commit.com/services
+- 取り扱い技術: https://plus-commit.com/technologies
+- 制作実績: https://plus-commit.com/works
+- お知らせ: https://plus-commit.com/news
+- お問い合わせ: https://plus-commit.com/contact
+- キャリア支援: https://plus-commit.com/career
+- 採用情報: https://recruit.plus-commit.com
+

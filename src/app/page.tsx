@@ -190,12 +190,13 @@ export default async function HomePage() {
                             </div>
 
                             <div className="text-center">
-                                <p className="text-2xl md:text-3xl text-white font-bold leading-relaxed mb-4">
-                                    テクノロジーの力で、<br />
-                                    <span className="text-blue-400">あらゆるビジネス</span>を変革する。
+                                <p className="text-blue-400 font-bold tracking-widest text-sm mb-4">OUR MISSION</p>
+                                <p className="text-2xl md:text-4xl text-white font-black leading-tight mb-6 italic">
+                                    「1億総エンジニア社会」を創る。
                                 </p>
-                                <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-                                    私たちは、最新のテクノロジーと確かな技術力で、お客様のビジネス課題を解決します。
+                                <p className="text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+                                    私たちは、最新のテクノロジーと確かな技術力で、お客様のビジネス課題を解決するだけでなく、<br className="hidden md:block" />
+                                    誰もが技術を武器に活躍できる「1億総エンジニア社会」の実現を目指しています。
                                 </p>
                             </div>
                         </div>

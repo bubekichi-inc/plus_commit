@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
@@ -57,9 +58,15 @@ export function BusinessHeader() {
         <header className="fixed top-0 left-0 w-full z-50 border-b border-slate-800 bg-slate-950/95 backdrop-blur-md">
             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
                 <div className="flex items-center gap-8">
-                    <Link href="/" className="text-xl font-black tracking-tight text-white flex items-center gap-2">
-                        <span className="text-blue-500">PLUS</span>
-                        <span>COMMIT</span>
+                    <Link href="/" className="flex items-center">
+                        <Image
+                            src="/general/logo-pc.png"
+                            alt="Plus Commit"
+                            width={180}
+                            height={40}
+                            className="h-10 w-auto"
+                            priority
+                        />
                     </Link>
                 </div>
 

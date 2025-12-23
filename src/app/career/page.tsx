@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ArrowRight, CheckCircle, Users, BookOpen, Briefcase, Target, MessageSquare, Award } from "lucide-react"
@@ -11,10 +12,17 @@ export default function CareerPage() {
             {/* Header */}
             <header className="fixed top-0 left-0 w-full z-50 border-b border-primary-500/20 bg-zinc-950/90 backdrop-blur-md">
                 <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-                    <Link href="/career" className="flex items-center gap-2">
-                        <span className="text-2xl font-black italic tracking-tighter text-white">
-                            <span className="text-primary-500">プラスコミット</span>
-                            <span className="text-emerald-400">キャリア</span>
+                    <Link href="/career" className="flex items-center gap-3">
+                        <Image
+                            src="/general/logo-pc.png"
+                            alt="Plus Commit"
+                            width={160}
+                            height={36}
+                            className="h-9 w-auto"
+                            priority
+                        />
+                        <span className="text-emerald-400 text-xs font-bold tracking-wider uppercase border-l border-emerald-400/30 pl-3">
+                            Career
                         </span>
                     </Link>
 
@@ -62,14 +70,14 @@ export default function CareerPage() {
                             </div>
 
                             <h1 className="text-5xl md:text-7xl font-black italic text-white leading-[0.9] mb-8">
-                                <span className="block">スパルタ式で</span>
-                                <span className="block text-primary-500">確実に結果を出す。</span>
+                                <span className="block">1億総エンジニア</span>
+                                <span className="block text-primary-500">社会の主役へ。</span>
                             </h1>
 
                             <p className="text-xl text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-12">
-                                プラスコミットキャリアは、IT転職・独立・起業を目指す方のための<br className="hidden md:block" />
-                                本気のキャリア支援サービスです。<br className="hidden md:block" />
-                                甘えを許さないスパルタ指導で、あなたの目標達成を全力でサポートします。
+                                技術は、人生を切り拓く最強の武器になる。<br className="hidden md:block" />
+                                プラスコミットキャリアは、本気でIT転職・独立を目指す方のための<br className="hidden md:block" />
+                                スパルタ式キャリア支援サービスです。
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -289,10 +297,18 @@ export default function CareerPage() {
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                         <div>
-                            <span className="text-xl font-black italic text-white">
-                                <span className="text-primary-500">プラスコミット</span>
-                                <span className="text-emerald-400">キャリア</span>
-                            </span>
+                            <div className="flex items-center gap-3 mb-2">
+                                <Image
+                                    src="/general/logo-pc.png"
+                                    alt="Plus Commit"
+                                    width={140}
+                                    height={32}
+                                    className="h-8 w-auto"
+                                />
+                                <span className="text-emerald-400 text-xs font-bold tracking-wider uppercase border-l border-emerald-400/30 pl-3">
+                                    Career
+                                </span>
+                            </div>
                             <p className="text-zinc-500 text-sm mt-2">IT転職・独立を本気でサポート</p>
                         </div>
                         <div className="flex gap-6 text-sm text-zinc-500">
