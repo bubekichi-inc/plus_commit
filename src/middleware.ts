@@ -11,21 +11,21 @@ export function middleware(request: NextRequest) {
     // サブドメインを抽出
     let subdomain = ''
     if (isLocalhost) {
-        // ローカル開発時: localhost:3000?subdomain=business のようにクエリパラメータで切り替え
+        // ローカル開発時: localhost:3000?subdomain=recruit のようにクエリパラメータで切り替え
         subdomain = url.searchParams.get('subdomain') || ''
     } else {
-        // 本番環境: business.plus-commit.com のようにサブドメインで判定
+        // 本番環境: recruit.plus-commit.com のようにサブドメインで判定
         const parts = hostname.split('.')
         if (parts.length > 2) {
             subdomain = parts[0]
         }
     }
     
-    // businessサブドメインの場合は(business)グループにリライト
-    if (subdomain === 'business') {
-        // 既に/businessで始まるパスは除外
-        if (!url.pathname.startsWith('/business')) {
-            url.pathname = `/business${url.pathname}`
+    // recruitサブドメインの場合は(recruit)グループにリライト
+    if (subdomain === 'recruit') {
+        // 既に/recruitで始まるパスは除外
+        if (!url.pathname.startsWith('/recruit')) {
+            url.pathname = `/recruit${url.pathname}`
             return NextResponse.rewrite(url)
         }
     }
@@ -45,4 +45,3 @@ export const config = {
         '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     ],
 }
-

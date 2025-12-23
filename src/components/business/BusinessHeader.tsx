@@ -3,36 +3,50 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
-import { DomainSwitcher } from "@/components/ui/DomainSwitcher"
 
-const menuItems = [
+type MenuItem = {
+    label: string
+    href: string
+    external?: boolean
+    submenu?: { label: string; href: string }[]
+}
+
+const menuItems: MenuItem[] = [
+    {
+        label: "NEWS",
+        href: "/news",
+        submenu: [
+            { label: "お知らせ", href: "/news" },
+        ],
+    },
     {
         label: "事業紹介",
-        href: "/business/services",
+        href: "/services",
         submenu: [
-            { label: "コーディング代行", href: "/business/services#coding" },
-            { label: "DXコンサルティング", href: "/business/services#dx-consulting" },
-            { label: "Web制作・開発", href: "/business/services#web-production" },
-            { label: "業務自動化", href: "/business/services#automation" },
+            { label: "コーディング代行", href: "/services#coding" },
+            { label: "DXコンサルティング", href: "/services#dx-consulting" },
+            { label: "Web制作・開発", href: "/services#web-production" },
+            { label: "業務自動化", href: "/services#automation" },
         ],
     },
     {
         label: "取り扱い技術",
-        href: "/business/technologies",
+        href: "/technologies",
         submenu: [
-            { label: "フロントエンド", href: "/business/technologies#frontend" },
-            { label: "バックエンド", href: "/business/technologies#backend" },
-            { label: "インフラ", href: "/business/technologies#infrastructure" },
-            { label: "CMS", href: "/business/technologies#cms" },
+            { label: "フロントエンド", href: "/technologies#frontend" },
+            { label: "バックエンド", href: "/technologies#backend" },
+            { label: "インフラ", href: "/technologies#infrastructure" },
+            { label: "CMS", href: "/technologies#cms" },
         ],
     },
     {
         label: "制作実績",
-        href: "/business/works",
+        href: "/works",
     },
     {
         label: "採用情報",
-        href: "/business/recruit",
+        href: "https://recruit.plus-commit.com",
+        external: true,
     },
 ]
 
@@ -43,13 +57,10 @@ export function BusinessHeader() {
         <header className="fixed top-0 left-0 w-full z-50 border-b border-slate-800 bg-slate-950/95 backdrop-blur-md">
             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
                 <div className="flex items-center gap-8">
-                    <Link href="/business" className="text-xl font-black tracking-tight text-white flex items-center gap-2">
+                    <Link href="/" className="text-xl font-black tracking-tight text-white flex items-center gap-2">
                         <span className="text-blue-500">PLUS</span>
                         <span>COMMIT</span>
                     </Link>
-                    <div className="flex items-center">
-                        <DomainSwitcher />
-                    </div>
                 </div>
 
                 <nav className="hidden md:flex items-center">
@@ -60,17 +71,31 @@ export function BusinessHeader() {
                             onMouseEnter={() => item.submenu && setActiveMenu(item.label)}
                             onMouseLeave={() => setActiveMenu(null)}
                         >
-                            <Link 
-                                href={item.href} 
-                                className="px-5 py-8 text-sm font-medium text-slate-300 hover:text-white transition-colors flex items-center gap-1"
-                            >
-                                {item.label}
-                                {item.submenu && (
+                            {item.external ? (
+                                <a 
+                                    href={item.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-5 py-8 text-sm font-medium text-slate-300 hover:text-white transition-colors flex items-center gap-1"
+                                >
+                                    {item.label}
                                     <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                     </svg>
-                                )}
-                            </Link>
+                                </a>
+                            ) : (
+                                <Link 
+                                    href={item.href} 
+                                    className="px-5 py-8 text-sm font-medium text-slate-300 hover:text-white transition-colors flex items-center gap-1"
+                                >
+                                    {item.label}
+                                    {item.submenu && (
+                                        <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    )}
+                                </Link>
+                            )}
                             
                             {/* Dropdown menu */}
                             {item.submenu && activeMenu === item.label && (
@@ -91,7 +116,7 @@ export function BusinessHeader() {
                     
                     <div className="ml-4 flex items-center gap-3">
                         <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 rounded-none" asChild>
-                            <Link href="/business/contact">
+                            <Link href="/contact">
                                 お問い合わせ
                             </Link>
                         </Button>

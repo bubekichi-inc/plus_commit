@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const notoSansJP = Noto_Sans_JP({
@@ -21,7 +22,9 @@ export default function RootLayout({
     return (
         <html lang="ja">
             <body className={`${inter.variable} ${notoSansJP.variable} font-sans bg-zinc-950 text-zinc-50 antialiased`}>
-                {children}
+                <AuthProvider>
+                    {children}
+                </AuthProvider>
             </body>
         </html>
     );

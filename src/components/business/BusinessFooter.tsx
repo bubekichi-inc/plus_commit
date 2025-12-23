@@ -8,7 +8,7 @@ export function BusinessFooter() {
                 <div className="container mx-auto px-4 py-8">
                     <div className="grid md:grid-cols-2 gap-6">
                         <Link 
-                            href="/business/contact"
+                            href="/contact"
                             className="flex items-center justify-between p-6 bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-colors group"
                         >
                             <div>
@@ -20,7 +20,7 @@ export function BusinessFooter() {
                             <span className="text-blue-400 text-2xl">→</span>
                         </Link>
                         <Link 
-                            href="https://plus-commit.com"
+                            href="/career"
                             className="flex items-center justify-between p-6 bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-colors group"
                         >
                             <div>
@@ -65,36 +65,36 @@ export function BusinessFooter() {
                     <div>
                         <h3 className="text-white font-bold mb-4 text-sm">事業紹介</h3>
                         <ul className="space-y-3 text-sm text-slate-500">
-                            <li><Link href="/business/services#coding" className="hover:text-blue-400 transition-colors">コーディング代行</Link></li>
-                            <li><Link href="/business/services#dx-consulting" className="hover:text-blue-400 transition-colors">DXコンサルティング</Link></li>
-                            <li><Link href="/business/services#web-production" className="hover:text-blue-400 transition-colors">Web制作・開発</Link></li>
-                            <li><Link href="/business/services#automation" className="hover:text-blue-400 transition-colors">業務自動化</Link></li>
+                            <li><Link href="/services#coding" className="hover:text-blue-400 transition-colors">コーディング代行</Link></li>
+                            <li><Link href="/services#dx-consulting" className="hover:text-blue-400 transition-colors">DXコンサルティング</Link></li>
+                            <li><Link href="/services#web-production" className="hover:text-blue-400 transition-colors">Web制作・開発</Link></li>
+                            <li><Link href="/services#automation" className="hover:text-blue-400 transition-colors">業務自動化</Link></li>
                         </ul>
                     </div>
                     
                     <div>
                         <h3 className="text-white font-bold mb-4 text-sm">取り扱い技術</h3>
                         <ul className="space-y-3 text-sm text-slate-500">
-                            <li><Link href="/business/technologies#frontend" className="hover:text-blue-400 transition-colors">フロントエンド</Link></li>
-                            <li><Link href="/business/technologies#backend" className="hover:text-blue-400 transition-colors">バックエンド</Link></li>
-                            <li><Link href="/business/technologies#infrastructure" className="hover:text-blue-400 transition-colors">インフラ</Link></li>
-                            <li><Link href="/business/technologies#cms" className="hover:text-blue-400 transition-colors">CMS</Link></li>
+                            <li><Link href="/technologies#frontend" className="hover:text-blue-400 transition-colors">フロントエンド</Link></li>
+                            <li><Link href="/technologies#backend" className="hover:text-blue-400 transition-colors">バックエンド</Link></li>
+                            <li><Link href="/technologies#infrastructure" className="hover:text-blue-400 transition-colors">インフラ</Link></li>
+                            <li><Link href="/technologies#cms" className="hover:text-blue-400 transition-colors">CMS</Link></li>
                         </ul>
                     </div>
                     
                     <div>
                         <h3 className="text-white font-bold mb-4 text-sm">会社情報</h3>
                         <ul className="space-y-3 text-sm text-slate-500">
-                            <li><Link href="/business/works" className="hover:text-blue-400 transition-colors">制作実績</Link></li>
-                            <li><Link href="/business/contact" className="hover:text-blue-400 transition-colors">お問い合わせ</Link></li>
+                            <li><Link href="/works" className="hover:text-blue-400 transition-colors">制作実績</Link></li>
+                            <li><Link href="/contact" className="hover:text-blue-400 transition-colors">お問い合わせ</Link></li>
                         </ul>
                     </div>
                     
                     <div>
                         <h3 className="text-white font-bold mb-4 text-sm">採用情報</h3>
                         <ul className="space-y-3 text-sm text-slate-500">
-                            <li><Link href="/business/recruit" className="hover:text-blue-400 transition-colors">採用トップ</Link></li>
-                            <li><Link href="/business/recruit" className="hover:text-blue-400 transition-colors">募集職種</Link></li>
+                            <li><a href="https://recruit.plus-commit.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">採用トップ</a></li>
+                            <li><a href="https://recruit.plus-commit.com#jobs" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">募集職種</a></li>
                         </ul>
                     </div>
                 </div>
