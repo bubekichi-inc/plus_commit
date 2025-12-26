@@ -207,3 +207,6 @@ export default async function TechnologyDetailPage({
     )
 }
 
+
+
+

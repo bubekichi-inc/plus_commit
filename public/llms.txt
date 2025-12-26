@@ -68,15 +68,15 @@ Plus Commit（プラスコミット）は、Web制作・開発、DXコンサル�
 
 ### K-zoku（継続）
 意志に頼らず「仕組み」で解決する、新感覚の努力記録アプリ。
-- URL: https://k-zoku.com
+- URL: https://k-zoku.com/
 
 ### 個人開発研究所
 エンジニアの挑戦を支える技術メディア。最新の技術スタックからマネタイズ戦略まで発信。
-- URL: https://personal-dev.net
+- URL: https://personal-dev.net/
 
 ### Plus Commit Career（プラスコミットキャリア）
 IT転職・独立を目指す方のためのキャリア支援サービス。
-- URL: https://plus-commit.com/career
+- URL: https://plus-commit.com/career/
 
 ## 採用情報
 

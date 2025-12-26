@@ -369,3 +369,6 @@ export function getRelatedTechnologies(slugs: string[]): Technology[] {
     return technologies.filter((tech) => slugs.includes(tech.slug))
 }
 
+
+
+
