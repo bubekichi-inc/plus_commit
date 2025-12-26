@@ -8,8 +8,20 @@ import { getNewsList } from "@/lib/microcms"
 export default async function HomePage() {
     const { contents: news } = await getNewsList({ limit: 5 })
     
+    // 特選記事かどうかを判定するヘルパー関数
+    // microCMSのカスタムフィールドはオブジェクト形式 {fieldId: "special", special: true/false} で返される
+    const isSpecialArticle = (item: typeof news[0]) => {
+        if (typeof item.special === 'boolean') {
+            return item.special === true
+        }
+        if (typeof item.special === 'object' && item.special !== null) {
+            return (item.special as { special?: boolean }).special === true
+        }
+        return false
+    }
+    
     // PICK UP用：special記事を取得
-    const pickupNews = news.filter((item) => item.special === true).slice(0, 3)
+    const pickupNews = news.filter(isSpecialArticle).slice(0, 3)
 
     return (
         <>

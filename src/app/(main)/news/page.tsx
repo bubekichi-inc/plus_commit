@@ -19,7 +19,19 @@ export default async function NewsListPage({
         q: searchQuery || undefined,
     })
     
-    const specialNews = searchQuery ? [] : news.filter((item) => item.special === true)
+    // 特選記事かどうかを判定するヘルパー関数
+    // microCMSのカスタムフィールドはオブジェクト形式 {fieldId: "special", special: true/false} で返される
+    const isSpecialArticle = (item: typeof news[0]) => {
+        if (typeof item.special === 'boolean') {
+            return item.special === true
+        }
+        if (typeof item.special === 'object' && item.special !== null) {
+            return (item.special as { special?: boolean }).special === true
+        }
+        return false
+    }
+    
+    const specialNews = searchQuery ? [] : news.filter(isSpecialArticle)
 
     return (
         <>
@@ -157,6 +169,7 @@ export default async function NewsListPage({
         </>
     )
 }
+
 
 
 
