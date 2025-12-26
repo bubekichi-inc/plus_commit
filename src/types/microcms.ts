@@ -20,3 +20,38 @@ export type Technology = {
 
 export type TechnologyResponse = MicroCMSListResponse<Technology>;
 
+// カテゴリ型（コンテンツ参照で設定されている場合）
+export type NewsCategory = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  name: string;
+};
+
+// microCMSのカスタムフィールド（真偽値）の型
+export type SpecialField = boolean | {
+  fieldId: string;
+  special: boolean;
+};
+
+export type News = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  title: string;
+  content: string;
+  category?: NewsCategory;
+  special?: SpecialField;
+  thumbnail?: {
+    url: string;
+    height: number;
+    width: number;
+  };
+};
+
+export type NewsResponse = MicroCMSListResponse<News>;
+
