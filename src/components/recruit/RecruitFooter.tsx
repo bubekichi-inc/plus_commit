@@ -17,7 +17,7 @@ export function RecruitFooter() {
                 className="h-9 w-auto"
               />
               <span className="text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase border-l border-emerald-400/30 pl-3">
-                Careers
+                キャリア
               </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-md">

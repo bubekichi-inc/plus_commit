@@ -29,7 +29,7 @@ export function RecruitHeader({ onLoginClick }: RecruitHeaderProps) {
             priority
           />
           <span className="text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase border-l border-emerald-400/30 pl-3">
-            Careers
+          キャリア
           </span>
         </Link>
 

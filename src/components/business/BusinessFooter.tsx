@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
+import { RecruitLink } from "@/components/ui/RecruitLink"
 
 export function BusinessFooter() {
     return (
@@ -99,8 +100,8 @@ export function BusinessFooter() {
                     <div>
                         <h3 className="text-white font-bold mb-4 text-sm">採用情報</h3>
                         <ul className="space-y-3 text-sm text-slate-500">
-                            <li><a href="https://recruit.plus-commit.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">採用トップ</a></li>
-                            <li><a href="https://recruit.plus-commit.com#jobs" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">募集職種</a></li>
+                            <li><RecruitLink className="hover:text-blue-400 transition-colors">採用トップ</RecruitLink></li>
+                            <li><RecruitLink path="/#jobs" className="hover:text-blue-400 transition-colors">募集職種</RecruitLink></li>
                         </ul>
                     </div>
                 </div>

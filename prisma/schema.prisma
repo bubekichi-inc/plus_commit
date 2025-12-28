@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ユーザープロファイル（Supabase Authと連携）
+model Profile {
+  id        String   @id @default(uuid())
+  userId    String   @unique @map("user_id") // Supabase Auth のユーザーID
+  email     String   @unique
+  name      String?
+  avatar    String?
+  bio       String?
+  company   String?
+  position  String?
+  website   String?
+  role      UserRole @default(USER)
+  plan      Plan     @default(FREE)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // リレーション
+  bookmarks     Bookmark[]
+  contentAccess ContentAccess[]
+
+  @@map("profiles")
+}
+
+// ユーザーロール
+enum UserRole {
+  USER      // 一般ユーザー
+  PREMIUM   // プレミアムユーザー
+  ADMIN     // 管理者
+}
+
+// プラン
+enum Plan {
+  FREE      // 無料プラン
+  BASIC     // ベーシックプラン
+  PRO       // プロプラン
+  ENTERPRISE // エンタープライズプラン
+}
+
+// 限定コンテンツ
+model ExclusiveContent {
+  id          String        @id @default(uuid())
+  title       String
+  slug        String        @unique
+  description String?
+  content     String        @db.Text
+  contentType ContentType   @default(ARTICLE) @map("content_type")
+  thumbnail   String?
+  requiredPlan Plan         @default(FREE) @map("required_plan")
+  isPublished Boolean       @default(false) @map("is_published")
+  publishedAt DateTime?     @map("published_at")
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  // リレーション
+  bookmarks     Bookmark[]
+  contentAccess ContentAccess[]
+
+  @@map("exclusive_contents")
+}
+
+// コンテンツタイプ
+enum ContentType {
+  ARTICLE   // 記事
+  VIDEO     // 動画
+  DOCUMENT  // ドキュメント
+  COURSE    // コース
+}
+
+// ブックマーク
+model Bookmark {
+  id        String   @id @default(uuid())
+  profileId String   @map("profile_id")
+  contentId String   @map("content_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  profile Profile          @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  content ExclusiveContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@unique([profileId, contentId])
+  @@map("bookmarks")
+}
+
+// コンテンツアクセス履歴
+model ContentAccess {
+  id        String   @id @default(uuid())
+  profileId String   @map("profile_id")
+  contentId String   @map("content_id")
+  accessedAt DateTime @default(now()) @map("accessed_at")
+
+  profile Profile          @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  content ExclusiveContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@map("content_accesses")
+}
+
+

@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ArrowRight, CheckCircle, Users, BookOpen, Briefcase, Target, MessageSquare, Award } from "lucide-react"
+import { RecruitLink } from "@/components/ui/RecruitLink"
 
 export default function CareerPage() {
     return (
@@ -315,9 +316,9 @@ export default function CareerPage() {
                             <Link href="/" className="hover:text-white transition-colors">
                                 コーポレートサイト
                             </Link>
-                            <a href="https://recruit.plus-commit.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                            <RecruitLink className="hover:text-white transition-colors">
                                 採用情報
-                            </a>
+                            </RecruitLink>
                         </div>
                     </div>
                     <div className="mt-8 pt-8 border-t border-zinc-800 text-center text-zinc-600 text-xs">

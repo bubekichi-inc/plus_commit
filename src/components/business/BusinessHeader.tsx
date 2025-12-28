@@ -3,12 +3,16 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
+import { getRecruitUrl, isRecruitExternal } from "@/lib/site-config"
+import { useAuth } from "@/components/auth/AuthProvider"
+import { User, LogOut, Settings, BookOpen, ChevronDown } from "lucide-react"
 
 type MenuItem = {
     label: string
     href: string
     external?: boolean
+    isRecruit?: boolean
     submenu?: { label: string; href: string }[]
 }
 
@@ -46,13 +50,33 @@ const menuItems: MenuItem[] = [
     },
     {
         label: "採用情報",
-        href: "https://recruit.plus-commit.com",
-        external: true,
+        href: getRecruitUrl(),
+        isRecruit: true,
+        external: isRecruitExternal(),
     },
 ]
 
 export function BusinessHeader() {
     const [activeMenu, setActiveMenu] = useState<string | null>(null)
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+    const userMenuRef = useRef<HTMLDivElement>(null)
+    const { user, profile, loading, isConfigured, signOut } = useAuth()
+
+    // ユーザーメニュー外クリックで閉じる
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+                setIsUserMenuOpen(false)
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [])
+
+    const handleSignOut = async () => {
+        await signOut()
+        setIsUserMenuOpen(false)
+    }
 
     return (
         <header className="fixed top-0 left-0 w-full z-50 border-b border-slate-800 bg-slate-950/95 backdrop-blur-md">
@@ -127,6 +151,85 @@ export function BusinessHeader() {
                                 お問い合わせ
                             </Link>
                         </Button>
+
+                        {/* 認証エリア */}
+                        {isConfigured && !loading && (
+                            user ? (
+                                <div className="relative" ref={userMenuRef}>
+                                    <button
+                                        onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors"
+                                    >
+                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
+                                            {profile?.name?.charAt(0) || user.email?.charAt(0)?.toUpperCase() || 'U'}
+                                        </div>
+                                        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                                    </button>
+
+                                    {/* User Dropdown Menu */}
+                                    {isUserMenuOpen && (
+                                        <div className="absolute top-full right-0 mt-2 w-56 bg-slate-900 border border-slate-800 rounded-lg shadow-xl overflow-hidden">
+                                            <div className="px-4 py-3 border-b border-slate-800">
+                                                <div className="text-white font-medium text-sm truncate">
+                                                    {profile?.name || 'ユーザー'}
+                                                </div>
+                                                <div className="text-slate-400 text-xs truncate">
+                                                    {user.email}
+                                                </div>
+                                            </div>
+                                            <div className="py-2">
+                                                <Link
+                                                    href="/mypage"
+                                                    onClick={() => setIsUserMenuOpen(false)}
+                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+                                                >
+                                                    <User className="w-4 h-4" />
+                                                    マイページ
+                                                </Link>
+                                                <Link
+                                                    href="/mypage/contents"
+                                                    onClick={() => setIsUserMenuOpen(false)}
+                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+                                                >
+                                                    <BookOpen className="w-4 h-4" />
+                                                    限定コンテンツ
+                                                </Link>
+                                                <Link
+                                                    href="/mypage?tab=settings"
+                                                    onClick={() => setIsUserMenuOpen(false)}
+                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+                                                >
+                                                    <Settings className="w-4 h-4" />
+                                                    設定
+                                                </Link>
+                                            </div>
+                                            <div className="py-2 border-t border-slate-800">
+                                                <button
+                                                    onClick={handleSignOut}
+                                                    className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-slate-800 transition-colors"
+                                                >
+                                                    <LogOut className="w-4 h-4" />
+                                                    ログアウト
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="flex items-center gap-2">
+                                    <Link href="/login">
+                                        <Button size="sm" variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800">
+                                            ログイン
+                                        </Button>
+                                    </Link>
+                                    <Link href="/register">
+                                        <Button size="sm" variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800">
+                                            新規登録
+                                        </Button>
+                                    </Link>
+                                </div>
+                            )
+                        )}
                     </div>
                 </nav>
 

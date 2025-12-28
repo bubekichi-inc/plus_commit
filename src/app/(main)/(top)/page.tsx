@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { BusinessHero } from "@/components/business/BusinessHero"
 import { getNewsList } from "@/lib/microcms"
+import { getRecruitUrl, isRecruitExternal } from "@/lib/site-config"
 
 export default async function HomePage() {
     const { contents: news } = await getNewsList({ limit: 5 })
@@ -391,9 +392,15 @@ export default async function HomePage() {
                                     そんなマインドと行動力を持った仲間を募集しています。
                                 </p>
                                 <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 px-8" asChild>
-                                    <a href="https://recruit.plus-commit.com" target="_blank" rel="noopener noreferrer">
-                                        採用情報を見る
-                                    </a>
+                                    {isRecruitExternal() ? (
+                                        <a href={getRecruitUrl()} target="_blank" rel="noopener noreferrer">
+                                            採用情報を見る
+                                        </a>
+                                    ) : (
+                                        <Link href={getRecruitUrl()}>
+                                            採用情報を見る
+                                        </Link>
+                                    )}
                                 </Button>
                             </div>
                             <div>
@@ -405,16 +412,27 @@ export default async function HomePage() {
                                         { role: "ディレクター", desc: "プロジェクト管理" },
                                         { role: "デザイナー", desc: "UI/UXデザイン" },
                                     ].map((job, index) => (
-                                        <a
-                                            key={index}
-                                            href="https://recruit.plus-commit.com"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="p-5 bg-slate-800/50 border border-slate-700 hover:border-blue-500/50 transition-all"
-                                        >
-                                            <div className="text-white font-bold mb-1">{job.role}</div>
-                                            <div className="text-slate-500 text-xs">{job.desc}</div>
-                                        </a>
+                                        isRecruitExternal() ? (
+                                            <a
+                                                key={index}
+                                                href={getRecruitUrl('/#jobs')}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="p-5 bg-slate-800/50 border border-slate-700 hover:border-blue-500/50 transition-all"
+                                            >
+                                                <div className="text-white font-bold mb-1">{job.role}</div>
+                                                <div className="text-slate-500 text-xs">{job.desc}</div>
+                                            </a>
+                                        ) : (
+                                            <Link
+                                                key={index}
+                                                href={getRecruitUrl('/#jobs')}
+                                                className="p-5 bg-slate-800/50 border border-slate-700 hover:border-blue-500/50 transition-all"
+                                            >
+                                                <div className="text-white font-bold mb-1">{job.role}</div>
+                                                <div className="text-slate-500 text-xs">{job.desc}</div>
+                                            </Link>
+                                        )
                                     ))}
                                 </div>
                             </div>
