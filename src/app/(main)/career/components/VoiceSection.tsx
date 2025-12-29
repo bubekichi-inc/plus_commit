@@ -93,17 +93,17 @@ export const VoiceSection = () => {
   };
 
   return (
-    <section id="voice" className="pb-32 bg-[#E3E3E3] overflow-hidden">
+    <section id="voice" className="relative pb-24 bg-[#E3E3E3] overflow-visible">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-24">
-          <h2 className="text-4xl md:text-5xl font-black leading-tight text-zinc-900">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-black leading-tight text-zinc-900">
             目標を叶えた受講生の方々
           </h2>
         </div>
 
-        <div className="relative w-full max-w-7xl mx-auto">
+        <div className="relative w-full max-w-6xl mx-auto">
           {/* Slider Container */}
-          <div className="relative flex items-center justify-center gap-4 md:gap-8 min-h-[600px]">
+          <div className="relative flex items-center justify-center gap-3 md:gap-6 min-h-[280px]">
             {[-1, 0, 1].map((offset) => {
               const voice = getVoiceByIndex(currentIndex + offset);
               const isCenter = offset === 0;
@@ -113,20 +113,20 @@ export const VoiceSection = () => {
                   key={`${voice.id}-${offset}`}
                   initial={false}
                   animate={{
-                    scale: isCenter ? 1 : 0.9,
-                    opacity: isCenter ? 1 : 0.4,
-                    x: offset * 20,
+                    scale: isCenter ? 1 : 1,
+                    opacity: isCenter ? 1 : 1,
+                    x: offset * 10,
                   }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
-                  className={`relative flex-shrink-0 w-full md:w-[800px] bg-white rounded-[32px] shadow-2xl border border-zinc-100 p-8 md:p-16 ${
-                    !isCenter ? "hidden md:block blur-[2px] cursor-pointer" : "z-10"
+                  className={`relative flex-shrink-0 w-full max-w-[480px] md:w-[480px] bg-white rounded-[24px] shadow-xl border border-zinc-100 p-5 md:p-8 ${
+                    !isCenter ? "hidden md:block cursor-pointer" : "z-10"
                   }`}
                   onClick={() => !isCenter && (offset === -1 ? prevSlide() : nextSlide())}
                 >
                   {/* Header Info */}
-                  <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-4">
-                    <div className="flex items-center gap-6">
-                      <div className="w-16 h-16 md:w-24 md:h-24 relative rounded-full overflow-hidden border-4 border-zinc-50 shadow-lg">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-3">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 md:w-16 md:h-16 relative rounded-full overflow-hidden border-2 border-zinc-50 shadow-md">
                         <Image
                           src={voice.image}
                           alt={voice.name}
@@ -135,49 +135,49 @@ export const VoiceSection = () => {
                         />
                       </div>
                       <div>
-                        <p className="text-zinc-500 font-bold mb-1 text-sm md:text-base">{voice.role}</p>
-                        <h4 className="text-xl md:text-2xl font-black text-zinc-900">
-                          {voice.name} <span className="text-sm md:text-lg font-bold">さん</span>
+                        <p className="text-zinc-500 font-bold text-xs md:text-sm">{voice.role}</p>
+                        <h4 className="text-base md:text-lg font-black text-zinc-900">
+                          {voice.name} <span className="text-xs md:text-sm font-bold">さん</span>
                         </h4>
                       </div>
                     </div>
                     
-                    <div className="bg-gradient-to-r from-orange-400 to-yellow-400 text-white px-4 md:px-8 py-2 md:py-4 rounded-xl font-black text-sm md:text-lg shadow-lg">
+                    <div className="bg-gradient-to-r from-orange-400 to-yellow-400 text-white px-3 md:px-5 py-1.5 md:py-2 rounded-lg font-black text-xs md:text-sm shadow-md">
                       {voice.course}
                     </div>
                   </div>
 
-                  <div className="w-full h-1 border-t-2 border-dashed border-zinc-200 my-4" />
+                  <div className="w-full border-t border-dashed border-zinc-200 my-3" />
 
-                  <div className="text-center py-4">
-                    <div className="text-xl md:text-3xl font-black text-zinc-900 mb-8 md:mb-12 inline-block relative leading-snug">
+                  <div className="text-center py-2">
+                    <div className="text-base md:text-xl font-black text-zinc-900 mb-5 md:mb-6 inline-block relative leading-snug">
                       {voice.catchphrase}
-                      <span className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-3 md:h-4 bg-yellow-200/50 -z-10" />
+                      <span className="absolute -bottom-0.5 md:-bottom-1 left-0 w-full h-2 md:h-3 bg-yellow-200/50 -z-10" />
                     </div>
 
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-8 md:mb-12">
-                      <div className="w-full md:w-64 bg-amber-50 rounded-2xl p-4 md:p-6 relative">
-                        <div className="absolute -top-3 md:-top-4 left-4 bg-amber-400 text-white px-3 md:px-4 py-0.5 md:py-1 rounded-lg text-xs md:text-sm font-black">
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-5 md:mb-6">
+                      <div className="w-full md:w-48 bg-amber-50 rounded-xl p-3 md:p-4 relative">
+                        <div className="absolute -top-2.5 left-3 bg-amber-400 text-white px-2 md:px-3 py-0.5 rounded-md text-[10px] md:text-xs font-black">
                           Before
                         </div>
-                        <div className="text-base md:text-lg font-black text-zinc-700 mt-1 md:mt-2">
+                        <div className="text-sm md:text-base font-black text-zinc-700 mt-1">
                           {voice.before}
                         </div>
                       </div>
 
-                      <div className="flex gap-1 text-red-300 transform rotate-90 md:rotate-0">
+                      <div className="flex gap-0.5 text-red-300 transform rotate-90 md:rotate-0">
                         {[1, 2, 3].map((i) => (
-                          <ChevronRight key={i} className="w-6 h-6 md:w-8 md:h-8" />
+                          <ChevronRight key={i} className="w-4 h-4 md:w-5 md:h-5" />
                         ))}
                       </div>
 
-                      <div className="w-full md:w-64 bg-rose-50 rounded-2xl p-4 md:p-6 relative">
-                        <div className="absolute -top-3 md:-top-4 left-4 bg-rose-400 text-white px-3 md:px-4 py-0.5 md:py-1 rounded-lg text-xs md:text-sm font-black">
+                      <div className="w-full md:w-48 bg-rose-50 rounded-xl p-3 md:p-4 relative">
+                        <div className="absolute -top-2.5 left-3 bg-rose-400 text-white px-2 md:px-3 py-0.5 rounded-md text-[10px] md:text-xs font-black">
                           After
                         </div>
-                        <div className="text-base md:text-lg font-black text-zinc-700 mt-1 md:mt-2 relative inline-block">
+                        <div className="text-sm md:text-base font-black text-zinc-700 mt-1 relative inline-block">
                           {voice.after}
-                          <span className="absolute -bottom-1 left-0 w-full h-2 bg-yellow-200/50 -z-10" />
+                          <span className="absolute -bottom-0.5 left-0 w-full h-1.5 bg-yellow-200/50 -z-10" />
                         </div>
                       </div>
                     </div>
@@ -186,12 +186,12 @@ export const VoiceSection = () => {
                       <div className="text-right">
                         <button
                           onClick={() => setSelectedVoice(voice)}
-                          className="group inline-flex items-center gap-4 text-rose-400 font-black text-lg md:text-xl border-b-2 border-rose-200 pb-1 hover:text-rose-500 hover:border-rose-500 transition-all"
+                          className="group inline-flex items-center gap-2 text-rose-400 font-black text-sm md:text-base border-b-2 border-rose-200 pb-0.5 hover:text-rose-500 hover:border-rose-500 transition-all"
                         >
                           詳しくみる
-                          <div className="flex -space-x-2">
+                          <div className="flex -space-x-1.5">
                             {[1, 2, 3].map((i) => (
-                              <ChevronRight key={i} className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
+                              <ChevronRight key={i} className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-0.5 transition-transform" />
                             ))}
                           </div>
                         </button>
@@ -205,30 +205,39 @@ export const VoiceSection = () => {
 
           <button
             onClick={prevSlide}
-            className="absolute top-1/2 left-0 md:left-4 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full shadow-xl flex items-center justify-center text-zinc-400 hover:text-zinc-900 transition-colors z-30 border border-zinc-100"
+            className="absolute top-1/2 left-0 md:left-2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-zinc-400 hover:text-zinc-900 transition-colors z-30 border border-zinc-100"
           >
-            <ChevronLeft className="w-8 h-8" />
+            <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute top-1/2 right-0 md:right-4 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-white rounded-full shadow-xl flex items-center justify-center text-zinc-400 hover:text-zinc-900 transition-colors z-30 border border-zinc-100"
+            className="absolute top-1/2 right-0 md:right-2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-zinc-400 hover:text-zinc-900 transition-colors z-30 border border-zinc-100"
           >
-            <ChevronRight className="w-8 h-8" />
+            <ChevronRight className="w-6 h-6" />
           </button>
         </div>
 
-        <div className="flex justify-center gap-3 mt-12">
+        <div className="flex justify-center gap-2 mt-8">
           {VOICES.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentIndex(i)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                i === currentIndex ? "bg-violet-600 w-8" : "bg-zinc-300"
+              className={`w-2.5 h-2.5 rounded-full transition-all ${
+                i === currentIndex ? "bg-violet-600 w-6" : "bg-zinc-300"
               }`}
             />
           ))}
         </div>
       </div>
+
+      {/* Triangle shape at bottom */}
+      <div 
+        className="absolute bottom-0 left-0 w-full h-24 bg-[#E3E3E3]"
+        style={{
+          clipPath: "polygon(0 0, 100% 0, 50% 100%)",
+          transform: "translateY(100%)",
+        }}
+      />
 
       <AnimatePresence>
         {selectedVoice && (
@@ -237,26 +246,26 @@ export const VoiceSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-6"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
               onClick={() => setSelectedVoice(null)}
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                className="bg-white rounded-[40px] w-full max-w-2xl overflow-hidden shadow-2xl relative"
+                className="bg-white rounded-[28px] w-full max-w-xl overflow-hidden shadow-2xl relative"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
                   onClick={() => setSelectedVoice(null)}
-                  className="absolute top-6 right-6 w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-900 transition-colors z-10"
+                  className="absolute top-4 right-4 w-8 h-8 bg-zinc-100 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-900 transition-colors z-10"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
 
-                <div className="p-8 md:p-12">
-                  <div className="flex items-center gap-6 mb-8">
-                    <div className="w-20 h-20 relative rounded-full overflow-hidden">
+                <div className="p-6 md:p-8">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 relative rounded-full overflow-hidden">
                       <Image
                         src={selectedVoice.image}
                         alt={selectedVoice.name}
@@ -265,31 +274,31 @@ export const VoiceSection = () => {
                       />
                     </div>
                     <div>
-                      <p className="text-zinc-500 font-bold mb-1">{selectedVoice.role}</p>
-                      <h4 className="text-2xl font-black text-zinc-900">
-                        {selectedVoice.name} <span className="text-lg font-bold">さん</span>
+                      <p className="text-zinc-500 font-bold text-sm">{selectedVoice.role}</p>
+                      <h4 className="text-xl font-black text-zinc-900">
+                        {selectedVoice.name} <span className="text-sm font-bold">さん</span>
                       </h4>
                     </div>
                   </div>
 
-                  <h5 className="text-2xl font-black text-zinc-900 mb-8 leading-tight">
+                  <h5 className="text-lg font-black text-zinc-900 mb-6 leading-tight">
                     {selectedVoice.catchphrase}
                   </h5>
 
-                  <div className="bg-zinc-50 rounded-3xl p-8 mb-8">
-                    <div className="text-zinc-600 font-medium leading-loose whitespace-pre-wrap">
+                  <div className="bg-zinc-50 rounded-2xl p-5 mb-6">
+                    <div className="text-zinc-600 font-medium leading-relaxed text-sm whitespace-pre-wrap">
                       {selectedVoice.details}
                     </div>
                   </div>
 
-                  <div className="flex gap-4">
-                    <div className="flex-1 bg-amber-50 p-4 rounded-2xl">
-                      <p className="text-xs font-black text-amber-500 uppercase tracking-widest mb-1">Before</p>
-                      <p className="font-bold text-zinc-700">{selectedVoice.before}</p>
+                  <div className="flex gap-3">
+                    <div className="flex-1 bg-amber-50 p-3 rounded-xl">
+                      <p className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-1">Before</p>
+                      <p className="font-bold text-zinc-700 text-sm">{selectedVoice.before}</p>
                     </div>
-                    <div className="flex-1 bg-rose-50 p-4 rounded-2xl">
-                      <p className="text-xs font-black text-rose-500 uppercase tracking-widest mb-1">After</p>
-                      <p className="font-bold text-zinc-700">{selectedVoice.after}</p>
+                    <div className="flex-1 bg-rose-50 p-3 rounded-xl">
+                      <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-1">After</p>
+                      <p className="font-bold text-zinc-700 text-sm">{selectedVoice.after}</p>
                     </div>
                   </div>
                 </div>

@@ -5,12 +5,9 @@ export const ProblemSection = () => {
     <section id="problem" className="py-32 bg-white">
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="text-center mb-16">
-          <h2 className="text-sm font-black text-violet-600 uppercase tracking-[0.4em] mb-6">
-            problem
+          <h2 className="text-4xl md:text-5xl font-black leading-tight text-zinc-900">
+            こんなお悩みありませんか？
           </h2>
-          <h3 className="text-4xl md:text-5xl font-black leading-tight text-zinc-900">
-            悩みありませんか？
-          </h3>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-16">
