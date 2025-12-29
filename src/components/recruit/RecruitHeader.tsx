@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { User, LogOut, Menu, X } from "lucide-react"
@@ -13,24 +13,40 @@ type RecruitHeaderProps = {
 
 export function RecruitHeader({ onLoginClick }: RecruitHeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
   const { user, loading, isConfigured, signOut } = useAuth()
 
+  // スクロール制御
+  useEffect(() => {
+    const controlNavbar = () => {
+      if (typeof window !== 'undefined') {
+        if (window.scrollY > lastScrollY && window.scrollY > 80) { // Scrolling down
+          setIsVisible(false)
+        } else { // Scrolling up
+          setIsVisible(true)
+        }
+        setLastScrollY(window.scrollY)
+      }
+    }
+
+    window.addEventListener('scroll', controlNavbar)
+    return () => window.removeEventListener('scroll', controlNavbar)
+  }, [lastScrollY])
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/80 to-transparent">
+    <header className={`fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-black/80 to-transparent transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/recruit" className="flex items-center gap-3 group">
           <Image
             src="/general/logo-pc.png"
-            alt="Plus Commit"
-            width={160}
-            height={36}
-            className="h-9 w-auto"
+            alt="プラスコミット"
+            width={200}
+            height={44}
+            className="h-11 w-auto"
             priority
           />
-          <span className="text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase border-l border-emerald-400/30 pl-3">
-          キャリア
-          </span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -76,13 +76,13 @@ function LoginForm() {
     return (
         <div className="min-h-screen flex bg-zinc-950">
             {/* Left Side - Image/Branding */}
-            <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-blue-950/50 to-zinc-950">
+            <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-zinc-900 to-black">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
                 <div className="relative z-10 flex flex-col justify-center px-16">
                     <Link href="/" className="mb-12">
                         <Image
-                            src="/general/logo-pc.png"
-                            alt="Plus Commit"
+                            src="/general/top/logo.png"
+                            alt="プラスコミット"
                             width={200}
                             height={45}
                             className="h-12 w-auto"
@@ -108,8 +108,8 @@ function LoginForm() {
                     <div className="lg:hidden mb-8">
                         <Link href="/">
                             <Image
-                                src="/general/logo-pc.png"
-                                alt="Plus Commit"
+                                src="/general/top/logo.png"
+                                alt="プラスコミット"
                                 width={160}
                                 height={36}
                                 className="h-9 w-auto"
@@ -122,7 +122,7 @@ function LoginForm() {
                     </h2>
                     <p className="text-zinc-400 mb-8">
                         アカウントをお持ちでない方は{" "}
-                        <Link href="/register" className="text-blue-400 hover:underline">
+                        <Link href="/register" className="text-white hover:underline">
                             新規登録
                         </Link>
                     </p>
@@ -182,7 +182,7 @@ function LoginForm() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-white transition-colors"
                                     placeholder="email@example.com"
                                 />
                             </div>
@@ -191,7 +191,7 @@ function LoginForm() {
                         <div>
                             <div className="flex items-center justify-between mb-2">
                                 <label className="text-zinc-400 text-sm">パスワード</label>
-                                <Link href="/auth/reset-password" className="text-sm text-blue-400 hover:underline">
+                                <Link href="/auth/reset-password" className="text-sm text-white hover:underline">
                                     パスワードを忘れた方
                                 </Link>
                             </div>
@@ -202,7 +202,7 @@ function LoginForm() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-12 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-12 py-3 text-white focus:outline-none focus:border-white transition-colors"
                                     placeholder="パスワード"
                                 />
                                 <button
@@ -218,7 +218,7 @@ function LoginForm() {
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg disabled:opacity-50"
+                            className="w-full bg-white hover:bg-zinc-200 text-black font-bold py-3 rounded-lg disabled:opacity-50"
                         >
                             {loading ? "ログイン中..." : "ログイン"}
                             {!loading && <ArrowRight className="w-5 h-5 ml-2" />}

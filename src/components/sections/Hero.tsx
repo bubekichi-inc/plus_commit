@@ -34,7 +34,7 @@ export function Hero() {
                     独学の限界を突破し、最短でエンジニアへ。<br />
                     実務レベルの<span className="text-primary-500 font-black text-2xl">技術力</span>と
                     <span className="text-primary-500 font-black text-2xl">自走力</span>を身につける。<br className="md:hidden" />
-                    本気でキャリアを変えたい人のためのスクール。
+                    本気で現状を変えたい人のためのスクール。
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6">

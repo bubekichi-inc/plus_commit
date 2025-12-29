@@ -43,7 +43,7 @@ export function RecruitSidebar({ activeSection, onNavigate }: RecruitSidebarProp
                 <Link href="/" className="block mb-4">
                     <Image
                         src="/general/logo-pc.png"
-                        alt="Plus Commit"
+                        alt="プラスコミット"
                         width={140}
                         height={32}
                         className="h-8 w-auto"

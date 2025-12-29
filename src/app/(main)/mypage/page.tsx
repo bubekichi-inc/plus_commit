@@ -21,6 +21,9 @@ import {
     Building,
     Briefcase,
     Globe,
+    TrendingUp,
+    CheckCircle2,
+    Clock,
 } from "lucide-react"
 
 export default function MyPage() {
@@ -160,6 +163,7 @@ export default function MyPage() {
                     <div className="flex gap-2 mb-8 border-b border-slate-800 overflow-x-auto">
                         {[
                             { id: 'overview', label: '概要', icon: User },
+                            { id: 'progress', label: '学習進捗', icon: TrendingUp },
                             { id: 'profile', label: 'プロフィール', icon: Edit },
                             { id: 'bookmarks', label: 'ブックマーク', icon: Bookmark },
                             { id: 'settings', label: '設定', icon: Settings },
@@ -213,6 +217,16 @@ export default function MyPage() {
                                             </div>
                                             <ChevronRight className="w-4 h-4 text-slate-500" />
                                         </button>
+                                        <button
+                                            onClick={() => setActiveTab('progress')}
+                                            className="w-full flex items-center justify-between p-3 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <TrendingUp className="w-5 h-5 text-emerald-400" />
+                                                <span className="text-white">学習進捗を確認</span>
+                                            </div>
+                                            <ChevronRight className="w-4 h-4 text-slate-500" />
+                                        </button>
                                     </div>
                                 </div>
 
@@ -240,6 +254,87 @@ export default function MyPage() {
                                     <h3 className="text-lg font-bold text-white mb-4">最近のアクティビティ</h3>
                                     <div className="text-slate-400 text-sm text-center py-8">
                                         まだアクティビティがありません
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Progress Tab */}
+                        {activeTab === 'progress' && (
+                            <div className="space-y-6">
+                                <div className="grid md:grid-cols-3 gap-6">
+                                    <div className="p-6 bg-slate-900 border border-slate-800 rounded-xl">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="p-2 bg-emerald-500/10 rounded-lg">
+                                                <Clock className="w-5 h-5 text-emerald-400" />
+                                            </div>
+                                            <span className="text-slate-400 text-sm">今週の学習時間</span>
+                                        </div>
+                                        <div className="text-2xl font-bold text-white">12.5 <span className="text-sm font-normal text-slate-500">時間</span></div>
+                                    </div>
+                                    <div className="p-6 bg-slate-900 border border-slate-800 rounded-xl">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="p-2 bg-blue-500/10 rounded-lg">
+                                                <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                                            </div>
+                                            <span className="text-slate-400 text-sm">完了したタスク</span>
+                                        </div>
+                                        <div className="text-2xl font-bold text-white">8 <span className="text-sm font-normal text-slate-500">個</span></div>
+                                    </div>
+                                    <div className="p-6 bg-slate-900 border border-slate-800 rounded-xl">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="p-2 bg-purple-500/10 rounded-lg">
+                                                <TrendingUp className="w-5 h-5 text-purple-400" />
+                                            </div>
+                                            <span className="text-slate-400 text-sm">現在のランク</span>
+                                        </div>
+                                        <div className="text-2xl font-bold text-white">Junior Lv.3</div>
+                                    </div>
+                                </div>
+
+                                <div className="p-6 bg-slate-900 border border-slate-800 rounded-xl">
+                                    <h3 className="text-lg font-bold text-white mb-6">現在の学習ロードマップ</h3>
+                                    <div className="space-y-6">
+                                        {[
+                                            { title: "Next.js App Routerの基礎", status: "completed", progress: 100 },
+                                            { title: "Prismaを使用したDB操作", status: "in_progress", progress: 65 },
+                                            { title: "Supabase認証の実装", status: "pending", progress: 0 },
+                                            { title: "転職ポートフォリオ作成", status: "pending", progress: 0 },
+                                        ].map((item, i) => (
+                                            <div key={i} className="space-y-2">
+                                                <div className="flex justify-between items-center text-sm">
+                                                    <span className="text-white font-medium">{item.title}</span>
+                                                    <span className="text-slate-400">{item.progress}%</span>
+                                                </div>
+                                                <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                                                    <div 
+                                                        className={`h-full transition-all duration-500 ${
+                                                            item.status === 'completed' ? 'bg-emerald-500' : 
+                                                            item.status === 'in_progress' ? 'bg-blue-500' : 'bg-slate-700'
+                                                        }`}
+                                                        style={{ width: `${item.progress}%` }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="p-6 bg-slate-900 border border-slate-800 rounded-xl">
+                                    <h3 className="text-lg font-bold text-white mb-4">転職活動ステータス</h3>
+                                    <div className="flex flex-wrap gap-4">
+                                        <div className="flex-1 min-w-[200px] p-4 bg-slate-800 rounded-lg border border-slate-700">
+                                            <div className="text-slate-400 text-xs mb-1">レジュメ完成度</div>
+                                            <div className="text-lg font-bold text-white">80%</div>
+                                        </div>
+                                        <div className="flex-1 min-w-[200px] p-4 bg-slate-800 rounded-lg border border-slate-700">
+                                            <div className="text-slate-400 text-xs mb-1">面接練習</div>
+                                            <div className="text-lg font-bold text-white">2回実施済</div>
+                                        </div>
+                                        <div className="flex-1 min-w-[200px] p-4 bg-slate-800 rounded-lg border border-slate-700">
+                                            <div className="text-slate-400 text-xs mb-1">スカウト受信数</div>
+                                            <div className="text-lg font-bold text-white">3件</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

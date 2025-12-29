@@ -5,12 +5,12 @@ export default function AboutPage() {
     return (
         <>
             <Header />
-            <main className="min-h-screen pt-20">
+            <main className="min-h-screen pt-20 bg-black">
                 {/* Hero Section */}
                 <section className="py-24 border-b border-zinc-800">
                     <div className="container mx-auto px-4">
-                        <h1 className="text-5xl md:text-6xl font-black italic tracking-tighter mb-6">
-                            <span className="text-primary-500">会社</span>概要
+                        <h1 className="text-5xl md:text-6xl font-black italic tracking-tighter mb-6 text-white">
+                            <span className="text-white underline decoration-zinc-500">会社</span>概要
                         </h1>
                         <p className="text-xl text-zinc-400 max-w-2xl">
                             プラスコミットは、IT業界への転職・独立・起業を目指す方々を
@@ -24,8 +24,8 @@ export default function AboutPage() {
                     <div className="container mx-auto px-4">
                         <div className="grid md:grid-cols-2 gap-12 items-center">
                             <div>
-                                <h2 className="text-3xl font-black italic tracking-tighter mb-6 border-l-4 border-primary-500 pl-4">
-                                    <span className="text-primary-500">Mission</span>
+                                <h2 className="text-3xl font-black italic tracking-tighter mb-6 border-l-4 border-white pl-4 text-white">
+                                    <span>Mission</span>
                                 </h2>
                                 <p className="text-zinc-400 text-lg leading-relaxed mb-6">
                                     「やり抜く力」を全ての人に。
@@ -37,7 +37,7 @@ export default function AboutPage() {
                                 </p>
                             </div>
                             <div className="bg-zinc-900 border border-zinc-800 p-8">
-                                <div className="text-6xl font-black italic text-primary-500 mb-4">95%</div>
+                                <div className="text-6xl font-black italic text-white mb-4">95%</div>
                                 <p className="text-zinc-400">目標達成率</p>
                             </div>
                         </div>
@@ -47,7 +47,7 @@ export default function AboutPage() {
                 {/* Company Info Section */}
                 <section className="py-20">
                     <div className="container mx-auto px-4">
-                        <h2 className="text-3xl font-black italic tracking-tighter mb-12 border-l-4 border-primary-500 pl-4">
+                        <h2 className="text-3xl font-black italic tracking-tighter mb-12 border-l-4 border-white pl-4 text-white">
                             会社情報
                         </h2>
                         <div className="bg-zinc-900 border border-zinc-800">
@@ -74,7 +74,7 @@ export default function AboutPage() {
                                         <ul className="space-y-2">
                                             <li>・スパルタ学習管理サービスの運営</li>
                                             <li>・IT学習コンテンツの提供</li>
-                                            <li>・キャリアコンサルティング</li>
+                                            <li>・進路相談・メンタリング</li>
                                         </ul>
                                     </div>
                                 </div>

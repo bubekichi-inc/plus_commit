@@ -28,7 +28,7 @@ export const jobPositions: JobPosition[] = [
             "React/Next.jsを使用したWebアプリケーション開発",
             "デザイナーとの協業によるUI/UX改善",
             "パフォーマンス最適化・アクセシビリティ対応",
-            "コードレビュー・技術的なメンタリング",
+            "ジュニアエンジニアの学習支援・進捗管理",
         ],
         requirements: [
             "React/Vue.js等のモダンフレームワーク経験2年以上",

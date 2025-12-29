@@ -11,7 +11,7 @@ export const siteConfig = {
     recruitUrl: process.env.NEXT_PUBLIC_RECRUIT_URL || '/recruit/',
     
     // サイト名
-    siteName: 'Plus Commit',
+    siteName: 'プラスコミット',
     
     // 会社名
     companyName: '株式会社プラスコミット',

@@ -33,14 +33,24 @@ export default function RecruitLayout({ children }: { children: ReactNode }) {
     const pathname = usePathname()
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [isVisible, setIsVisible] = useState(true)
+    const [lastScrollY, setLastScrollY] = useState(0)
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50)
+            const currentScrollY = window.scrollY
+            setIsScrolled(currentScrollY > 50)
+
+            if (currentScrollY > lastScrollY && currentScrollY > 60) {
+                setIsVisible(false)
+            } else {
+                setIsVisible(true)
+            }
+            setLastScrollY(currentScrollY)
         }
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
+    }, [lastScrollY])
 
     // パス名からアクティブなナビアイテムを判定
     const getActiveItem = () => {
@@ -64,10 +74,10 @@ export default function RecruitLayout({ children }: { children: ReactNode }) {
                     <Link href="/recruit" className="flex items-center gap-2">
                         <Image
                             src="/general/logo-pc.png"
-                            alt="Plus Commit"
-                            width={100}
-                            height={24}
-                            className="h-6 w-auto invert"
+                            alt="プラスコミット"
+                            width={140}
+                            height={34}
+                            className="h-8 w-auto invert"
                             priority
                         />
                         <span className="text-sm font-bold text-white/80">採用情報</span>
@@ -135,14 +145,14 @@ export default function RecruitLayout({ children }: { children: ReactNode }) {
             </aside>
 
             {/* Mobile Header (Simplified for now) */}
-            <header className="lg:hidden fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10 h-14 flex items-center px-4">
+            <header className={`lg:hidden fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10 h-14 flex items-center px-4 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
                 <Link href="/recruit" className="flex items-center gap-2">
                     <Image
                         src="/general/logo-pc.png"
-                        alt="Plus Commit"
-                        width={80}
-                        height={20}
-                        className="h-5 w-auto invert"
+                        alt="プラスコミット"
+                        width={110}
+                        height={28}
+                        className="h-7 w-auto invert"
                     />
                     <span className="text-xs font-bold text-white/80">採用情報</span>
                 </Link>
@@ -156,7 +166,7 @@ export default function RecruitLayout({ children }: { children: ReactNode }) {
             {/* Footer */}
             <footer className="lg:ml-64 border-t border-white/10 py-12 px-8 bg-black text-center">
                 <p className="text-white/40 text-xs">
-                    © {new Date().getFullYear()} Plus Commit Inc. All rights reserved.
+                    © {new Date().getFullYear()} 株式会社プラスコミット All rights reserved.
                 </p>
             </footer>
         </div>

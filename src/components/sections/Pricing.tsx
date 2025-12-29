@@ -65,7 +65,7 @@ export function Pricing() {
                                         <Zap className="w-6 h-6 text-primary-500 fill-primary-500" />
                                         <h3 className="text-3xl font-black italic uppercase text-white tracking-tight">Standard</h3>
                                     </div>
-                                    <p className="text-primary-500 text-sm font-bold uppercase tracking-wider mb-6">Career Change Focus</p>
+                                    <p className="text-primary-500 text-sm font-bold uppercase tracking-wider mb-6">Skill Development Focus</p>
                                     <div className="flex items-baseline gap-1">
                                         <span className="text-5xl font-black text-primary-500 italic tracking-tighter drop-shadow-[0_0_10px_rgba(249,115,22,0.4)]">¥299,800</span>
                                         <span className="text-zinc-500 font-bold text-xs block text-left pl-1">(税込)</span>
@@ -77,7 +77,7 @@ export function Pricing() {
                                         "Lightプランの全機能",
                                         "週1回の個別面談(1年間)",
                                         "チャットサポート(1年間)",
-                                        "技術・キャリア相談",
+                                        "技術・進路相談",
                                         "ポートフォリオ添削",
                                     ].map((feature) => (
                                         <li key={feature} className="flex items-center gap-3">
@@ -116,7 +116,7 @@ export function Pricing() {
                                         "無期限のチャットサポート",
                                         "無期限の個別面談サポート",
                                         "フリーランス独立支援",
-                                        "生涯のキャリアパートナー",
+                                        "生涯の伴走パートナー",
                                     ].map((feature) => (
                                         <li key={feature} className="flex items-center gap-3">
                                             <div className="w-5 h-5 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-500 flex-shrink-0">

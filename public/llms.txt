@@ -1,12 +1,12 @@
-# Plus Commit Inc.
+# プラスコミット
 
 > 「1億総エンジニア社会」を創る。
 
-Plus Commit（プラスコミット）は、Web制作・開発、DXコンサルティング、業務自動化を提供するIT企業です。誰もが技術を武器に活躍できる社会の実現を目指しています。
+プラスコミットは、Web制作・開発、DXコンサルティング、業務自動化を提供するIT企業です。誰もが技術を武器に活躍できる社会の実現を目指しています。
 
 ## 会社概要
 
-- 会社名: Plus Commit Inc.（プラスコミット）
+- 会社名: 株式会社プラスコミット
 - ウェブサイト: https://plus-commit.com/
 - 採用サイト: https://recruit.plus-commit.com/
 - 事業内容: Web制作・開発、DXコンサルティング、コーディング代行、業務自動化
@@ -74,13 +74,13 @@ Plus Commit（プラスコミット）は、Web制作・開発、DXコンサル�
 エンジニアの挑戦を支える技術メディア。最新の技術スタックからマネタイズ戦略まで発信。
 - URL: https://personal-dev.net/
 
-### Plus Commit Career（プラスコミットキャリア）
-IT転職・独立を目指す方のためのキャリア支援サービス。
+### プラスコミット
+IT転職・独立を目指す方のためのスキル習得支援サービス。
 - URL: https://plus-commit.com/career/
 
 ## 採用情報
 
-Plus Commitでは、自ら考え、自ら形にする技術者を募集しています。
+プラスコミットでは、自ら考え、自ら形にする技術者を募集しています。
 
 ### 募集職種
 - エンジニア（フロントエンド・バックエンド）
@@ -115,6 +115,6 @@ Plus Commitでは、自ら考え、自ら形にする技術者を募集してい
 - 制作実績: https://plus-commit.com/works
 - お知らせ: https://plus-commit.com/news
 - お問い合わせ: https://plus-commit.com/contact
-- キャリア支援: https://plus-commit.com/career
+- スキル習得支援: https://plus-commit.com/career
 - 採用情報: https://recruit.plus-commit.com
 

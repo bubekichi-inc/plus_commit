@@ -106,13 +106,13 @@ export default function RegisterPage() {
     return (
         <div className="min-h-screen flex bg-zinc-950">
             {/* Left Side - Image/Branding */}
-            <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-emerald-950/50 to-zinc-950">
+            <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-zinc-900 to-black">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
                 <div className="relative z-10 flex flex-col justify-center px-16">
                     <Link href="/" className="mb-12">
                         <Image
-                            src="/general/logo-pc.png"
-                            alt="Plus Commit"
+                            src="/general/top/logo.png"
+                            alt="プラスコミット"
                             width={200}
                             height={45}
                             className="h-12 w-auto"
@@ -120,11 +120,11 @@ export default function RegisterPage() {
                     </Link>
                     <h1 className="text-4xl font-black text-white mb-6">
                         あなたの学習を<br />
-                        <span className="text-emerald-400">次のレベル</span>へ
+                        <span className="text-white underline decoration-zinc-500">次のレベル</span>へ
                     </h1>
                     <p className="text-zinc-400 text-lg leading-relaxed">
                         会員登録で限定コンテンツにアクセス。<br />
-                        あなたのキャリアアップをサポートします。
+                        あなたのスキルアップをサポートします。
                     </p>
                     <div className="mt-12 space-y-4">
                         {[
@@ -133,7 +133,7 @@ export default function RegisterPage() {
                             "コミュニティへの参加",
                         ].map((feature) => (
                             <div key={feature} className="flex items-center gap-3">
-                                <CheckCircle className="w-5 h-5 text-emerald-400" />
+                                <CheckCircle className="w-5 h-5 text-white" />
                                 <span className="text-zinc-300">{feature}</span>
                             </div>
                         ))}
@@ -151,8 +151,8 @@ export default function RegisterPage() {
                     <div className="lg:hidden mb-8">
                         <Link href="/">
                             <Image
-                                src="/general/logo-pc.png"
-                                alt="Plus Commit"
+                                src="/general/top/logo.png"
+                                alt="プラスコミット"
                                 width={160}
                                 height={36}
                                 className="h-9 w-auto"
@@ -165,7 +165,7 @@ export default function RegisterPage() {
                     </h2>
                     <p className="text-zinc-400 mb-8">
                         既にアカウントをお持ちですか？{" "}
-                        <Link href="/login" className="text-emerald-400 hover:underline">
+                        <Link href="/login" className="text-white hover:underline">
                             ログイン
                         </Link>
                     </p>
@@ -224,7 +224,7 @@ export default function RegisterPage() {
                                     type="text"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-white transition-colors"
                                     placeholder="山田 太郎"
                                 />
                             </div>
@@ -239,7 +239,7 @@ export default function RegisterPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-white transition-colors"
                                     placeholder="email@example.com"
                                 />
                             </div>
@@ -254,7 +254,7 @@ export default function RegisterPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-12 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-12 py-3 text-white focus:outline-none focus:border-white transition-colors"
                                     placeholder="8文字以上"
                                 />
                                 <button
@@ -276,7 +276,7 @@ export default function RegisterPage() {
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
-                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-white transition-colors"
                                     placeholder="パスワードを再入力"
                                 />
                             </div>
@@ -285,7 +285,7 @@ export default function RegisterPage() {
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-lg disabled:opacity-50"
+                            className="w-full bg-white hover:bg-zinc-200 text-black font-bold py-3 rounded-lg disabled:opacity-50"
                         >
                             {loading ? "登録中..." : "アカウントを作成"}
                             {!loading && <ArrowRight className="w-5 h-5 ml-2" />}
@@ -294,9 +294,9 @@ export default function RegisterPage() {
 
                     <p className="mt-6 text-xs text-zinc-500 text-center">
                         アカウントを作成することで、
-                        <Link href="/terms" className="text-emerald-400 hover:underline">利用規約</Link>
+                        <Link href="/terms" className="text-white hover:underline">利用規約</Link>
                         および
-                        <Link href="/privacy" className="text-emerald-400 hover:underline">プライバシーポリシー</Link>
+                        <Link href="/privacy" className="text-white hover:underline">プライバシーポリシー</Link>
                         に同意したものとみなされます。
                     </p>
                 </motion.div>

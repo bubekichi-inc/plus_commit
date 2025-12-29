@@ -7,40 +7,40 @@ export default function AboutPage() {
     return (
         <>
             <BusinessHeader />
-            <main className="min-h-screen pt-20">
+            <main className="min-h-screen pt-20 bg-black">
                 {/* Hero Section */}
-                <section className="py-24 border-b border-slate-800 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-950/30 to-transparent" />
+                <section className="py-24 border-b border-zinc-800 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 to-transparent" />
                     <div className="container mx-auto px-4 relative z-10">
-                        <div className="text-blue-400 font-medium mb-2 tracking-wider">ABOUT US</div>
+                        <div className="text-zinc-400 font-medium mb-2 tracking-wider">ABOUT US</div>
                         <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white mb-6">
                             会社概要
                         </h1>
                         <p className="text-xl text-slate-400 max-w-2xl leading-relaxed">
-                            Plus Commitは、テクノロジーの力であらゆるビジネスの<br className="hidden md:block" />
+                            プラスコミットは、テクノロジーの力であらゆるビジネスの<br className="hidden md:block" />
                             デジタル変革を支援する企業です。
                         </p>
                     </div>
                 </section>
 
                 {/* Mission / Vision / Value */}
-                <section className="py-24 border-b border-slate-800 bg-slate-900/30">
+                <section className="py-24 border-b border-zinc-800 bg-zinc-900/30">
                     <div className="container mx-auto px-4">
                         <div className="text-center mb-16">
-                            <div className="text-blue-400 font-bold tracking-wider text-sm mb-2">PHILOSOPHY</div>
+                            <div className="text-zinc-400 font-bold tracking-wider text-sm mb-2">PHILOSOPHY</div>
                             <h2 className="text-4xl font-black tracking-tight text-white">企業理念</h2>
                         </div>
 
                         <div className="grid lg:grid-cols-3 gap-8">
                             {/* Mission */}
-                            <div className="relative bg-slate-900 border border-slate-800 p-10 group hover:border-blue-500/50 transition-all">
-                                <div className="absolute top-6 right-6 text-7xl font-black text-slate-800/50">01</div>
+                            <div className="relative bg-zinc-900 border border-zinc-800 p-10 group hover:border-white/30 transition-all">
+                                <div className="absolute top-6 right-6 text-7xl font-black text-white/5">01</div>
                                 <div className="relative z-10">
-                                    <div className="text-blue-400 font-bold tracking-wider text-xs mb-4">MISSION</div>
+                                    <div className="text-white font-bold tracking-wider text-xs mb-4">MISSION</div>
                                     <h3 className="text-2xl font-bold text-white mb-6">
                                         「1億総エンジニア社会」<br />を創る。
                                     </h3>
-                                    <p className="text-slate-400 leading-relaxed">
+                                    <p className="text-zinc-400 leading-relaxed">
                                         誰もが技術を武器に活躍できる社会の実現を目指します。
                                         テクノロジーの民主化を推進し、すべての人がデジタルスキルを持つ未来を創造します。
                                     </p>
@@ -48,10 +48,10 @@ export default function AboutPage() {
                             </div>
 
                             {/* Vision */}
-                            <div className="relative bg-slate-900 border border-slate-800 p-10 group hover:border-blue-500/50 transition-all">
-                                <div className="absolute top-6 right-6 text-7xl font-black text-slate-800/50">02</div>
+                            <div className="relative bg-zinc-900 border border-zinc-800 p-10 group hover:border-white/30 transition-all">
+                                <div className="absolute top-6 right-6 text-7xl font-black text-white/5">02</div>
                                 <div className="relative z-10">
-                                    <div className="text-blue-400 font-bold tracking-wider text-xs mb-4">VISION</div>
+                                    <div className="text-white font-bold tracking-wider text-xs mb-4">VISION</div>
                                     <h3 className="text-2xl font-bold text-white mb-6">
                                         デジタル変革の<br />最高のパートナーへ。
                                     </h3>
@@ -63,10 +63,10 @@ export default function AboutPage() {
                             </div>
 
                             {/* Value */}
-                            <div className="relative bg-slate-900 border border-slate-800 p-10 group hover:border-blue-500/50 transition-all">
-                                <div className="absolute top-6 right-6 text-7xl font-black text-slate-800/50">03</div>
+                            <div className="relative bg-zinc-900 border border-zinc-800 p-10 group hover:border-white/30 transition-all">
+                                <div className="absolute top-6 right-6 text-7xl font-black text-white/5">03</div>
                                 <div className="relative z-10">
-                                    <div className="text-blue-400 font-bold tracking-wider text-xs mb-4">VALUE</div>
+                                    <div className="text-white font-bold tracking-wider text-xs mb-4">VALUE</div>
                                     <h3 className="text-2xl font-bold text-white mb-6">
                                         挑戦し続け、<br />やり抜く。
                                     </h3>
@@ -89,7 +89,7 @@ export default function AboutPage() {
                                 <h2 className="text-4xl font-black tracking-tight text-white mb-8">代表メッセージ</h2>
                                 <div className="space-y-6 text-slate-400 leading-relaxed">
                                     <p>
-                                        私たちPlus Commitは、「テクノロジーで社会をより良くする」という信念のもと、
+                                        私たちプラスコミットは、「テクノロジーで社会をより良くする」という信念のもと、
                                         2024年に創業しました。
                                     </p>
                                     <p>
@@ -103,7 +103,7 @@ export default function AboutPage() {
                                         ワンストップでサポートいたします。
                                     </p>
                                     <p>
-                                        また、個人の方々に向けては、IT学習・キャリア支援サービスを通じて、
+                                        また、個人の方々に向けては、IT学習・スキル習得支援サービスを通じて、
                                         エンジニアとしての第一歩を踏み出すお手伝いをしています。
                                     </p>
                                     <p className="text-white font-medium">
@@ -130,11 +130,11 @@ export default function AboutPage() {
                 </section>
 
                 {/* Numbers */}
-                <section className="py-24 border-b border-slate-800 bg-slate-900/30">
+                <section className="py-24 border-b border-zinc-800 bg-zinc-900/30">
                     <div className="container mx-auto px-4">
                         <div className="text-center mb-16">
-                            <div className="text-blue-400 font-bold tracking-wider text-sm mb-2">NUMBERS</div>
-                            <h2 className="text-4xl font-black tracking-tight text-white">数字で見るPlus Commit</h2>
+                            <div className="text-zinc-400 font-bold tracking-wider text-sm mb-2">NUMBERS</div>
+                            <h2 className="text-4xl font-black tracking-tight text-white">数字で見るプラスコミット</h2>
                         </div>
 
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -144,12 +144,12 @@ export default function AboutPage() {
                                 { number: "98", label: "顧客満足度", suffix: "%" },
                                 { number: "2024", label: "設立年", suffix: "" },
                             ].map((item, index) => (
-                                <div key={index} className="text-center p-8 bg-slate-900 border border-slate-800">
-                                    <div className="text-5xl md:text-6xl font-black text-blue-500 mb-2">
+                                <div key={index} className="text-center p-8 bg-zinc-900 border border-zinc-800">
+                                    <div className="text-5xl md:text-6xl font-black text-white mb-2">
                                         {item.number}
                                         <span className="text-2xl">{item.suffix}</span>
                                     </div>
-                                    <p className="text-slate-400">{item.label}</p>
+                                    <p className="text-zinc-400">{item.label}</p>
                                 </div>
                             ))}
                         </div>
@@ -157,17 +157,17 @@ export default function AboutPage() {
                 </section>
 
                 {/* Company Info */}
-                <section className="py-24 border-b border-slate-800">
+                <section className="py-24 border-b border-zinc-800">
                     <div className="container mx-auto px-4">
                         <div className="flex items-center gap-3 mb-12">
-                            <div className="w-1 h-8 bg-blue-500"></div>
+                            <div className="w-1 h-8 bg-white"></div>
                             <h2 className="text-3xl font-bold text-white">会社情報</h2>
                         </div>
 
-                        <div className="bg-slate-900 border border-slate-800">
-                            <div className="divide-y divide-slate-800">
-                                {[
-                                    { label: "会社名", value: "株式会社プラスコミット（Plus Commit Inc.）" },
+                        <div className="bg-zinc-900 border border-zinc-800">
+                            <div className="divide-y divide-zinc-800">
+                                {                                [
+                                    { label: "会社名", value: "株式会社プラスコミット" },
                                     { label: "設立", value: "2024年1月" },
                                     { label: "代表者", value: "代表取締役 青柳 航佑" },
                                     { label: "所在地", value: "〒150-0000 東京都渋谷区" },
@@ -178,22 +178,22 @@ export default function AboutPage() {
                                             "DXコンサルティング",
                                             "Web制作・開発",
                                             "業務自動化支援",
-                                            "IT学習・キャリア支援サービス",
+                                            "IT学習・スキル習得支援サービス",
                                             "自社プロダクト開発・運営",
                                         ]
                                     },
                                     { label: "取引銀行", value: "みずほ銀行 渋谷支店" },
                                 ].map((item, index) => (
                                     <div key={index} className="grid md:grid-cols-4 gap-4 p-6">
-                                        <div className="text-slate-500 font-bold text-sm tracking-wider">
+                                        <div className="text-zinc-500 font-bold text-sm tracking-wider">
                                             {item.label}
                                         </div>
-                                        <div className="md:col-span-3 text-slate-200">
+                                        <div className="md:col-span-3 text-zinc-200">
                                             {Array.isArray(item.value) ? (
                                                 <ul className="space-y-2">
                                                     {item.value.map((v, i) => (
                                                         <li key={i} className="flex items-center gap-2">
-                                                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0" />
+                                                            <span className="w-1.5 h-1.5 bg-white rounded-full shrink-0" />
                                                             {v}
                                                         </li>
                                                     ))}
@@ -210,17 +210,17 @@ export default function AboutPage() {
                 </section>
 
                 {/* History */}
-                <section className="py-24 border-b border-slate-800 bg-slate-900/30">
+                <section className="py-24 border-b border-zinc-800 bg-zinc-900/30">
                     <div className="container mx-auto px-4">
                         <div className="flex items-center gap-3 mb-12">
-                            <div className="w-1 h-8 bg-blue-500"></div>
+                            <div className="w-1 h-8 bg-white"></div>
                             <h2 className="text-3xl font-bold text-white">沿革</h2>
                         </div>
 
                         <div className="max-w-3xl">
                             <div className="relative">
                                 {/* Timeline line */}
-                                <div className="absolute left-[7px] top-2 bottom-2 w-[2px] bg-slate-800" />
+                                <div className="absolute left-[7px] top-2 bottom-2 w-[2px] bg-zinc-800" />
                                 
                                 <div className="space-y-8">
                                     {[
@@ -228,14 +228,14 @@ export default function AboutPage() {
                                         { date: "2024年2月", event: "コーディング代行サービス開始" },
                                         { date: "2024年4月", event: "DXコンサルティング事業開始" },
                                         { date: "2024年6月", event: "自社プロダクト「K-zoku」リリース" },
-                                        { date: "2024年8月", event: "IT学習・キャリア支援サービス「Plus Commit Career」開始" },
+                                        { date: "2024年8月", event: "IT学習・スキル習得支援サービス「プラスコミット」開始" },
                                         { date: "2024年10月", event: "オウンドメディア「個人開発研究所」開設" },
                                     ].map((item, index) => (
                                         <div key={index} className="flex gap-6 relative">
-                                            <div className="w-4 h-4 bg-blue-500 rounded-full shrink-0 mt-1 relative z-10" />
+                                            <div className="w-4 h-4 bg-white rounded-full shrink-0 mt-1 relative z-10" />
                                             <div>
-                                                <div className="text-blue-400 font-bold text-sm mb-1">{item.date}</div>
-                                                <div className="text-slate-200">{item.event}</div>
+                                                <div className="text-zinc-400 font-bold text-sm mb-1">{item.date}</div>
+                                                <div className="text-zinc-200">{item.event}</div>
                                             </div>
                                         </div>
                                     ))}
@@ -247,22 +247,22 @@ export default function AboutPage() {
 
                 {/* CTA */}
                 <section className="py-24 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-950/50 to-slate-950" />
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-900 to-black" />
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
                     <div className="container mx-auto px-4 relative z-10">
                         <div className="max-w-3xl mx-auto text-center">
                             <h2 className="text-3xl md:text-4xl font-black tracking-tight text-white mb-6">
                                 お気軽にご相談ください
                             </h2>
-                            <p className="text-slate-400 mb-10 text-lg leading-relaxed">
+                            <p className="text-zinc-400 mb-10 text-lg leading-relaxed">
                                 コーディング代行、DXコンサルティング、Web制作のご相談は<br className="hidden md:block" />
                                 お問い合わせフォームよりお気軽にどうぞ。
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <Button size="lg" className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-12" asChild>
+                                <Button size="lg" className="bg-white hover:bg-zinc-200 text-black font-bold px-12" asChild>
                                     <Link href="/contact">お問い合わせ</Link>
                                 </Button>
-                                <Button size="lg" variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 px-12" asChild>
+                                <Button size="lg" variant="outline" className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 px-12" asChild>
                                     <Link href="/services">事業紹介を見る</Link>
                                 </Button>
                             </div>

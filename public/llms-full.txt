@@ -1,16 +1,16 @@
-# Plus Commit Inc. - 詳細情報
+# プラスコミット - 詳細情報
 
 > 「1億総エンジニア社会」を創る。
 
 ## 会社概要
 
-Plus Commit（プラスコミット）は、最新のテクノロジーと確かな技術力で、お客様のビジネス課題を解決するIT企業です。誰もが技術を武器に活躍できる「1億総エンジニア社会」の実現を目指し、コーディング代行からDXコンサルティング、Webアプリケーション開発、キャリア支援まで、幅広いサービスを提供しています。
+プラスコミットは、最新のテクノロジーと確かな技術力で、お客様のビジネス課題を解決するIT企業です。誰もが技術を武器に活躍できる「1億総エンジニア社会」の実現を目指し、コーディング代行からDXコンサルティング、Webアプリケーション開発、スキル習得支援まで、幅広いサービスを提供しています。
 
 ### 基本情報
-- 会社名: Plus Commit Inc.（プラスコミット）
+- 会社名: 株式会社プラスコミット
 - コーポレートサイト: https://plus-commit.com
 - 採用サイト: https://recruit.plus-commit.com
-- キャリア支援: https://plus-commit.com/career
+- スキル習得支援: https://plus-commit.com/career
 - お問い合わせ: https://plus-commit.com/contact
 - メール: business@plus-commit.com
 
@@ -181,11 +181,11 @@ Plus Commit（プラスコミット）は、最新のテクノロジーと確か
 - URL: https://personal-dev.net
 - カテゴリ: 運営メディア
 
-### Plus Commit Career（プラスコミットキャリア）
-IT転職・独立を目指す方のためのキャリア支援サービス。実践的なスキル習得から転職サポートまで一貫してサポートします。
+### プラスコミット
+IT転職・独立を目指す方のためのスキル習得支援サービス。実践的なスキル習得から転職サポートまで一貫してサポートします。
 
 - URL: https://plus-commit.com/career
-- カテゴリ: キャリア支援サービス
+- カテゴリ: スキル習得支援サービス
 
 ---
 
@@ -269,7 +269,7 @@ UI/UXデザインを担当します。
 - 制作実績: https://plus-commit.com/works
 - お知らせ: https://plus-commit.com/news
 - お問い合わせ: https://plus-commit.com/contact
-- キャリア支援: https://plus-commit.com/career
+- スキル習得支援: https://plus-commit.com/career
 
 ### 採用サイト (recruit.plus-commit.com)
 - 採用トップ: https://recruit.plus-commit.com
@@ -280,5 +280,5 @@ UI/UXデザインを担当します。
 
 ---
 
-© Plus Commit Inc. All rights reserved.
+© 株式会社プラスコミット All rights reserved.
 

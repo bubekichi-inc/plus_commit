@@ -60,7 +60,7 @@ const sampleContents = [
     },
     {
         id: '4',
-        title: 'Web開発キャリアガイド',
+        title: 'Web開発ロードマップ',
         slug: 'web-dev-career',
         description: '未経験からエンジニアになるためのロードマップ',
         contentType: 'DOCUMENT',

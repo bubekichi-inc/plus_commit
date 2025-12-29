@@ -10,7 +10,7 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-    title: "Plus Commit | スパルタ学習管理サービス",
+    title: "プラスコミット | スパルタ学習管理サービス",
     description: "IT転職・独立・起業を目指している方向けのスパルタ学習管理サービス。チャットサポート、タスク管理、モチベーション管理であなたの目標達成をサポートします。",
 };
 

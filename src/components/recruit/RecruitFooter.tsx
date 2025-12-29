@@ -11,14 +11,11 @@ export function RecruitFooter() {
             <Link href="/recruit" className="flex items-center gap-3 mb-6">
               <Image
                 src="/general/logo-pc.png"
-                alt="Plus Commit"
+                alt="プラスコミット"
                 width={160}
                 height={36}
                 className="h-9 w-auto"
               />
-              <span className="text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase border-l border-emerald-400/30 pl-3">
-                キャリア
-              </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-md">
               私たちは、技術の力でビジネスを次のステージへ導くプロフェッショナル集団です。
@@ -68,7 +65,7 @@ export function RecruitFooter() {
               </li>
               <li>
                 <a href="https://plus-commit.com/career" className="text-white/50 hover:text-emerald-400 text-sm transition-colors">
-                  キャリア支援
+                  スキル習得支援
                 </a>
               </li>
               <li>
@@ -82,7 +79,7 @@ export function RecruitFooter() {
 
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/30 text-xs">
-            © {new Date().getFullYear()} Plus Commit Inc. All rights reserved.
+            © {new Date().getFullYear()} 株式会社プラスコミット All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link href="/privacy" className="text-white/30 hover:text-white/50 text-xs transition-colors">

@@ -58,14 +58,14 @@ export default function WorksPage() {
     return (
         <>
             <BusinessHeader />
-            <main className="min-h-screen pt-20">
-                <section className="py-24 border-b border-slate-800">
+            <main className="min-h-screen pt-20 bg-black">
+                <section className="py-24 border-b border-zinc-800">
                     <div className="container mx-auto px-4">
-                        <div className="text-blue-400 font-medium mb-2 tracking-wider">WORKS</div>
+                        <div className="text-zinc-400 font-medium mb-2 tracking-wider">WORKS</div>
                         <h1 className="text-5xl font-black tracking-tight text-white mb-6">
                             制作実績
                         </h1>
-                        <p className="text-xl text-slate-400 max-w-2xl">
+                        <p className="text-xl text-zinc-400 max-w-2xl">
                             これまでに手がけたプロジェクトの一部をご紹介します。
                         </p>
                     </div>
@@ -77,32 +77,32 @@ export default function WorksPage() {
                             {works.map((work) => (
                                 <div 
                                     key={work.id}
-                                    className="bg-slate-900 border border-slate-800 overflow-hidden hover:border-blue-500/50 transition-colors group"
+                                    className="bg-zinc-900 border border-zinc-800 overflow-hidden hover:border-white/30 transition-colors group"
                                 >
-                                    <div className="aspect-video bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
-                                        <span className="text-4xl font-black text-slate-700">0{work.id}</span>
+                                    <div className="aspect-video bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
+                                        <span className="text-4xl font-black text-zinc-700">0{work.id}</span>
                                     </div>
                                     <div className="p-6">
-                                        <div className="text-blue-400 text-sm font-medium mb-2">{work.category}</div>
-                                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                                        <div className="text-zinc-400 text-sm font-medium mb-2">{work.category}</div>
+                                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-zinc-300 transition-colors">
                                             {work.title}
                                         </h3>
-                                        <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+                                        <p className="text-zinc-400 text-sm mb-4 leading-relaxed">
                                             {work.description}
                                         </p>
                                         <div className="flex flex-wrap gap-2 mb-4">
                                             {work.technologies.map((tech, index) => (
                                                 <span 
                                                     key={index}
-                                                    className="px-2 py-1 bg-slate-800 text-slate-400 text-xs"
+                                                    className="px-2 py-1 bg-zinc-800 text-zinc-500 text-xs"
                                                 >
                                                     {tech}
                                                 </span>
                                             ))}
                                         </div>
-                                        <div className="border-t border-slate-800 pt-4">
-                                            <div className="text-slate-500 text-xs mb-1">成果</div>
-                                            <div className="text-blue-400 font-bold">{work.results}</div>
+                                        <div className="border-t border-zinc-800 pt-4">
+                                            <div className="text-zinc-500 text-xs mb-1">成果</div>
+                                            <div className="text-white font-bold">{work.results}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -111,15 +111,15 @@ export default function WorksPage() {
                     </div>
                 </section>
 
-                <section className="py-24 border-t border-slate-800 bg-slate-900/50">
+                <section className="py-24 border-t border-zinc-800 bg-zinc-900/50">
                     <div className="container mx-auto px-4 text-center">
                         <h2 className="text-3xl font-black tracking-tight text-white mb-4">
                             次はあなたのプロジェクトを
                         </h2>
-                        <p className="text-slate-400 mb-8 max-w-xl mx-auto">
+                        <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
                             貴社のビジネス課題に合わせた最適なソリューションをご提案いたします。
                         </p>
-                        <Button size="lg" className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-12" asChild>
+                        <Button size="lg" className="bg-white hover:bg-zinc-200 text-black font-bold px-12" asChild>
                             <Link href="/contact">プロジェクトを相談する</Link>
                         </Button>
                     </div>
