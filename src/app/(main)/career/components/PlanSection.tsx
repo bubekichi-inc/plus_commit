@@ -18,23 +18,23 @@ export const PlanSection = () => {
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {[
             {
-              name: "スタンダードプラン",
-              price: "199,000",
-              period: "（税込）",
-              desc: "学習と基本的な転職サポートが含まれる、スタートに最適なプラン。",
+              name: "月額プラン",
+              price: "9,980",
+              period: "円/月（税込）",
+              desc: "まずは試してみたい方におすすめ。いつでも解約OK。",
               features: [
                 "週1回 1on1メンタリング",
                 "個別ロードマップ作成",
                 "Slack進捗報告・相談",
                 "定期的な学習・進路相談",
               ],
-              subsidy: "実質 ¥59,700〜",
             },
             {
-              name: "プライムプラン",
-              price: "364,833",
-              period: "（税込）",
-              desc: "国の補助金を活用し、徹底した転職支援まで受ける最高峰のパッケージ。",
+              name: "半年プラン",
+              price: "49,800",
+              period: "円/6ヶ月（税込）",
+              pricePerMonth: "月あたり 8,300円",
+              desc: "本気で転職・スキルアップを目指す方へ。2ヶ月分お得！",
               features: [
                 "週1回 1on1メンタリング",
                 "個別ロードマップ作成",
@@ -43,8 +43,7 @@ export const PlanSection = () => {
                 "ポートフォリオ制作支援",
               ],
               popular: true,
-              badge: "最大70%補助対象",
-              subsidy: "実質 ¥109,450〜",
+              badge: "2ヶ月分お得！",
             },
           ].map((plan, index) => (
             <div
@@ -64,24 +63,22 @@ export const PlanSection = () => {
                 <div className="text-sm font-black mb-6 text-zinc-400 uppercase tracking-widest">
                   {plan.name}
                 </div>
-                <div className="flex items-baseline justify-center gap-1 mb-8">
-                  <span className="text-6xl font-black text-zinc-900">
+                <div className="flex items-baseline justify-center gap-1 mb-4">
+                  <span className="text-5xl md:text-6xl font-black text-zinc-900">
                     ¥{plan.price}
                   </span>
-                  <span className="text-sm font-bold text-zinc-400">
-                    {plan.period}
-                  </span>
                 </div>
-                <div
-                  className={`inline-block px-8 py-4 rounded-3xl font-black text-2xl ${
-                    plan.popular
-                      ? "bg-violet-600 text-white"
-                      : "bg-zinc-100 text-zinc-900"
-                  } shadow-inner`}
-                >
-                  {plan.subsidy}
+                <div className="text-sm font-bold text-zinc-400 mb-6">
+                  {plan.period}
                 </div>
-                <p className="mt-10 text-zinc-500 font-medium leading-relaxed px-4">
+                {plan.pricePerMonth && (
+                  <div
+                    className="inline-block px-6 py-3 rounded-2xl font-black text-xl bg-violet-600 text-white shadow-inner mb-6"
+                  >
+                    {plan.pricePerMonth}
+                  </div>
+                )}
+                <p className="text-zinc-500 font-medium leading-relaxed px-4">
                   {plan.desc}
                 </p>
               </div>
@@ -117,4 +114,3 @@ export const PlanSection = () => {
     </section>
   );
 };
-
