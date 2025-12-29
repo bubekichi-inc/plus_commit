@@ -92,6 +92,7 @@ export function BusinessFooter() {
                     <div>
                         <h3 className="text-white font-bold mb-4 text-sm">会社情報</h3>
                         <ul className="space-y-3 text-sm text-zinc-500">
+                            <li><Link href="/company" className="hover:text-white transition-colors">会社概要</Link></li>
                             <li><Link href="/works" className="hover:text-white transition-colors">制作実績</Link></li>
                             <li><Link href="/contact" className="hover:text-white transition-colors">お問い合わせ</Link></li>
                         </ul>
@@ -115,8 +116,9 @@ export function BusinessFooter() {
                             &copy; {new Date().getFullYear()} 株式会社プラスコミット
                         </p>
                         <div className="flex gap-6 text-xs text-zinc-600">
-                            <Link href="#" className="hover:text-zinc-400 transition-colors">プライバシーポリシー</Link>
-                            <Link href="#" className="hover:text-zinc-400 transition-colors">利用規約</Link>
+                            <Link href="/privacy" className="hover:text-zinc-400 transition-colors">プライバシーポリシー</Link>
+                            <Link href="/terms" className="hover:text-zinc-400 transition-colors">利用規約</Link>
+                            <Link href="/legal" className="hover:text-zinc-400 transition-colors">特定商取引法に基づく表示</Link>
                         </div>
                     </div>
                 </div>

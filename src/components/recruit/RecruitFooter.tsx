@@ -88,6 +88,9 @@ export function RecruitFooter() {
             <Link href="/terms" className="text-white/30 hover:text-white/50 text-xs transition-colors">
               利用規約
             </Link>
+            <Link href="/legal" className="text-white/30 hover:text-white/50 text-xs transition-colors">
+              特定商取引法に基づく表示
+            </Link>
           </div>
         </div>
       </div>

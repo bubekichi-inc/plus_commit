@@ -38,8 +38,16 @@ export function Footer() {
                             <li><Link href="https://personal-dev.net/" target="_blank" className="hover:text-white transition-colors">個人開発研究所</Link></li>
                         </ul>
                     </div>
+                    <div>
+                        <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Legal</h4>
+                        <ul className="space-y-4 text-sm text-zinc-500">
+                            <li><Link href="/terms" className="hover:text-white transition-colors">利用規約</Link></li>
+                            <li><Link href="/privacy" className="hover:text-white transition-colors">プライバシーポリシー</Link></li>
+                            <li><Link href="/legal" className="hover:text-white transition-colors">特定商取引法</Link></li>
+                        </ul>
+                    </div>
                 </div>
-                <div className="pt-8 border-t border-zinc-900 text-center text-xs text-zinc-600">
+                <div className="pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-600">
                     <p className="font-medium uppercase tracking-wider">&copy; {new Date().getFullYear()} 株式会社プラスコミット All rights reserved.</p>
                 </div>
             </div>
