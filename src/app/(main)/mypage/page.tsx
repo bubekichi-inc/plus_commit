@@ -29,7 +29,7 @@ import {
 export default function MyPage() {
     const router = useRouter()
     const { user, profile, loading, isConfigured, signOut, refreshProfile } = useAuth()
-    const [activeTab, setActiveTab] = useState<'overview' | 'profile' | 'bookmarks' | 'settings'>('overview')
+    const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'profile' | 'bookmarks' | 'settings'>('overview')
     const [isEditing, setIsEditing] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
