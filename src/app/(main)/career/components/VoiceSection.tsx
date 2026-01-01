@@ -93,7 +93,7 @@ export const VoiceSection = () => {
   };
 
   return (
-    <section id="voice" className="relative pb-24 bg-[#E3E3E3] overflow-visible">
+    <section id="voice" className="relative  bg-[#E3E3E3] overflow-visible">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-black leading-tight text-zinc-900">
