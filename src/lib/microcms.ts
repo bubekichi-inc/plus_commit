@@ -1,6 +1,6 @@
 import { createClient } from 'microcms-js-sdk';
 import type { MicroCMSQueries } from 'microcms-js-sdk';
-import type { News } from '@/types/microcms';
+import type { News, MemberContent } from '@/types/microcms';
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
   throw new Error('MICROCMS_SERVICE_DOMAIN is required');
@@ -30,6 +30,26 @@ export const getNewsDetail = async (
 ) => {
   return await client.getListDetail<News>({
     endpoint: 'blog',
+    contentId,
+    queries,
+  });
+};
+
+// 会員限定コンテンツ一覧を取得（採用ページ用）
+export const getMemberContentList = async (queries?: MicroCMSQueries) => {
+  return await client.getList<MemberContent>({
+    endpoint: 'recruit',
+    queries,
+  });
+};
+
+// 会員限定コンテンツ詳細を取得（採用ページ用）
+export const getMemberContentDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  return await client.getListDetail<MemberContent>({
+    endpoint: 'recruit',
     contentId,
     queries,
   });

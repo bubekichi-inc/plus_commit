@@ -4,9 +4,24 @@ import { BusinessHeader } from "@/components/business/BusinessHeader"
 import { BusinessFooter } from "@/components/business/BusinessFooter"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { CheckCircle, AlertCircle, Loader2 } from "lucide-react"
+
+type FormData = {
+    company: string
+    name: string
+    email: string
+    phone: string
+    service: string
+    budget: string
+    message: string
+}
+
+type FormErrors = {
+    [key in keyof FormData]?: string
+}
 
 export default function ContactPage() {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         company: "",
         name: "",
         email: "",
@@ -15,10 +30,92 @@ export default function ContactPage() {
         budget: "",
         message: "",
     })
+    const [errors, setErrors] = useState<FormErrors>({})
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+    const [submitMessage, setSubmitMessage] = useState("")
 
-    const handleSubmit = (e: React.FormEvent) => {
+    // クライアントサイドバリデーション
+    const validateForm = (): boolean => {
+        const newErrors: FormErrors = {}
+
+        if (!formData.company.trim()) {
+            newErrors.company = "会社名は必須です"
+        }
+        if (!formData.name.trim()) {
+            newErrors.name = "お名前は必須です"
+        }
+        if (!formData.email.trim()) {
+            newErrors.email = "メールアドレスは必須です"
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            newErrors.email = "有効なメールアドレスを入力してください"
+        }
+        if (!formData.service) {
+            newErrors.service = "サービスを選択してください"
+        }
+        if (!formData.message.trim()) {
+            newErrors.message = "メッセージは必須です"
+        } else if (formData.message.length > 5000) {
+            newErrors.message = "メッセージは5000文字以内で入力してください"
+        }
+
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        alert("お問い合わせありがとうございます。担当者より2営業日以内にご連絡いたします。")
+        
+        // バリデーション
+        if (!validateForm()) {
+            return
+        }
+
+        setIsSubmitting(true)
+        setSubmitStatus("idle")
+        setSubmitMessage("")
+
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.error || "送信に失敗しました")
+            }
+
+            setSubmitStatus("success")
+            setSubmitMessage(data.message)
+            // フォームをリセット
+            setFormData({
+                company: "",
+                name: "",
+                email: "",
+                phone: "",
+                service: "",
+                budget: "",
+                message: "",
+            })
+        } catch (error) {
+            setSubmitStatus("error")
+            setSubmitMessage(error instanceof Error ? error.message : "予期せぬエラーが発生しました")
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
+
+    const handleChange = (field: keyof FormData, value: string) => {
+        setFormData({ ...formData, [field]: value })
+        // エラーをクリア
+        if (errors[field]) {
+            setErrors({ ...errors, [field]: undefined })
+        }
     }
 
     return (
@@ -41,6 +138,28 @@ export default function ContactPage() {
                     <div className="container mx-auto px-4">
                         <div className="grid md:grid-cols-3 gap-12">
                             <div className="md:col-span-2">
+                                {/* 送信完了メッセージ */}
+                                {submitStatus === "success" && (
+                                    <div className="mb-8 p-6 bg-emerald-500/10 border border-emerald-500/30 rounded-lg flex items-start gap-4">
+                                        <CheckCircle className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
+                                        <div>
+                                            <h3 className="text-emerald-400 font-bold mb-1">送信完了</h3>
+                                            <p className="text-zinc-300">{submitMessage}</p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* エラーメッセージ */}
+                                {submitStatus === "error" && (
+                                    <div className="mb-8 p-6 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-4">
+                                        <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" />
+                                        <div>
+                                            <h3 className="text-red-400 font-bold mb-1">エラー</h3>
+                                            <p className="text-zinc-300">{submitMessage}</p>
+                                        </div>
+                                    </div>
+                                )}
+
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div>
@@ -49,12 +168,16 @@ export default function ContactPage() {
                                             </label>
                                             <input
                                                 type="text"
-                                                required
                                                 value={formData.company}
-                                                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                                                className="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 text-zinc-100 focus:outline-none focus:border-white transition-colors"
+                                                onChange={(e) => handleChange("company", e.target.value)}
+                                                className={`w-full bg-zinc-900 border px-4 py-3 text-zinc-100 focus:outline-none transition-colors ${
+                                                    errors.company ? "border-red-500" : "border-zinc-800 focus:border-white"
+                                                }`}
                                                 placeholder="株式会社〇〇"
                                             />
+                                            {errors.company && (
+                                                <p className="text-red-400 text-sm mt-1">{errors.company}</p>
+                                            )}
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-zinc-400 mb-2">
@@ -62,12 +185,16 @@ export default function ContactPage() {
                                             </label>
                                             <input
                                                 type="text"
-                                                required
                                                 value={formData.name}
-                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                className="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 text-zinc-100 focus:outline-none focus:border-white transition-colors"
+                                                onChange={(e) => handleChange("name", e.target.value)}
+                                                className={`w-full bg-zinc-900 border px-4 py-3 text-zinc-100 focus:outline-none transition-colors ${
+                                                    errors.name ? "border-red-500" : "border-zinc-800 focus:border-white"
+                                                }`}
                                                 placeholder="山田 太郎"
                                             />
+                                            {errors.name && (
+                                                <p className="text-red-400 text-sm mt-1">{errors.name}</p>
+                                            )}
                                         </div>
                                     </div>
 
@@ -78,12 +205,16 @@ export default function ContactPage() {
                                             </label>
                                             <input
                                                 type="email"
-                                                required
                                                 value={formData.email}
-                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                className="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 text-zinc-100 focus:outline-none focus:border-white transition-colors"
+                                                onChange={(e) => handleChange("email", e.target.value)}
+                                                className={`w-full bg-zinc-900 border px-4 py-3 text-zinc-100 focus:outline-none transition-colors ${
+                                                    errors.email ? "border-red-500" : "border-zinc-800 focus:border-white"
+                                                }`}
                                                 placeholder="example@company.co.jp"
                                             />
+                                            {errors.email && (
+                                                <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                                            )}
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-zinc-400 mb-2">
@@ -92,7 +223,7 @@ export default function ContactPage() {
                                             <input
                                                 type="tel"
                                                 value={formData.phone}
-                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                                onChange={(e) => handleChange("phone", e.target.value)}
                                                 className="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 text-zinc-100 focus:outline-none focus:border-white transition-colors"
                                                 placeholder="03-1234-5678"
                                             />
@@ -105,10 +236,11 @@ export default function ContactPage() {
                                                 ご検討中のサービス <span className="text-white">*</span>
                                             </label>
                                             <select
-                                                required
                                                 value={formData.service}
-                                                onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                                                className="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 text-zinc-100 focus:outline-none focus:border-white transition-colors"
+                                                onChange={(e) => handleChange("service", e.target.value)}
+                                                className={`w-full bg-zinc-900 border px-4 py-3 text-zinc-100 focus:outline-none transition-colors ${
+                                                    errors.service ? "border-red-500" : "border-zinc-800 focus:border-white"
+                                                }`}
                                             >
                                                 <option value="">選択してください</option>
                                                 <option value="corporate">コーポレートサイト制作</option>
@@ -118,6 +250,9 @@ export default function ContactPage() {
                                                 <option value="maintenance">保守・運用サポート</option>
                                                 <option value="other">その他</option>
                                             </select>
+                                            {errors.service && (
+                                                <p className="text-red-400 text-sm mt-1">{errors.service}</p>
+                                            )}
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-zinc-400 mb-2">
@@ -125,7 +260,7 @@ export default function ContactPage() {
                                             </label>
                                             <select
                                                 value={formData.budget}
-                                                onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                                                onChange={(e) => handleChange("budget", e.target.value)}
                                                 className="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 text-zinc-100 focus:outline-none focus:border-white transition-colors"
                                             >
                                                 <option value="">選択してください</option>
@@ -144,21 +279,33 @@ export default function ContactPage() {
                                             プロジェクトの詳細 <span className="text-white">*</span>
                                         </label>
                                         <textarea
-                                            required
                                             rows={6}
                                             value={formData.message}
-                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                            className="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 text-zinc-100 focus:outline-none focus:border-white transition-colors resize-none"
+                                            onChange={(e) => handleChange("message", e.target.value)}
+                                            className={`w-full bg-zinc-900 border px-4 py-3 text-zinc-100 focus:outline-none transition-colors resize-none ${
+                                                errors.message ? "border-red-500" : "border-zinc-800 focus:border-white"
+                                            }`}
                                             placeholder="プロジェクトの概要、課題、ご要望などをお聞かせください"
                                         />
+                                        {errors.message && (
+                                            <p className="text-red-400 text-sm mt-1">{errors.message}</p>
+                                        )}
                                     </div>
 
                                     <Button 
                                         type="submit"
                                         size="lg"
-                                        className="bg-white hover:bg-zinc-200 text-black font-bold px-12"
+                                        disabled={isSubmitting}
+                                        className="bg-white hover:bg-zinc-200 text-black font-bold px-12 disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        送信する
+                                        {isSubmitting ? (
+                                            <>
+                                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                                送信中...
+                                            </>
+                                        ) : (
+                                            "送信する"
+                                        )}
                                     </Button>
                                 </form>
                             </div>

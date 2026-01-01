@@ -3,8 +3,9 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, Building2, Heart, Briefcase, HelpCircle, ChevronDown } from "lucide-react"
+import { Home, Building2, Heart, Briefcase, HelpCircle, ChevronDown, User, LogOut, BookOpen } from "lucide-react"
 import { ReactNode, useState, useEffect } from "react"
+import { AuthProvider, useAuth } from "@/components/auth/AuthProvider"
 
 type NavItem = {
     id: string
@@ -29,17 +30,15 @@ const bottomNavItems = [
     { id: "entry", label: "エントリー", href: "/recruit/entry", variant: "solid" },
 ]
 
-export default function RecruitLayout({ children }: { children: ReactNode }) {
+function RecruitLayoutContent({ children }: { children: ReactNode }) {
     const pathname = usePathname()
-    const [isScrolled, setIsScrolled] = useState(false)
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isVisible, setIsVisible] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
+    const { user, loading, isConfigured, signOut, profile } = useAuth()
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY
-            setIsScrolled(currentScrollY > 50)
 
             if (currentScrollY > lastScrollY && currentScrollY > 60) {
                 setIsVisible(false)
@@ -84,9 +83,60 @@ export default function RecruitLayout({ children }: { children: ReactNode }) {
                     </Link>
                 </div>
 
+                {/* User Auth Section */}
+                <div className="px-6 pb-6 border-b border-white/10">
+                    {isConfigured && !loading && (
+                        user ? (
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                        <User className="w-5 h-5 text-emerald-400" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-white text-sm font-bold truncate">
+                                            {profile?.name || user.email?.split('@')[0]}
+                                        </p>
+                                        <p className="text-white/40 text-xs truncate">{user.email}</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-2">
+                                    <Link
+                                        href="/recruit/mypage"
+                                        className="flex-1 flex items-center justify-center gap-1 py-2 bg-white/5 rounded text-xs font-bold text-white/70 hover:bg-white/10 transition-colors"
+                                    >
+                                        <BookOpen className="w-3 h-3" />
+                                        マイページ
+                                    </Link>
+                                    <button
+                                        onClick={() => signOut()}
+                                        className="flex items-center justify-center gap-1 px-3 py-2 bg-white/5 rounded text-xs font-bold text-white/70 hover:bg-white/10 transition-colors"
+                                    >
+                                        <LogOut className="w-3 h-3" />
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="space-y-2">
+                                <Link
+                                    href="/recruit/login"
+                                    className="block w-full text-center py-2.5 bg-white/5 border border-white/20 rounded text-sm font-bold text-white hover:bg-white/10 transition-colors"
+                                >
+                                    ログイン
+                                </Link>
+                                <Link
+                                    href="/recruit/register"
+                                    className="block w-full text-center py-2.5 bg-emerald-500 rounded text-sm font-bold text-black hover:bg-emerald-400 transition-colors"
+                                >
+                                    会員登録
+                                </Link>
+                            </div>
+                        )
+                    )}
+                </div>
+
                 {/* Navigation */}
                 <nav className="flex-1">
-                    <ul className="space-y-0.5">
+                    <ul className="space-y-0.5 pt-4">
                         {navItems.map((item) => {
                             const isActive = activeItem === item.id
                             const Icon = item.icon
@@ -109,7 +159,27 @@ export default function RecruitLayout({ children }: { children: ReactNode }) {
                         })}
                     </ul>
 
-                    <div className="mt-12 px-6">
+                    {/* 会員限定コンテンツ */}
+                    {user && (
+                        <div className="mt-6 px-6">
+                            <p className="text-[10px] font-bold text-emerald-400/60 uppercase tracking-widest mb-3">
+                                会員限定コンテンツ
+                            </p>
+                            <ul className="space-y-1">
+                                <li>
+                                    <Link
+                                        href="/recruit/member-contents"
+                                        className="w-full flex items-center gap-3 px-4 py-2.5 text-left transition-all duration-200 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-emerald-400 hover:bg-emerald-500/20"
+                                    >
+                                        <BookOpen className="w-4 h-4" />
+                                        <span className="font-bold text-sm">限定記事を読む</span>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
+
+                    <div className="mt-8 px-6">
                         <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-4">
                             募集中の職種に応募する
                         </p>
@@ -144,8 +214,8 @@ export default function RecruitLayout({ children }: { children: ReactNode }) {
                 </div>
             </aside>
 
-            {/* Mobile Header (Simplified for now) */}
-            <header className={`lg:hidden fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10 h-14 flex items-center px-4 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+            {/* Mobile Header */}
+            <header className={`lg:hidden fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10 h-14 flex items-center justify-between px-4 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
                 <Link href="/recruit" className="flex items-center gap-2">
                     <Image
                         src="/general/logo-pc.png"
@@ -156,6 +226,17 @@ export default function RecruitLayout({ children }: { children: ReactNode }) {
                     />
                     <span className="text-xs font-bold text-white/80">採用情報</span>
                 </Link>
+                {isConfigured && !loading && (
+                    user ? (
+                        <Link href="/recruit/mypage" className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                            <User className="w-4 h-4 text-emerald-400" />
+                        </Link>
+                    ) : (
+                        <Link href="/recruit/login" className="text-xs font-bold text-emerald-400">
+                            ログイン
+                        </Link>
+                    )
+                )}
             </header>
 
             {/* Main Content */}
@@ -173,3 +254,10 @@ export default function RecruitLayout({ children }: { children: ReactNode }) {
     )
 }
 
+export default function RecruitLayout({ children }: { children: ReactNode }) {
+    return (
+        <AuthProvider>
+            <RecruitLayoutContent>{children}</RecruitLayoutContent>
+        </AuthProvider>
+    )
+}
