@@ -32,12 +32,12 @@ export function BusinessHero() {
 
     return (
         <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-950 to-zinc-900" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-zinc-50 via-white to-zinc-100" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-zinc-200/20 via-transparent to-transparent" />
             
             {/* Animated background elements */}
-            <div className="absolute top-20 right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-20 left-20 w-64 h-64 bg-zinc-400/5 rounded-full blur-3xl" />
+            <div className="absolute top-20 right-20 w-96 h-96 bg-zinc-200/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-20 left-20 w-64 h-64 bg-zinc-200/20 rounded-full blur-3xl" />
             
             <div className="container mx-auto px-4 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -50,8 +50,8 @@ export function BusinessHero() {
                                     onClick={() => setActiveService(index)}
                                     className={`px-4 py-2 text-xs font-bold tracking-wider transition-all ${
                                         activeService === index
-                                            ? "bg-white text-black"
-                                            : "bg-zinc-800/50 text-zinc-400 hover:bg-zinc-800"
+                                            ? "bg-black text-white"
+                                            : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200"
                                     }`}
                                 >
                                     {service.label}
@@ -59,20 +59,20 @@ export function BusinessHero() {
                             ))}
                         </div>
                         
-                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2 mb-8">
-                            <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                            <span className="text-white text-sm font-bold tracking-wider">1億総エンジニア社会の実現へ</span>
+                        <div className="inline-flex items-center gap-2 bg-zinc-100 border border-zinc-200 rounded-full px-4 py-2 mb-8">
+                            <span className="w-2 h-2 bg-black rounded-full animate-pulse" />
+                            <span className="text-black text-sm font-bold tracking-wider">1億総エンジニア社会の実現へ</span>
                         </div>
                         
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 text-white leading-tight whitespace-pre-line">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 text-black leading-tight whitespace-pre-line">
                             {services[activeService].title}
                         </h1>
-                        <p className="text-lg text-zinc-400 mb-8 leading-relaxed whitespace-pre-line">
+                        <p className="text-lg text-zinc-600 mb-8 leading-relaxed whitespace-pre-line">
                             {services[activeService].description}
                         </p>
                         <Link 
                             href={services[activeService].link}
-                            className="inline-flex items-center gap-2 text-white font-bold hover:text-zinc-300 transition-colors"
+                            className="inline-flex items-center gap-2 text-black font-bold hover:text-zinc-600 transition-colors"
                         >
                             サービスを詳しく見る
                             <span className="text-xl">→</span>
@@ -82,10 +82,10 @@ export function BusinessHero() {
                     {/* Service indicator */}
                     <div className="hidden lg:flex justify-end">
                         <div className="text-right">
-                            <div className="text-[12rem] font-black text-white/5 leading-none">
+                            <div className="text-[12rem] font-black text-zinc-100 leading-none">
                                 0{activeService + 1}
                             </div>
-                            <div className="text-zinc-500 font-medium -mt-8">
+                            <div className="text-zinc-400 font-medium -mt-8">
                                 / 0{services.length}
                             </div>
                         </div>
@@ -100,8 +100,8 @@ export function BusinessHero() {
                             onClick={() => setActiveService(index)}
                             className={`h-1 transition-all ${
                                 activeService === index
-                                    ? "w-12 bg-white"
-                                    : "w-6 bg-zinc-800 hover:bg-zinc-700"
+                                    ? "w-12 bg-black"
+                                    : "w-6 bg-zinc-200 hover:bg-zinc-300"
                             }`}
                         />
                     ))}

@@ -98,7 +98,7 @@ export function BusinessHeader() {
     }
 
     return (
-        <header className={`fixed top-0 left-0 w-full z-50 border-b border-zinc-800 bg-black/95 backdrop-blur-md transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+        <header className={`fixed top-0 left-0 w-full z-50 border-b border-zinc-200 bg-white/95 backdrop-blur-md transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
                 <div className="flex items-center gap-8">
                     <Link href="/" className="flex items-center">
@@ -107,7 +107,7 @@ export function BusinessHeader() {
                             alt="プラスコミット"
                             width={220}
                             height={48}
-                            className="h-10 w-auto"
+                            className="h-8 w-auto"
                             priority
                         />
                     </Link>
@@ -126,7 +126,7 @@ export function BusinessHeader() {
                                     href={item.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="px-5 py-8 text-sm font-medium text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
+                                    className="px-5 py-8 text-sm font-medium text-zinc-600 hover:text-black transition-colors flex items-center gap-1"
                                 >
                                     {item.label}
                                     <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +136,7 @@ export function BusinessHeader() {
                             ) : (
                                 <Link 
                                     href={item.href} 
-                                    className="px-5 py-8 text-sm font-medium text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
+                                    className="px-5 py-8 text-sm font-medium text-zinc-600 hover:text-black transition-colors flex items-center gap-1"
                                 >
                                     {item.label}
                                     {item.submenu && (
@@ -149,12 +149,12 @@ export function BusinessHeader() {
                             
                             {/* Dropdown menu */}
                             {item.submenu && activeMenu === item.label && (
-                                <div className="absolute top-full left-0 w-56 bg-zinc-900 border border-zinc-800 shadow-xl">
+                                <div className="absolute top-full left-0 w-56 bg-white border border-zinc-200 shadow-xl">
                                     {item.submenu.map((subitem) => (
                                         <Link
                                             key={subitem.label}
                                             href={subitem.href}
-                                            className="block px-5 py-3 text-sm text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors"
+                                            className="block px-5 py-3 text-sm text-zinc-600 hover:text-black hover:bg-zinc-100 transition-colors"
                                         >
                                             {subitem.label}
                                         </Link>
@@ -165,7 +165,7 @@ export function BusinessHeader() {
                     ))}
                     
                     <div className="ml-4 flex items-center gap-3">
-                        <Button size="sm" className="bg-white hover:bg-zinc-200 text-black font-bold px-6 rounded-none" asChild>
+                        <Button size="sm" className="bg-black hover:bg-zinc-800 text-white font-bold px-6 rounded-none" asChild>
                             <Link href="/contact">
                                 お問い合わせ
                             </Link>
@@ -177,19 +177,19 @@ export function BusinessHeader() {
                                 <div className="relative" ref={userMenuRef}>
                                     <button
                                         onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-zinc-800 transition-colors"
+                                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-zinc-100 transition-colors"
                                     >
-                                        <div className="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-white text-sm font-bold">
+                                        <div className="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center text-black text-sm font-bold">
                                             {profile?.name?.charAt(0) || user.email?.charAt(0)?.toUpperCase() || 'U'}
                                         </div>
-                                        <ChevronDown className={`w-4 h-4 text-zinc-400 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                                        <ChevronDown className={`w-4 h-4 text-zinc-600 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
                                     </button>
 
                                     {/* User Dropdown Menu */}
                                     {isUserMenuOpen && (
-                                        <div className="absolute top-full right-0 mt-2 w-56 bg-zinc-900 border border-zinc-800 rounded-lg shadow-xl overflow-hidden">
-                                            <div className="px-4 py-3 border-b border-zinc-800">
-                                                <div className="text-white font-medium text-sm truncate">
+                                        <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-zinc-200 rounded-lg shadow-xl overflow-hidden">
+                                            <div className="px-4 py-3 border-b border-zinc-200">
+                                                <div className="text-black font-medium text-sm truncate">
                                                     {profile?.name || 'ユーザー'}
                                                 </div>
                                                 <div className="text-zinc-500 text-xs truncate">
@@ -200,7 +200,7 @@ export function BusinessHeader() {
                                                 <Link
                                                     href="/mypage"
                                                     onClick={() => setIsUserMenuOpen(false)}
-                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-600 hover:text-black hover:bg-zinc-100 transition-colors"
                                                 >
                                                     <User className="w-4 h-4" />
                                                     マイページ
@@ -208,7 +208,7 @@ export function BusinessHeader() {
                                                 <Link
                                                     href="/mypage/contents"
                                                     onClick={() => setIsUserMenuOpen(false)}
-                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-600 hover:text-black hover:bg-zinc-100 transition-colors"
                                                 >
                                                     <BookOpen className="w-4 h-4" />
                                                     限定コンテンツ
@@ -216,16 +216,16 @@ export function BusinessHeader() {
                                                 <Link
                                                     href="/mypage?tab=settings"
                                                     onClick={() => setIsUserMenuOpen(false)}
-                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-600 hover:text-black hover:bg-zinc-100 transition-colors"
                                                 >
                                                     <Settings className="w-4 h-4" />
                                                     設定
                                                 </Link>
                                             </div>
-                                            <div className="py-2 border-t border-zinc-800">
+                                            <div className="py-2 border-t border-zinc-200">
                                                 <button
                                                     onClick={handleSignOut}
-                                                    className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-500 hover:text-red-400 hover:bg-zinc-800 transition-colors"
+                                                    className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:text-red-700 hover:bg-zinc-100 transition-colors"
                                                 >
                                                     <LogOut className="w-4 h-4" />
                                                     ログアウト
@@ -237,12 +237,12 @@ export function BusinessHeader() {
                             ) : (
                                 <div className="flex items-center gap-2">
                                     <Link href="/login">
-                                        <Button size="sm" variant="ghost" className="text-zinc-300 hover:text-white hover:bg-zinc-800">
+                                        <Button size="sm" variant="ghost" className="text-zinc-600 hover:text-black hover:bg-zinc-100">
                                             ログイン
                                         </Button>
                                     </Link>
                                     <Link href="/register">
-                                        <Button size="sm" variant="outline" className="border-zinc-700 text-zinc-300 hover:bg-zinc-800">
+                                        <Button size="sm" variant="outline" className="border-zinc-200 text-zinc-600 hover:bg-zinc-100">
                                             新規登録
                                         </Button>
                                     </Link>
@@ -253,7 +253,7 @@ export function BusinessHeader() {
                 </nav>
 
                 {/* Mobile menu button */}
-                <button className="md:hidden text-zinc-300 hover:text-white">
+                <button className="md:hidden text-zinc-600 hover:text-black">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                     </svg>

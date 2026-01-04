@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ja">
-            <body className={`${inter.variable} ${notoSansJP.variable} font-sans bg-zinc-950 text-zinc-50 antialiased`}>
+            <body className={`${inter.variable} ${notoSansJP.variable} font-sans bg-white text-zinc-900 antialiased`}>
                 <AuthProvider>
                     {children}
                 </AuthProvider>

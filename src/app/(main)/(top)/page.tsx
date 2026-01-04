@@ -27,17 +27,17 @@ export default async function HomePage() {
     return (
         <>
             <BusinessHeader />
-            <main className="min-h-screen pt-20 bg-black">
+            <main className="min-h-screen pt-20 bg-white">
                 <BusinessHero />
 
                 {/* News Section */}
-                <section className="py-20 border-t border-zinc-800">
+                <section className="py-20 border-t border-zinc-200">
                     <div className="container mx-auto px-4">
                         <div className="flex items-start justify-between mb-10">
-                            <h2 className="text-4xl font-black tracking-tight text-white">NEWS</h2>
+                            <h2 className="text-4xl font-black tracking-tight text-black">NEWS</h2>
                             <Link 
                                 href="/news" 
-                                className="text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-2"
+                                className="text-sm text-zinc-500 hover:text-black transition-colors flex items-center gap-2"
                             >
                                 ALL
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,17 +51,17 @@ export default async function HomePage() {
                                 <Link 
                                     key={item.id}
                                     href={`/news/${item.id}`}
-                                    className="group flex items-start gap-6 py-6 border-b border-zinc-800 hover:bg-zinc-900/30 transition-colors -mx-4 px-4"
+                                    className="group flex items-start gap-6 py-6 border-b border-zinc-200 hover:bg-zinc-50 transition-colors -mx-4 px-4"
                                 >
                                     <div className="flex items-center gap-4 shrink-0">
-                                        <span className="px-3 py-1 bg-white/5 text-zinc-400 text-xs font-bold border border-white/10 min-w-[100px] text-center">
+                                        <span className="px-3 py-1 bg-zinc-100 text-zinc-500 text-xs font-bold border border-zinc-200 min-w-[100px] text-center">
                                             {item.category?.name || "お知らせ"}
                                         </span>
                                         <span className="text-sm text-zinc-500 min-w-[100px]">
                                             {new Date(item.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
                                         </span>
                                     </div>
-                                    <p className="text-base text-zinc-300 group-hover:text-white transition-colors flex-1">
+                                    <p className="text-base text-zinc-700 group-hover:text-black transition-colors flex-1">
                                         {item.title}
                                     </p>
                                 </Link>
@@ -71,7 +71,7 @@ export default async function HomePage() {
                 </section>
 
                 {/* Services Section */}
-                <section className="py-24 border-t border-zinc-800 bg-zinc-900/30">
+                <section className="py-24 border-t border-zinc-200 bg-zinc-50">
                     <div className="container mx-auto px-4">
                         <div className="grid lg:grid-cols-3 gap-0">
                             {[
@@ -100,19 +100,19 @@ export default async function HomePage() {
                                 <Link
                                     key={service.num}
                                     href={service.href}
-                                    className="group relative p-8 lg:p-10 border-r border-zinc-800 last:border-r-0 hover:bg-zinc-800/30 transition-all"
+                                    className="group relative p-8 lg:p-10 border-r border-zinc-200 last:border-r-0 hover:bg-white transition-all"
                                 >
                                     <div className="flex items-center gap-4 mb-6">
-                                        <span className="text-5xl font-black text-white/10">{service.num}</span>
-                                        <span className="text-xs font-bold tracking-wider text-zinc-400">{service.label}</span>
+                                        <span className="text-5xl font-black text-zinc-200/50">{service.num}</span>
+                                        <span className="text-xs font-bold tracking-wider text-zinc-500">{service.label}</span>
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-4 leading-relaxed whitespace-pre-line group-hover:text-zinc-300 transition-colors">
+                                    <h3 className="text-xl font-bold text-black mb-4 leading-relaxed whitespace-pre-line group-hover:text-zinc-600 transition-colors">
                                         {service.title}
                                     </h3>
-                                    <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
+                                    <p className="text-sm text-zinc-500 mb-6 leading-relaxed">
                                         {service.description}
                                     </p>
-                                    <span className="text-white text-sm font-medium group-hover:translate-x-2 transition-transform inline-flex items-center gap-2">
+                                    <span className="text-black text-sm font-medium group-hover:translate-x-2 transition-transform inline-flex items-center gap-2">
                                         詳しく見る
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -149,12 +149,12 @@ export default async function HomePage() {
                                             <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors" />
                                         </div>
                                         <div className="flex items-center gap-3 mb-3">
-                                            <span className="text-xs text-white font-bold">{item.category?.name || "お知らせ"}</span>
+                                            <span className="text-xs text-black font-bold">{item.category?.name || "お知らせ"}</span>
                                             <span className="text-xs text-zinc-500">
                                                 {new Date(item.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
                                             </span>
                                         </div>
-                                        <h3 className="text-lg font-bold text-zinc-200 group-hover:text-white transition-colors leading-relaxed">
+                                        <h3 className="text-lg font-bold text-zinc-800 group-hover:text-black transition-colors leading-relaxed">
                                             {item.title}
                                         </h3>
                                     </Link>
@@ -165,9 +165,9 @@ export default async function HomePage() {
                 )}
 
                 {/* About Section */}
-                <section className="py-32 border-t border-zinc-800 bg-zinc-900/30 overflow-hidden relative">
+                <section className="py-32 border-t border-zinc-200 bg-zinc-50 overflow-hidden relative">
                     <div className="absolute inset-0 flex items-center overflow-hidden opacity-[0.03]">
-                        <div className="flex whitespace-nowrap animate-scroll text-white">
+                        <div className="flex whitespace-nowrap animate-scroll text-black">
                             <span className="text-[20vw] font-black mx-8">
                                 DIGITAL TRANSFORMATION PARTNER
                             </span>
@@ -179,36 +179,36 @@ export default async function HomePage() {
                     
                     <div className="container mx-auto px-4 relative z-10">
                         <div className="max-w-4xl mx-auto">
-                            <h2 className="text-5xl md:text-6xl font-black tracking-tight text-white mb-8 text-center">ABOUT US</h2>
+                            <h2 className="text-5xl md:text-6xl font-black tracking-tight text-black mb-8 text-center">ABOUT US</h2>
                             
                             <div className="grid md:grid-cols-3 gap-8 mb-16">
                                 <div className="text-center">
-                                    <div className="text-6xl md:text-7xl font-black text-white mb-2 leading-none">
+                                    <div className="text-6xl md:text-7xl font-black text-black mb-2 leading-none">
                                         50<span className="text-3xl align-top">+</span>
                                     </div>
-                                    <p className="text-zinc-400 text-sm">支援企業数</p>
+                                    <p className="text-zinc-500 text-sm">支援企業数</p>
                                 </div>
                                 <div className="text-center">
-                                    <div className="text-6xl md:text-7xl font-black text-white mb-2 leading-none">
+                                    <div className="text-6xl md:text-7xl font-black text-black mb-2 leading-none">
                                         98<span className="text-3xl align-top">%</span>
                                     </div>
-                                    <p className="text-zinc-400 text-sm">顧客満足度</p>
+                                    <p className="text-zinc-500 text-sm">顧客満足度</p>
                                 </div>
                                 <div className="text-center">
-                                    <div className="text-6xl md:text-7xl font-black text-white mb-2 leading-none">
+                                    <div className="text-6xl md:text-7xl font-black text-black mb-2 leading-none">
                                         200<span className="text-3xl align-top">+</span>
                                     </div>
-                                    <p className="text-zinc-400 text-sm">制作実績</p>
+                                    <p className="text-zinc-500 text-sm">制作実績</p>
                                 </div>
                             </div>
 
                             <div className="text-center">
-                                <p className="text-white font-bold tracking-widest text-sm mb-4">OUR MISSION</p>
-                                <p className="text-2xl md:text-4xl text-white font-black leading-tight mb-6 italic">
+                                <p className="text-black font-bold tracking-widest text-sm mb-4">OUR MISSION</p>
+                                <p className="text-2xl md:text-4xl text-black font-black leading-tight mb-6 italic">
                                     「1億総エンジニア社会」を創る。
                                 </p>
-                                <p className="text-zinc-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-                                    私たちは、最新のテクノロジーと確かな技術力で、お客様のビジネス課題を解決するだけでなく、<br className="hidden md:block" />
+                                <p className="text-zinc-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                                    私たちは,最新のテクノロジーと確かな技術力で,お客様のビジネス課題を解決するだけでなく,<br className="hidden md:block" />
                                     誰もが技術を武器に活躍できる「1億総エンジニア社会」の実現を目指しています。
                                 </p>
                             </div>
@@ -217,14 +217,14 @@ export default async function HomePage() {
                 </section>
 
                 {/* Technologies Section */}
-                <section className="py-24 border-t border-zinc-800">
+                <section className="py-24 border-t border-zinc-200">
                     <div className="container mx-auto px-4">
                         <div className="flex items-center justify-between mb-12">
                             <div>
-                                <div className="text-white font-bold tracking-wider text-sm mb-2">TECHNOLOGIES</div>
-                                <h2 className="text-4xl font-black tracking-tight text-white">取り扱い技術</h2>
+                                <div className="text-black font-bold tracking-wider text-sm mb-2">TECHNOLOGIES</div>
+                                <h2 className="text-4xl font-black tracking-tight text-black">取り扱い技術</h2>
                             </div>
-                            <Link href="/technologies" className="text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-2">
+                            <Link href="/technologies" className="text-sm text-zinc-500 hover:text-black transition-colors flex items-center gap-2">
                                 ALL
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -244,10 +244,10 @@ export default async function HomePage() {
                                 <Link 
                                     key={index}
                                     href={`/technologies/${tech.slug}`}
-                                    className="group p-6 bg-zinc-900 border border-zinc-800 hover:border-white/50 transition-all text-center"
+                                    className="group p-6 bg-white border border-zinc-200 hover:border-zinc-400 transition-all text-center"
                                 >
                                     <span className="text-4xl block mb-3">{tech.icon}</span>
-                                    <span className="text-sm text-zinc-300 group-hover:text-white transition-colors font-medium">{tech.name}</span>
+                                    <span className="text-sm text-zinc-600 group-hover:text-black transition-colors font-medium">{tech.name}</span>
                                 </Link>
                             ))}
                         </div>
@@ -356,14 +356,14 @@ export default async function HomePage() {
                             </div>
 
                             {/* 個人開発研究所 */}
-                            <div className="group relative bg-zinc-900 border border-zinc-800 p-10 hover:border-white/30 transition-all">
-                                <div className="text-white font-bold mb-4 tracking-widest uppercase text-xs">Owned Media</div>
-                                <h3 className="text-3xl font-bold text-white mb-4">個人開発研究所</h3>
-                                <p className="text-zinc-400 mb-6 leading-relaxed">
+                            <div className="group relative bg-zinc-50 border border-zinc-200 p-10 hover:border-zinc-400 transition-all">
+                                <div className="text-black font-bold mb-4 tracking-widest uppercase text-xs">Owned Media</div>
+                                <h3 className="text-3xl font-bold text-black mb-4">個人開発研究所</h3>
+                                <p className="text-zinc-600 mb-6 leading-relaxed">
                                     エンジニアの挑戦を支える技術メディア。
                                     最新の技術スタックからマネタイズ戦略まで、本物の知見を発信。
                                 </p>
-                                <Link href="https://personal-dev.net/" target="_blank" className="text-white font-medium hover:underline flex items-center gap-2">
+                                <Link href="https://personal-dev.net/" target="_blank" className="text-black font-medium hover:underline flex items-center gap-2">
                                     メディアを見る 
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -375,23 +375,23 @@ export default async function HomePage() {
                 </section>
 
                 {/* Recruit Section */}
-                <section className="py-32 border-t border-zinc-800 bg-zinc-900/50 relative overflow-hidden">
-                    <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent" />
+                <section className="py-32 border-t border-zinc-200 bg-zinc-50 relative overflow-hidden">
+                    <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-black/5 to-transparent" />
                     <div className="container mx-auto px-4 relative z-10">
                         <div className="grid md:grid-cols-2 gap-16 items-center">
                             <div>
-                                <div className="text-white font-bold tracking-wider text-xs mb-4">RECRUIT</div>
-                                <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-8 leading-tight">
+                                <div className="text-black font-bold tracking-wider text-xs mb-4">RECRUIT</div>
+                                <h2 className="text-4xl md:text-5xl font-black tracking-tight text-black mb-8 leading-tight">
                                     自分の成長と、<br />
                                     誰かの幸せに、<br />
                                     本気で挑戦しませんか。
                                 </h2>
-                                <p className="text-zinc-400 mb-10 leading-relaxed text-lg">
+                                <p className="text-zinc-600 mb-10 leading-relaxed text-lg">
                                     誰かのために、自分のスキルを活かしたり、<br />
                                     未来のために、もっと自分を成長させたい。<br />
                                     そんなマインドと行動力を持った仲間を募集しています。
                                 </p>
-                                <Button variant="outline" className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 px-8" asChild>
+                                <Button variant="outline" className="border-zinc-300 text-zinc-700 hover:bg-zinc-100 px-8" asChild>
                                     {isRecruitExternal() ? (
                                         <a href={getRecruitUrl()} target="_blank" rel="noopener noreferrer">
                                             採用情報を見る
@@ -404,7 +404,7 @@ export default async function HomePage() {
                                 </Button>
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold text-white mb-6">募集職種</h3>
+                                <h3 className="text-xl font-bold text-black mb-6">募集職種</h3>
                                 <div className="grid grid-cols-2 gap-4">
                                     {[
                                         { role: "エンジニア", desc: "フロントエンド・バックエンド" },
@@ -418,18 +418,18 @@ export default async function HomePage() {
                                                 href={getRecruitUrl('/#jobs')}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="p-5 bg-zinc-800/50 border border-zinc-700 hover:border-white/30 transition-all"
+                                                className="p-5 bg-white border border-zinc-200 hover:border-zinc-400 transition-all"
                                             >
-                                                <div className="text-white font-bold mb-1">{job.role}</div>
+                                                <div className="text-black font-bold mb-1">{job.role}</div>
                                                 <div className="text-zinc-500 text-xs">{job.desc}</div>
                                             </a>
                                         ) : (
                                             <Link
                                                 key={index}
                                                 href={getRecruitUrl('/#jobs')}
-                                                className="p-5 bg-zinc-800/50 border border-zinc-700 hover:border-white/30 transition-all"
+                                                className="p-5 bg-white border border-zinc-200 hover:border-zinc-400 transition-all"
                                             >
-                                                <div className="text-white font-bold mb-1">{job.role}</div>
+                                                <div className="text-black font-bold mb-1">{job.role}</div>
                                                 <div className="text-zinc-500 text-xs">{job.desc}</div>
                                             </Link>
                                         )
