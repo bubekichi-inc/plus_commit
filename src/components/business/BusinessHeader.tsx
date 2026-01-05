@@ -3,10 +3,8 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { getRecruitUrl, isRecruitExternal } from "@/lib/site-config"
-import { useAuth } from "@/components/auth/AuthProvider"
-import { User, LogOut, Settings, BookOpen, ChevronDown } from "lucide-react"
 
 type MenuItem = {
     label: string
@@ -58,11 +56,8 @@ const menuItems: MenuItem[] = [
 
 export function BusinessHeader() {
     const [activeMenu, setActiveMenu] = useState<string | null>(null)
-    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
     const [isVisible, setIsVisible] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
-    const userMenuRef = useRef<HTMLDivElement>(null)
-    const { user, profile, loading, isConfigured, signOut } = useAuth()
 
     // スクロール制御
     useEffect(() => {
@@ -81,22 +76,6 @@ export function BusinessHeader() {
         return () => window.removeEventListener('scroll', controlNavbar)
     }, [lastScrollY])
 
-    // ユーザーメニュー外クリックで閉じる
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
-                setIsUserMenuOpen(false)
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
-    }, [])
-
-    const handleSignOut = async () => {
-        await signOut()
-        setIsUserMenuOpen(false)
-    }
-
     return (
         <header className={`fixed top-0 left-0 w-full z-50 border-b border-zinc-200 bg-white/95 backdrop-blur-md transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
             <div className="container mx-auto px-4 h-20 flex items-center justify-between">
@@ -105,9 +84,9 @@ export function BusinessHeader() {
                         <Image
                             src="/general/top/logo.png"
                             alt="プラスコミット"
-                            width={220}
-                            height={48}
-                            className="h-8 w-auto"
+                            width={160}
+                            height={35}
+                            className="h-6 w-auto"
                             priority
                         />
                     </Link>
@@ -170,85 +149,6 @@ export function BusinessHeader() {
                                 お問い合わせ
                             </Link>
                         </Button>
-
-                        {/* 認証エリア */}
-                        {isConfigured && !loading && (
-                            user ? (
-                                <div className="relative" ref={userMenuRef}>
-                                    <button
-                                        onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                                        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-zinc-100 transition-colors"
-                                    >
-                                        <div className="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center text-black text-sm font-bold">
-                                            {profile?.name?.charAt(0) || user.email?.charAt(0)?.toUpperCase() || 'U'}
-                                        </div>
-                                        <ChevronDown className={`w-4 h-4 text-zinc-600 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
-                                    </button>
-
-                                    {/* User Dropdown Menu */}
-                                    {isUserMenuOpen && (
-                                        <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-zinc-200 rounded-lg shadow-xl overflow-hidden">
-                                            <div className="px-4 py-3 border-b border-zinc-200">
-                                                <div className="text-black font-medium text-sm truncate">
-                                                    {profile?.name || 'ユーザー'}
-                                                </div>
-                                                <div className="text-zinc-500 text-xs truncate">
-                                                    {user.email}
-                                                </div>
-                                            </div>
-                                            <div className="py-2">
-                                                <Link
-                                                    href="/mypage"
-                                                    onClick={() => setIsUserMenuOpen(false)}
-                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-600 hover:text-black hover:bg-zinc-100 transition-colors"
-                                                >
-                                                    <User className="w-4 h-4" />
-                                                    マイページ
-                                                </Link>
-                                                <Link
-                                                    href="/mypage/contents"
-                                                    onClick={() => setIsUserMenuOpen(false)}
-                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-600 hover:text-black hover:bg-zinc-100 transition-colors"
-                                                >
-                                                    <BookOpen className="w-4 h-4" />
-                                                    限定コンテンツ
-                                                </Link>
-                                                <Link
-                                                    href="/mypage?tab=settings"
-                                                    onClick={() => setIsUserMenuOpen(false)}
-                                                    className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-600 hover:text-black hover:bg-zinc-100 transition-colors"
-                                                >
-                                                    <Settings className="w-4 h-4" />
-                                                    設定
-                                                </Link>
-                                            </div>
-                                            <div className="py-2 border-t border-zinc-200">
-                                                <button
-                                                    onClick={handleSignOut}
-                                                    className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:text-red-700 hover:bg-zinc-100 transition-colors"
-                                                >
-                                                    <LogOut className="w-4 h-4" />
-                                                    ログアウト
-                                                </button>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            ) : (
-                                <div className="flex items-center gap-2">
-                                    <Link href="/login">
-                                        <Button size="sm" variant="ghost" className="text-zinc-600 hover:text-black hover:bg-zinc-100">
-                                            ログイン
-                                        </Button>
-                                    </Link>
-                                    <Link href="/register">
-                                        <Button size="sm" variant="outline" className="border-zinc-200 text-zinc-600 hover:bg-zinc-100">
-                                            新規登録
-                                        </Button>
-                                    </Link>
-                                </div>
-                            )
-                        )}
                     </div>
                 </nav>
 
