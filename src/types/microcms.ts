@@ -85,3 +85,14 @@ export type MemberContent = {
 
 export type MemberContentResponse = MicroCMSListResponse<MemberContent>;
 
+export type PageSetting = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  slug: string;
+  title: string;
+  description: string;
+};
+

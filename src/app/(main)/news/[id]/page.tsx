@@ -5,6 +5,26 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getNewsDetail } from "@/lib/microcms"
+import { Metadata } from 'next'
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ id: string }>
+}): Promise<Metadata> {
+    const { id } = await params
+    try {
+        const post = await getNewsDetail(id)
+        return {
+            title: `${post.title} | 株式会社PLUS-COMMIT`,
+            description: post.content ? post.content.replace(/<[^>]*>?/gm, '').substring(0, 160) : '',
+        }
+    } catch {
+        return {
+            title: 'ニュース | 株式会社PLUS-COMMIT',
+        }
+    }
+}
 
 export default async function NewsDetailPage({
     params,

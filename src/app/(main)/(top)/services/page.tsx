@@ -2,6 +2,16 @@ import { BusinessHeader } from "@/components/business/BusinessHeader"
 import { BusinessFooter } from "@/components/business/BusinessFooter"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { Metadata } from 'next'
+import { getPageSetting } from "@/lib/microcms"
+
+export async function generateMetadata(): Promise<Metadata> {
+    const setting = await getPageSetting('services')
+    return {
+        title: setting?.title,
+        description: setting?.description,
+    }
+}
 
 const services = [
     {

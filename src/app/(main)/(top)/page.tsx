@@ -3,8 +3,17 @@ import { BusinessFooter } from "@/components/business/BusinessFooter"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { BusinessHero } from "@/components/business/BusinessHero"
-import { getNewsList } from "@/lib/microcms"
+import { getNewsList, getPageSetting } from "@/lib/microcms"
 import { getRecruitUrl, isRecruitExternal } from "@/lib/site-config"
+import { Metadata } from 'next'
+
+export async function generateMetadata(): Promise<Metadata> {
+    const setting = await getPageSetting('top')
+    return {
+        title: setting?.title,
+        description: setting?.description,
+    }
+}
 
 export default async function HomePage() {
     const { contents: news } = await getNewsList({ limit: 5 })
@@ -331,12 +340,6 @@ export default async function HomePage() {
                                     IT転職・独立を目指す方のためのスキル習得支援サービス。
                                     実践的なスキル習得から転職サポートまで一貫してサポートします。
                                 </p>
-                                <Link href="/career" className="text-white font-medium hover:underline flex items-center gap-2">
-                                    詳しく見る 
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </Link>
                             </div>
                             
                             {/* K-zoku */}

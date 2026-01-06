@@ -91,10 +91,21 @@ export async function POST(request: Request) {
         }
 
         // Supabaseクライアントの作成
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+        if (!supabaseUrl || !supabaseKey) {
+            console.error("Supabase environment variables are missing.")
+            return NextResponse.json(
+                { error: "サーバーの設定に不備があります。環境変数を確認してください。" },
+                { status: 500 }
+            )
+        }
+
         const supabase = await createClient()
 
         // データベースに保存
-        const { data, error } = await supabase
+        const { data, error: dbError } = await supabase
             .from("contacts")
             .insert([
                 {
@@ -110,10 +121,10 @@ export async function POST(request: Request) {
             ])
             .select()
 
-        if (error) {
-            console.error("Supabase error:", error)
+        if (dbError) {
+            console.error("Supabase error:", dbError)
             return NextResponse.json(
-                { error: "データの保存に失敗しました。" },
+                { error: "データの保存に失敗しました。管理者にお問い合わせください。" },
                 { status: 500 }
             )
         }

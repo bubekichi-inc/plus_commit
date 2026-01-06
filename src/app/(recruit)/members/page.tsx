@@ -1,5 +1,5 @@
-import { Header } from "@/components/sections/Header"
-import { Footer } from "@/components/sections/Footer"
+import { RecruitHeader } from "@/components/recruit/RecruitHeader"
+import { RecruitFooter } from "@/components/recruit/RecruitFooter"
 
 const members = [
     {
@@ -30,17 +30,17 @@ const members = [
 
 export default function MembersPage() {
     return (
-        <>
-            <Header />
+        <div className="bg-black">
+            <RecruitHeader />
             <main className="min-h-screen pt-20">
                 {/* Hero Section */}
                 <section className="py-24 border-b border-zinc-800">
                     <div className="container mx-auto px-4">
                         <h1 className="text-5xl md:text-6xl font-black italic tracking-tighter mb-6">
-                            <span className="text-primary-500">メンバー</span>紹介
+                            <span className="text-emerald-500">メンバー</span>紹介
                         </h1>
                         <p className="text-xl text-zinc-400 max-w-2xl">
-                            あなたの目標達成をサポートする、経験豊富なプロフェッショナルチーム。
+                            共に未来を創る、プロフェッショナルな仲間たち。
                         </p>
                     </div>
                 </section>
@@ -104,8 +104,8 @@ export default function MembersPage() {
                     </div>
                 </section>
             </main>
-            <Footer />
-        </>
+            <RecruitFooter />
+        </div>
     )
 }
 

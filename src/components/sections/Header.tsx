@@ -4,7 +4,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { DomainSwitcher } from "@/components/ui/DomainSwitcher"
 
 export function Header() {
     const [isVisible, setIsVisible] = useState(true)
@@ -41,9 +40,6 @@ export function Header() {
                             priority
                         />
                     </Link>
-                    <div className="flex items-center">
-                        <DomainSwitcher />
-                    </div>
                 </div>
 
                 <nav className="hidden md:flex items-center gap-8">

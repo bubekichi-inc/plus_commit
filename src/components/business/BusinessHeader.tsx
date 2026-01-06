@@ -86,7 +86,7 @@ export function BusinessHeader() {
                             alt="プラスコミット"
                             width={160}
                             height={35}
-                            className="h-6 w-auto"
+                            className="h-6 w-auto filter brightness-0"
                             priority
                         />
                     </Link>

@@ -1,6 +1,6 @@
 import { createClient } from 'microcms-js-sdk';
 import type { MicroCMSQueries } from 'microcms-js-sdk';
-import type { News, MemberContent } from '@/types/microcms';
+import type { News, MemberContent, PageSetting } from '@/types/microcms';
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
   throw new Error('MICROCMS_SERVICE_DOMAIN is required');
@@ -53,5 +53,17 @@ export const getMemberContentDetail = async (
     contentId,
     queries,
   });
+};
+
+// ページ設定を取得
+export const getPageSetting = async (slug: string, queries?: MicroCMSQueries) => {
+  const response = await client.getList<PageSetting>({
+    endpoint: 'page-settings',
+    queries: {
+      ...queries,
+      filters: `slug[equals]${slug}`,
+    },
+  });
+  return response.contents[0];
 };
 

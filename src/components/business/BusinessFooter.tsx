@@ -8,32 +8,18 @@ export function BusinessFooter() {
             {/* Contact Banner */}
             <div className="border-b border-zinc-200">
                 <div className="container mx-auto px-4 py-8">
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <Link 
-                            href="/contact"
-                            className="flex items-center justify-between p-6 bg-zinc-50 border border-zinc-200 hover:border-zinc-400 transition-colors group"
-                        >
-                            <div>
-                                <div className="text-zinc-500 text-sm mb-1">お問い合わせ</div>
-                                <div className="text-black font-bold group-hover:text-zinc-600 transition-colors">
-                                    コーディング代行・DXコンサルティングのご相談
-                                </div>
+                    <Link 
+                        href="/contact"
+                        className="flex items-center justify-between p-8 bg-zinc-900 border border-zinc-900 hover:bg-black transition-all group rounded-lg"
+                    >
+                        <div>
+                            <div className="text-zinc-400 text-sm mb-1 uppercase tracking-widest">Contact</div>
+                            <div className="text-white text-xl md:text-2xl font-bold group-hover:translate-x-1 transition-transform">
+                                コーディング代行・DXコンサルティングのご相談
                             </div>
-                            <span className="text-black text-2xl">→</span>
-                        </Link>
-                        <Link 
-                            href="/career"
-                            className="flex items-center justify-between p-6 bg-zinc-50 border border-zinc-200 hover:border-zinc-400 transition-colors group"
-                        >
-                            <div>
-                                <div className="text-zinc-500 text-sm mb-1">個人向けサービス</div>
-                                <div className="text-black font-bold group-hover:text-zinc-600 transition-colors">
-                                    IT学習・スキル習得支援サービス
-                                </div>
-                            </div>
-                            <span className="text-black text-2xl">→</span>
-                        </Link>
-                    </div>
+                        </div>
+                        <span className="text-white text-3xl group-hover:translate-x-2 transition-transform">→</span>
+                    </Link>
                 </div>
             </div>
 

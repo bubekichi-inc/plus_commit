@@ -10,8 +10,8 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-    title: "株式会社PLUS-COMMIT（プラスコミット）| コーディング代行・DXコンサルティング",
-    description: "株式会社PLUS-COMMITは、コーディング代行、DXコンサルティング、Web制作・開発を通じて、企業のデジタル変革を支援します。最新のテクノロジーと確かな技術力で、ビジネス課題を解決します。",
+    title: "株式会社PlusCommit（プラスコミット）| Web・DXコンサルティング",
+    description: "株式会社PlusCommit(プラスコミット)は、コーディング代行、DXコンサルティング、Web制作・開発を通じて、企業のデジタル変革を支援します。最新のテクノロジーと確かな技術力で、ビジネス課題を解決します。",
 };
 
 export default function RootLayout({

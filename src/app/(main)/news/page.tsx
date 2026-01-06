@@ -2,8 +2,17 @@ import { BusinessHeader } from "@/components/business/BusinessHeader"
 import { BusinessFooter } from "@/components/business/BusinessFooter"
 import { NewsSearchSidebar } from "@/components/business/NewsSearchSidebar"
 import Link from "next/link"
-import { getNewsList } from "@/lib/microcms"
+import { getNewsList, getPageSetting } from "@/lib/microcms"
 import { Suspense } from "react"
+import { Metadata } from 'next'
+
+export async function generateMetadata(): Promise<Metadata> {
+    const setting = await getPageSetting('news')
+    return {
+        title: setting?.title,
+        description: setting?.description,
+    }
+}
 
 type SearchParams = Promise<{ q?: string }>
 
