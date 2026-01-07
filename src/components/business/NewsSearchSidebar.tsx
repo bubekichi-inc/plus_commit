@@ -27,10 +27,10 @@ export function NewsSearchSidebar() {
         <aside className="w-full lg:w-80 shrink-0">
             <div className="sticky top-24 space-y-6">
                 {/* 検索ボックス */}
-                <div className="bg-slate-900/80 backdrop-blur-sm border border-slate-800 p-6">
-                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <div className="bg-white border border-zinc-200 rounded-lg p-6 shadow-sm">
+                    <h3 className="text-lg font-bold text-zinc-900 mb-4 flex items-center gap-2">
                         <svg 
-                            className="w-5 h-5 text-blue-400" 
+                            className="w-5 h-5 text-primary-500" 
                             fill="none" 
                             stroke="currentColor" 
                             viewBox="0 0 24 24"
@@ -51,13 +51,13 @@ export function NewsSearchSidebar() {
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                                 placeholder="キーワードを入力..."
-                                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                                className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-lg text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
                             />
                             {query && (
                                 <button
                                     type="button"
                                     onClick={() => setQuery("")}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 transition-colors"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -67,7 +67,7 @@ export function NewsSearchSidebar() {
                         </div>
                         <button
                             type="submit"
-                            className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold transition-colors flex items-center justify-center gap-2"
+                            className="w-full py-3 bg-primary-500 hover:bg-primary-600 text-white font-bold transition-colors flex items-center justify-center gap-2 rounded-lg"
                         >
                             <svg 
                                 className="w-4 h-4" 
@@ -88,14 +88,14 @@ export function NewsSearchSidebar() {
                     
                     {/* 検索中の状態表示 */}
                     {currentQuery && (
-                        <div className="mt-4 pt-4 border-t border-slate-700">
+                        <div className="mt-4 pt-4 border-t border-zinc-200">
                             <div className="flex items-center justify-between text-sm">
-                                <span className="text-slate-400">
-                                    検索中: <span className="text-blue-400 font-medium">&ldquo;{currentQuery}&rdquo;</span>
+                                <span className="text-zinc-600">
+                                    検索中: <span className="text-primary-600 font-medium">&ldquo;{currentQuery}&rdquo;</span>
                                 </span>
                                 <button
                                     onClick={handleClear}
-                                    className="text-slate-500 hover:text-red-400 transition-colors text-xs underline"
+                                    className="text-zinc-500 hover:text-red-500 transition-colors text-xs underline"
                                 >
                                     クリア
                                 </button>
@@ -105,15 +105,15 @@ export function NewsSearchSidebar() {
                 </div>
 
                 {/* 検索のヒント */}
-                <div className="bg-slate-900/50 border border-slate-800/50 p-5 text-sm">
-                    <h4 className="text-slate-300 font-medium mb-3">検索のヒント</h4>
-                    <ul className="space-y-2 text-slate-500">
+                <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-5 text-sm">
+                    <h4 className="text-zinc-700 font-medium mb-3">検索のヒント</h4>
+                    <ul className="space-y-2 text-zinc-600">
                         <li className="flex items-start gap-2">
-                            <span className="text-blue-400 mt-1">•</span>
+                            <span className="text-primary-500 mt-1">•</span>
                             タイトルや本文からキーワード検索ができます
                         </li>
                         <li className="flex items-start gap-2">
-                            <span className="text-blue-400 mt-1">•</span>
+                            <span className="text-primary-500 mt-1">•</span>
                             複数のキーワードはスペースで区切って入力できます
                         </li>
                     </ul>

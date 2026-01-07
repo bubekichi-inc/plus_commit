@@ -40,11 +40,11 @@ export function RecruitHeader({ onLoginClick }: RecruitHeaderProps) {
         {/* Logo */}
         <Link href="/recruit" className="flex items-center gap-3 group">
           <Image
-            src="/general/logo-pc.png"
+            src="/general/logo.svg"
             alt="プラスコミット"
             width={200}
             height={44}
-            className="h-11 w-auto"
+            className="h-9 w-auto brightness-0 invert"
             priority
           />
         </Link>

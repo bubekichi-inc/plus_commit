@@ -22,11 +22,11 @@ export function middleware(request: NextRequest) {
     }
     
     // 末尾スラッシュの統一: スラッシュなしのURLをスラッシュありにリダイレクト
-    // ルートパス（/）とファイル拡張子がある場合は除外
+    // ルートパス（/）、/apiパス、ファイル拡張子がある場合は除外
     const pathname = url.pathname
-    if (pathname !== '/' && !pathname.endsWith('/') && !pathname.match(/\.[^/]+$/)) {
+    if (pathname !== '/' && !pathname.startsWith('/api') && !pathname.endsWith('/') && !pathname.match(/\.[^/]+$/)) {
         url.pathname = `${pathname}/`
-        return NextResponse.redirect(url)
+        return NextResponse.redirect(url, 301) // SEO的には301が一般的
     }
     
     // recruitサブドメインの場合は(recruit)グループにリライト

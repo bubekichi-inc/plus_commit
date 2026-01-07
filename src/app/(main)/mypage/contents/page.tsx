@@ -6,8 +6,8 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/components/auth/AuthProvider"
-import { BusinessHeader } from "@/components/business/BusinessHeader"
-import { BusinessFooter } from "@/components/business/BusinessFooter"
+import { Header } from "@/components/sections/Header"
+import { Footer } from "@/components/sections/Footer"
 import {
     BookOpen,
     Video,
@@ -143,7 +143,7 @@ export default function MemberContentsPage() {
 
     return (
         <>
-            <BusinessHeader />
+            <Header />
             <main className="min-h-screen bg-slate-950 pt-20">
                 <div className="container mx-auto px-4 py-12">
                     {/* Header */}
@@ -264,7 +264,7 @@ export default function MemberContentsPage() {
                     </div>
                 </div>
             </main>
-            <BusinessFooter />
+            <Footer />
         </>
     )
 }

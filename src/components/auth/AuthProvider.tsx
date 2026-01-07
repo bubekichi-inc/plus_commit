@@ -55,8 +55,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
   const [isConfigured] = useState(() => isSupabaseConfigured())
 
+  // リクルートドメインかどうかを判定
+  const isRecruitDomain = useCallback(() => {
+    if (typeof window === 'undefined') return false
+    const hostname = window.location.hostname
+    return hostname.startsWith('recruit.') || hostname.includes('localhost') // ローカルは開発用で許可
+  }, [])
+
   // プロファイルを取得
   const fetchProfile = useCallback(async (userId: string) => {
+    // リクルートドメイン以外ではプロフィール取得をスキップ
+    if (!isRecruitDomain()) return
+
     try {
       const response = await fetch(`/api/profile?userId=${userId}`)
       if (response.ok) {

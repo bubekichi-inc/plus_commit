@@ -14,5 +14,5 @@ export default function RecruitSectionLayout({
 }: {
     children: React.ReactNode
 }) {
-    return <>{children}</>
+    return <div className="theme-orange contents">{children}</div>
 }

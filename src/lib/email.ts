@@ -1,7 +1,15 @@
 import { Resend } from "resend"
 
-// Resendクライアントの初期化
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Resendクライアントの初期化（取得関数を介してアクセス）
+let resendInstance: Resend | null = null
+const getResend = () => {
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) return null
+    if (!resendInstance) {
+        resendInstance = new Resend(apiKey)
+    }
+    return resendInstance
+}
 
 // 通知先メールアドレス（環境変数から取得、カンマ区切りで複数指定可能）
 const getNotificationEmails = (): string[] => {
@@ -61,6 +69,11 @@ export async function sendContactNotificationEmail(contact: ContactData): Promis
     const serviceName = serviceLabels[contact.service] || contact.service
     const budgetName = contact.budget ? (budgetLabels[contact.budget] || contact.budget) : "未選択"
     const now = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })
+
+    const resend = getResend()
+    if (!resend) {
+        return { success: false, error: "Resend APIキーが設定されていません" }
+    }
 
     try {
         const { error } = await resend.emails.send({
@@ -174,7 +187,8 @@ ${contact.message}
  * お客様への自動返信メールを送信
  */
 export async function sendContactAutoReplyEmail(contact: ContactData): Promise<{ success: boolean; error?: string }> {
-    if (!process.env.RESEND_API_KEY) {
+    const resend = getResend()
+    if (!resend) {
         console.warn("RESEND_API_KEY is not set")
         return { success: false, error: "Resend APIキーが設定されていません" }
     }
@@ -254,6 +268,8 @@ Email: business@plus-commit.com
         return { success: false, error: error instanceof Error ? error.message : "メール送信に失敗しました" }
     }
 }
+
+
 
 
 

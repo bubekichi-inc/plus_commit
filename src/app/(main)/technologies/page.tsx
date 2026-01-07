@@ -1,5 +1,5 @@
-import { BusinessHeader } from "@/components/business/BusinessHeader"
-import { BusinessFooter } from "@/components/business/BusinessFooter"
+import { Header } from "@/components/sections/Header"
+import { Footer } from "@/components/sections/Footer"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { technologies, categories } from "@/lib/technologies"
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function TechnologiesPage() {
     return (
         <>
-            <BusinessHeader />
+            <Header />
             <main className="min-h-screen pt-20 bg-white">
                 <section className="py-24 border-b border-zinc-100 relative overflow-hidden">
                     <div className="container mx-auto px-4 relative z-10">
@@ -118,7 +118,7 @@ export default function TechnologiesPage() {
                     </div>
                 </section>
             </main>
-            <BusinessFooter />
+            <Footer />
         </>
     )
 }

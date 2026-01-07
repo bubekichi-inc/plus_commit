@@ -1,9 +1,10 @@
 "use client"
 
-import { BusinessHeader } from "@/components/business/BusinessHeader"
-import { BusinessFooter } from "@/components/business/BusinessFooter"
+import { Header } from "@/components/sections/Header"
+import { Footer } from "@/components/sections/Footer"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { CheckCircle, AlertCircle, Loader2 } from "lucide-react"
 
 type FormData = {
@@ -21,6 +22,7 @@ type FormErrors = {
 }
 
 export default function ContactPage() {
+    const router = useRouter()
     const [formData, setFormData] = useState<FormData>({
         company: "",
         name: "",
@@ -76,7 +78,7 @@ export default function ContactPage() {
         setSubmitMessage("")
 
         try {
-            const response = await fetch("/api/contact", {
+            const response = await fetch("/api/contact/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -90,18 +92,8 @@ export default function ContactPage() {
                 throw new Error(data.error || "送信に失敗しました")
             }
 
-            setSubmitStatus("success")
-            setSubmitMessage(data.message)
-            // フォームをリセット
-            setFormData({
-                company: "",
-                name: "",
-                email: "",
-                phone: "",
-                service: "",
-                budget: "",
-                message: "",
-            })
+            // 成功したらthanksページへリダイレクト
+            router.push("/contact/thanks/")
         } catch (error) {
             setSubmitStatus("error")
             setSubmitMessage(error instanceof Error ? error.message : "予期せぬエラーが発生しました")
@@ -120,7 +112,7 @@ export default function ContactPage() {
 
     return (
         <>
-            <BusinessHeader />
+            <Header />
             <main className="min-h-screen pt-20 bg-white">
                 <section className="py-24 border-b border-zinc-100">
                     <div className="container mx-auto px-4">
@@ -364,7 +356,7 @@ export default function ContactPage() {
                     </div>
                 </section>
             </main>
-            <BusinessFooter />
+            <Footer />
         </>
     )
 }

@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
 import { sendContactNotificationEmail, sendContactAutoReplyEmail } from "@/lib/email"
 
 // お問い合わせデータの型定義
@@ -78,8 +77,17 @@ export async function POST(request: Request) {
             )
         }
 
-        // リクエストボディの取得
-        const body: ContactData = await request.json()
+        // リクエストボディの取得とバリデーション
+        let body: ContactData
+        try {
+            body = await request.json()
+        } catch (e) {
+            console.error("Failed to parse request body:", e)
+            return NextResponse.json(
+                { error: "リクエスト形式が正しくありません。" },
+                { status: 400 }
+            )
+        }
 
         // バリデーション
         const validation = validateContactData(body)
@@ -90,41 +98,55 @@ export async function POST(request: Request) {
             )
         }
 
-        // Supabaseクライアントの作成
+        // 環境変数の取得
+        // サーバーサイド（API Route）ではservice_roleキーを使用
+        // これはクライアントには公開されず、安全です
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
         if (!supabaseUrl || !supabaseKey) {
             console.error("Supabase environment variables are missing.")
             return NextResponse.json(
-                { error: "サーバーの設定に不備があります。環境変数を確認してください。" },
+                { error: "サーバーの設定に不備があります。" },
                 { status: 500 }
             )
         }
 
-        const supabase = await createClient()
+        // Supabase REST APIへ直接リクエスト
+        const insertData = {
+            company: body.company.trim(),
+            name: body.name.trim(),
+            email: body.email.trim().toLowerCase(),
+            phone: body.phone?.trim() || null,
+            service: body.service,
+            budget: body.budget || null,
+            message: body.message.trim(),
+            status: "new",
+        }
 
-        // データベースに保存
-        const { data, error: dbError } = await supabase
-            .from("contacts")
-            .insert([
-                {
-                    company: body.company.trim(),
-                    name: body.name.trim(),
-                    email: body.email.trim().toLowerCase(),
-                    phone: body.phone?.trim() || null,
-                    service: body.service,
-                    budget: body.budget || null,
-                    message: body.message.trim(),
-                    status: "new",
-                },
-            ])
-            .select()
+        const response = await fetch(`${supabaseUrl}/rest/v1/contacts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': supabaseKey,
+                'Authorization': `Bearer ${supabaseKey}`,
+                'Prefer': 'return=representation'
+            },
+            body: JSON.stringify(insertData)
+        })
 
-        if (dbError) {
-            console.error("Supabase error:", dbError)
+        const result = await response.json()
+
+        if (!response.ok) {
+            console.error("Supabase REST API error:", response.status, result)
             return NextResponse.json(
-                { error: "データの保存に失敗しました。管理者にお問い合わせください。" },
+                { 
+                    error: "データベースのエラーが発生しました。",
+                    details: result.message || JSON.stringify(result),
+                    hint: result.hint,
+                    code: result.code,
+                    statusCode: response.status
+                },
                 { status: 500 }
             )
         }
@@ -142,9 +164,9 @@ export async function POST(request: Request) {
 
         // 管理者への通知メール
         sendContactNotificationEmail(contactDataForEmail)
-            .then(result => {
-                if (!result.success) {
-                    console.warn("Failed to send notification email:", result.error)
+            .then(res => {
+                if (!res.success) {
+                    console.warn("Failed to send notification email:", res.error)
                 } else {
                     console.log("Notification email sent successfully")
                 }
@@ -153,9 +175,9 @@ export async function POST(request: Request) {
 
         // お客様への自動返信メール
         sendContactAutoReplyEmail(contactDataForEmail)
-            .then(result => {
-                if (!result.success) {
-                    console.warn("Failed to send auto-reply email:", result.error)
+            .then(res => {
+                if (!res.success) {
+                    console.warn("Failed to send auto-reply email:", res.error)
                 } else {
                     console.log("Auto-reply email sent successfully")
                 }
@@ -166,15 +188,16 @@ export async function POST(request: Request) {
         return NextResponse.json(
             { 
                 message: "お問い合わせを受け付けました。担当者より2営業日以内にご連絡いたします。",
-                id: data?.[0]?.id 
+                id: result?.[0]?.id 
             },
             { status: 200 }
         )
 
-    } catch (error) {
-        console.error("Contact API error:", error)
+    } catch (error: unknown) {
+        console.error("Contact API unexpected error:", error)
+        const errorMessage = error instanceof Error ? error.message : "予期せぬエラーが発生しました。"
         return NextResponse.json(
-            { error: "予期せぬエラーが発生しました。" },
+            { error: errorMessage },
             { status: 500 }
         )
     }

@@ -1,5 +1,5 @@
-import { BusinessHeader } from "@/components/business/BusinessHeader"
-import { BusinessFooter } from "@/components/business/BusinessFooter"
+import { Header } from "@/components/sections/Header"
+import { Footer } from "@/components/sections/Footer"
 import { Metadata } from 'next'
 import { getPageSetting } from "@/lib/microcms"
 
@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function AboutPage() {
     return (
         <>
-            <BusinessHeader />
+            <Header />
             <main className="min-h-screen pt-20 bg-white text-zinc-900">
                 {/* Hero Section */}
                 <section className="py-24 border-b border-zinc-100">
@@ -95,7 +95,7 @@ export default function AboutPage() {
                     </div>
                 </section>
             </main>
-            <BusinessFooter />
+            <Footer />
         </>
     )
 }

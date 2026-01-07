@@ -13,6 +13,13 @@ export async function GET(request: NextRequest) {
 
     const supabase = await createClient()
     
+    // UUID形式チェック
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId)
+    if (!isUuid) {
+      console.warn('Invalid UUID provided to profile API:', userId)
+      return NextResponse.json({ profile: null, message: 'Invalid UserID format' })
+    }
+
     // Supabase のプロファイルテーブルから取得
     const { data: profile, error } = await supabase
       .from('profiles')
@@ -79,6 +86,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 })
   }
 }
+
+
 
 
 

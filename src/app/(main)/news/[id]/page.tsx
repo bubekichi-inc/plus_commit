@@ -1,5 +1,5 @@
-import { BusinessHeader } from "@/components/business/BusinessHeader"
-import { BusinessFooter } from "@/components/business/BusinessFooter"
+import { Header } from "@/components/sections/Header"
+import { Footer } from "@/components/sections/Footer"
 import { ShareButtons } from "@/components/business/ShareButtons"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -46,8 +46,8 @@ export default async function NewsDetailPage({
 
     return (
         <>
-            <BusinessHeader />
-            <main className="min-h-screen pt-20">
+            <Header />
+            <main className="min-h-screen pt-20 bg-white">
                 <article className="py-24">
                     <div className="container mx-auto px-4">
                         <div className="flex gap-8 max-w-5xl mx-auto">
@@ -60,36 +60,36 @@ export default async function NewsDetailPage({
                                     <div className="flex items-center gap-4 mb-6">
                                         <Link 
                                             href="/news"
-                                            className="text-slate-400 hover:text-white transition-colors text-sm"
+                                            className="text-zinc-500 hover:text-primary-600 transition-colors text-sm font-medium"
                                         >
                                             お知らせ一覧
                                         </Link>
-                                        <span className="text-slate-600">/</span>
-                                        <span className="text-blue-400 text-sm font-bold">{post.category?.name || "お知らせ"}</span>
+                                        <span className="text-zinc-300">/</span>
+                                        <span className="text-primary-600 text-sm font-bold">{post.category?.name || "お知らせ"}</span>
                                     </div>
-                                    <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
+                                    <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900 mb-6 leading-tight">
                                         {post.title}
                                     </h1>
-                                    <div className="text-slate-500 text-sm">
+                                    <div className="text-zinc-500 text-sm">
                                         公開日: {new Date(post.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
                                     </div>
                                 </div>
 
                                 <div 
-                                    className="prose prose-invert prose-blue max-w-none text-slate-300 leading-relaxed mb-16
-                                    prose-headings:text-white prose-headings:font-bold
-                                    prose-strong:text-white prose-a:text-blue-400
-                                    prose-img:rounded-lg"
+                                    className="prose prose-zinc max-w-none text-zinc-700 leading-relaxed mb-16
+                                    prose-headings:text-zinc-900 prose-headings:font-bold
+                                    prose-strong:text-zinc-900 prose-a:text-primary-600 prose-a:hover:text-primary-700
+                                    prose-img:rounded-lg prose-img:shadow-lg"
                                     dangerouslySetInnerHTML={{ __html: post.content }}
                                 />
 
-                                <div className="lg:hidden border-t border-slate-800 pt-8 mb-12">
-                                    <p className="text-sm text-slate-400 mb-4">この記事をシェア</p>
+                                <div className="lg:hidden border-t border-zinc-200 pt-8 mb-12">
+                                    <p className="text-sm text-zinc-500 mb-4">この記事をシェア</p>
                                     <ShareButtons title={post.title} id={post.id} layout="inline" />
                                 </div>
 
-                                <div className="border-t border-slate-800 pt-12 text-center">
-                                    <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800" asChild>
+                                <div className="border-t border-zinc-200 pt-12 text-center">
+                                    <Button className="bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-300 font-bold" asChild>
                                         <Link href="/news">お知らせ一覧に戻る</Link>
                                     </Button>
                                 </div>
@@ -98,7 +98,7 @@ export default async function NewsDetailPage({
                     </div>
                 </article>
             </main>
-            <BusinessFooter />
+            <Footer />
         </>
     )
 }

@@ -1,5 +1,5 @@
-import { BusinessHeader } from "@/components/business/BusinessHeader"
-import { BusinessFooter } from "@/components/business/BusinessFooter"
+import { Header } from "@/components/sections/Header"
+import { Footer } from "@/components/sections/Footer"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Metadata } from 'next'
@@ -109,15 +109,15 @@ const services = [
 export default function ServicesPage() {
     return (
         <>
-            <BusinessHeader />
-            <main className="min-h-screen pt-20 bg-black">
-                <section className="py-24 border-b border-zinc-800">
+            <Header />
+            <main className="min-h-screen pt-20 bg-white">
+                <section className="py-24 border-b border-zinc-100">
                     <div className="container mx-auto px-4">
-                        <div className="text-zinc-400 font-medium mb-2 tracking-wider">SERVICES</div>
-                        <h1 className="text-5xl font-black tracking-tight text-white mb-6">
+                        <div className="text-zinc-500 font-bold tracking-wider text-sm mb-4">SERVICES</div>
+                        <h1 className="text-5xl font-black tracking-tight text-zinc-900 mb-6">
                             サービス一覧
                         </h1>
-                        <p className="text-xl text-zinc-400 max-w-2xl">
+                        <p className="text-xl text-zinc-600 max-w-2xl">
                             コーディング代行からDXコンサルティングまで。お客様のビジネス課題に合わせて最適なソリューションをご提案いたします。
                         </p>
                     </div>
@@ -129,35 +129,35 @@ export default function ServicesPage() {
                             {services.map((service, index) => (
                                 <div key={service.id} className="grid md:grid-cols-2 gap-12 items-start">
                                     <div className={index % 2 === 1 ? "md:order-2" : ""}>
-                                        <div className="text-zinc-400 font-medium mb-2 tracking-wider">
+                                        <div className="text-zinc-500 font-bold tracking-wider text-sm mb-2">
                                             0{index + 1}
                                         </div>
-                                        <h2 className="text-3xl font-bold text-white mb-4">
+                                        <h2 className="text-3xl font-bold text-zinc-900 mb-4">
                                             {service.title}
                                         </h2>
-                                        <p className="text-zinc-400 mb-6 leading-relaxed">
+                                        <p className="text-zinc-600 mb-6 leading-relaxed">
                                             {service.description}
                                         </p>
                                         <div className="flex gap-8 mb-6">
                                             <div>
                                                 <div className="text-zinc-500 text-sm mb-1">料金目安</div>
-                                                <div className="text-xl font-bold text-zinc-300">{service.price}</div>
+                                                <div className="text-xl font-bold text-zinc-700">{service.price}</div>
                                             </div>
                                             <div>
                                                 <div className="text-zinc-500 text-sm mb-1">納期目安</div>
-                                                <div className="text-xl font-bold text-white">{service.period}</div>
+                                                <div className="text-xl font-bold text-zinc-900">{service.period}</div>
                                             </div>
                                         </div>
-                                        <Button className="bg-white hover:bg-zinc-200 text-black font-bold" asChild>
+                                        <Button className="bg-primary-500 hover:bg-primary-600 text-white font-bold" asChild>
                                             <Link href="/contact">このサービスについて相談する</Link>
                                         </Button>
                                     </div>
-                                    <div className={`bg-zinc-900 border border-zinc-800 p-8 ${index % 2 === 1 ? "md:order-1" : ""}`}>
-                                        <h3 className="text-white font-bold mb-4">サービス内容</h3>
+                                    <div className={`bg-zinc-50 border border-zinc-200 p-8 rounded-xl ${index % 2 === 1 ? "md:order-1" : ""}`}>
+                                        <h3 className="text-zinc-900 font-bold mb-4">サービス内容</h3>
                                         <ul className="space-y-3">
                                             {service.features.map((feature, featureIndex) => (
-                                                <li key={featureIndex} className="flex items-center gap-3 text-zinc-400">
-                                                    <span className="w-1.5 h-1.5 bg-white rounded-full" />
+                                                <li key={featureIndex} className="flex items-center gap-3 text-zinc-700">
+                                                    <span className="w-1.5 h-1.5 bg-primary-500 rounded-full" />
                                                     {feature}
                                                 </li>
                                             ))}
@@ -169,11 +169,11 @@ export default function ServicesPage() {
                     </div>
                 </section>
 
-                <section className="py-20 border-t border-zinc-800 bg-zinc-900/50">
+                <section className="py-20 border-t border-zinc-100 bg-zinc-50/50">
                     <div className="container mx-auto px-4">
                         <div className="text-center mb-16">
-                            <div className="text-zinc-400 font-medium mb-2 tracking-wider">PROCESS</div>
-                            <h2 className="text-4xl font-black tracking-tight text-white">制作の流れ</h2>
+                            <div className="text-zinc-500 font-bold tracking-wider text-sm mb-2">PROCESS</div>
+                            <h2 className="text-4xl font-black tracking-tight text-zinc-900">制作の流れ</h2>
                         </div>
                         <div className="grid md:grid-cols-5 gap-4">
                             {[
@@ -184,13 +184,13 @@ export default function ServicesPage() {
                                 { step: "05", title: "納品・運用", desc: "公開・保守サポート" },
                             ].map((item, index) => (
                                 <div key={index} className="relative">
-                                    <div className="bg-zinc-900 border border-zinc-800 p-6 text-center h-full">
-                                        <div className="text-3xl font-black text-white/10 mb-2">{item.step}</div>
-                                        <h3 className="text-white font-bold mb-1">{item.title}</h3>
+                                    <div className="bg-white border border-zinc-200 p-6 text-center h-full rounded-lg shadow-sm">
+                                        <div className="text-3xl font-black text-zinc-100 mb-2">{item.step}</div>
+                                        <h3 className="text-zinc-900 font-bold mb-1">{item.title}</h3>
                                         <p className="text-zinc-500 text-sm">{item.desc}</p>
                                     </div>
                                     {index < 4 && (
-                                        <div className="hidden md:block absolute top-1/2 -right-2 transform -translate-y-1/2 text-zinc-700">
+                                        <div className="hidden md:block absolute top-1/2 -right-2 transform -translate-y-1/2 text-zinc-300">
                                             →
                                         </div>
                                     )}
@@ -200,21 +200,21 @@ export default function ServicesPage() {
                     </div>
                 </section>
 
-                <section className="py-24 border-t border-zinc-800">
+                <section className="py-24 border-t border-zinc-100">
                     <div className="container mx-auto px-4 text-center">
-                        <h2 className="text-3xl font-black tracking-tight text-white mb-4">
+                        <h2 className="text-3xl font-black tracking-tight text-zinc-900 mb-4">
                             お見積りは無料です
                         </h2>
-                        <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
+                        <p className="text-zinc-600 mb-8 max-w-xl mx-auto">
                             ご予算・ご要望に応じて、最適なプランをご提案いたします。
                         </p>
-                        <Button size="lg" className="bg-white hover:bg-zinc-200 text-black font-bold px-12" asChild>
+                        <Button size="lg" className="bg-primary-500 hover:bg-primary-600 text-white font-bold px-12" asChild>
                             <Link href="/contact">無料見積りを依頼する</Link>
                         </Button>
                     </div>
                 </section>
             </main>
-            <BusinessFooter />
+            <Footer />
         </>
     )
 }

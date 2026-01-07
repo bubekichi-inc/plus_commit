@@ -1,13 +1,13 @@
 import Link from "next/link"
-import { BusinessHeader } from "@/components/business/BusinessHeader"
-import { BusinessFooter } from "@/components/business/BusinessFooter"
+import { Header } from "@/components/sections/Header"
+import { Footer } from "@/components/sections/Footer"
 import { Button } from "@/components/ui/button"
 import { FileQuestion } from "lucide-react"
 
 export default function NotFound() {
     return (
         <>
-            <BusinessHeader />
+            <Header />
             <main className="min-h-[80vh] flex items-center justify-center bg-white pt-20">
                 <div className="container mx-auto px-4 text-center">
                     <div className="flex justify-center mb-8">
@@ -39,7 +39,7 @@ export default function NotFound() {
                     </div>
                 </div>
             </main>
-            <BusinessFooter />
+            <Footer />
         </>
     )
 }

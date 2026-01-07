@@ -1,52 +1,61 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Zap } from "lucide-react"
+import { ArrowRight, ChevronRight, Sparkles } from "lucide-react"
+import { Hero3D } from "@/components/3d/Hero3D"
 
 export function Hero() {
     return (
-        <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-zinc-950">
-            {/* Dynamic Background */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary-600/30 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 mix-blend-screen" />
-                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-900/40 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4" />
-                {/* Grid Pattern */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(249,115,22,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(249,115,22,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+        <section className="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden bg-[#020617]">
+            {/* Ambient Background Effects */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-[80vw] h-[80vw] bg-primary-900/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 mix-blend-screen animate-pulse-slow" />
+                <div className="absolute bottom-0 left-0 w-[60vw] h-[60vw] bg-accent/5 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4 mix-blend-screen" />
+                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+                <Hero3D />
             </div>
 
-            <div className="container relative z-10 px-4 text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/20 border border-primary-500/50 mb-8 animate-fade-in-up shadow-[0_0_15px_rgba(249,115,22,0.3)]">
-                    <Zap className="w-4 h-4 text-primary-500 fill-primary-500" />
-                    <span className="text-primary-400 font-bold uppercase tracking-wider text-sm md:text-base">
-                        Commit to Code
+            <div className="container relative z-10 px-6 md:px-12 flex flex-col items-center text-center">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-panel mb-10 animate-fade-in-up opacity-0" style={{ animationDelay: '0.1s' }}>
+                    <Sparkles className="w-4 h-4 text-accent" />
+                    <span className="text-zinc-300 font-medium tracking-wide text-sm">
+                        Premium Web & DX Consulting
                     </span>
                 </div>
 
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 tracking-tighter text-white italic uppercase leading-[0.9]">
-                    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400">
-                        BECOME AN
-                    </span>
-                    <span className="block text-primary-500 drop-shadow-[0_0_25px_rgba(249,115,22,0.5)]">
-                        ENGINEER
-                    </span>
+                {/* Main Heading */}
+                <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight mb-8 leading-[0.95] animate-fade-in-up opacity-0" style={{ animationDelay: '0.3s' }}>
+                    <span className="block text-white mb-2">Design the</span>
+                    <span className="block text-gradient-primary">Future.</span>
                 </h1>
 
-                <p className="text-xl md:text-2xl text-zinc-300 max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
-                    独学の限界を突破し、最短でエンジニアへ。<br />
-                    実務レベルの<span className="text-primary-500 font-black text-2xl">技術力</span>と
-                    <span className="text-primary-500 font-black text-2xl">自走力</span>を身につける。<br className="md:hidden" />
-                    本気で現状を変えたい人のためのスクール。
+                {/* Subtext */}
+                <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-16 leading-relaxed font-light animate-fade-in-up opacity-0" style={{ animationDelay: '0.5s' }}>
+                    確かな技術力とデザインで、<br className="md:hidden" />ビジネスの可能性を最大化する。<br />
+                    <span className="text-white font-medium">エンジニアリング</span> × <span className="text-white font-medium">デザイン</span>で描く、新しい常識。
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                    <Button size="lg" asChild className="w-full sm:w-auto bg-primary-600 hover:bg-primary-500 text-white text-xl font-black italic px-12 py-8 rounded-none skew-x-[-10deg] shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_40px_rgba(249,115,22,0.6)] border-2 border-primary-400 transition-all duration-300 group">
-                        <Link href="#pricing">
-                            <span className="skew-x-[10deg] inline-flex items-center gap-2">
-                                無料個別相談会に参加
-                                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                            </span>
+                {/* CTA Actions */}
+                <div className="flex flex-col sm:flex-row items-center gap-6 animate-fade-in-up opacity-0" style={{ animationDelay: '0.7s' }}>
+                    <Button size="lg" asChild className="h-16 px-10 rounded-full bg-white text-black hover:bg-zinc-200 text-lg font-bold tracking-wide transition-all hover:scale-105 shadow-[0_0_40px_rgba(255,255,255,0.3)] border border-transparent">
+                        <Link href="#contact">
+                            Start Project
+                            <ArrowRight className="ml-2 w-5 h-5" />
+                        </Link>
+                    </Button>
+                    <Button size="lg" variant="outline" asChild className="h-16 px-10 rounded-full border-zinc-700 text-white hover:bg-white/10 text-lg font-medium tracking-wide backdrop-blur-sm transition-all hover:border-zinc-500">
+                        <Link href="#services">
+                            View Services
+                            <ChevronRight className="ml-1 w-5 h-5" />
                         </Link>
                     </Button>
                 </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in-up opacity-0" style={{ animationDelay: '1.2s' }}>
+                <span className="text-zinc-500 text-xs tracking-[0.2em] uppercase">Scroll</span>
+                <div className="w-[1px] h-16 bg-gradient-to-b from-zinc-500 to-transparent" />
             </div>
         </section>
     )
