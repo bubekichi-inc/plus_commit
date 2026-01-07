@@ -132,7 +132,7 @@ export default function RecruitRegisterPage() {
                     {/* Logo */}
                     <div className="text-center mb-8">
                         <Image
-                            src="/general/logo-pc.png"
+                            src="/general/logo.svg"
                             alt="プラスコミット"
                             width={160}
                             height={40}

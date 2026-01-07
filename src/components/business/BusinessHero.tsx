@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, ChevronRight, Sparkles } from "lucide-react"
+import { Hero3D } from "@/components/3d/Hero3D"
 
 export function BusinessHero() {
     return (
@@ -8,6 +9,7 @@ export function BusinessHero() {
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <div className="absolute top-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-primary-100/40 rounded-full blur-[100px] animate-pulse-slow" />
                 <div className="absolute bottom-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-accent/5 rounded-full blur-[80px]" />
+                <Hero3D />
             </div>
 
             <div className="container mx-auto px-6 relative z-10">

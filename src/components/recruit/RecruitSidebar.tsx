@@ -42,7 +42,7 @@ export function RecruitSidebar({ activeSection, onNavigate }: RecruitSidebarProp
             <div className={`p-6 border-b border-white/10 transition-all duration-300 ${isScrolled ? "py-4" : "py-6"}`}>
                 <Link href="/" className="block mb-4">
                     <Image
-                        src="/general/logo-pc.png"
+                        src="/general/logo.svg"
                         alt="プラスコミット"
                         width={140}
                         height={32}

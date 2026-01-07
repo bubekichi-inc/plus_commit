@@ -10,7 +10,7 @@ export function RecruitFooter() {
           <div className="md:col-span-2">
             <Link href="/recruit" className="flex items-center gap-3 mb-6">
               <Image
-                src="/general/logo-pc.png"
+                src="/general/logo.svg"
                 alt="プラスコミット"
                 width={160}
                 height={36}
