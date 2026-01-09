@@ -62,6 +62,160 @@ body {
         border-color: var(--color-accent);
     }
 
+    /* Post Content Styles */
+    .post-content h2 {
+        font-size: 1.5rem;
+        /* 2xl */
+        line-height: 2rem;
+        margin-top: 3.5rem;
+        /* 14 */
+        margin-bottom: 1.5rem;
+        /* 6 */
+        padding-top: 0.75rem;
+        /* 3 */
+        padding-bottom: 0.75rem;
+        /* 3 */
+        padding-left: 1.25rem;
+        /* 5 */
+        padding-right: 1.25rem;
+        /* 5 */
+        background-color: #fafafa;
+        /* zinc-50 */
+        border-left-width: 4px;
+        border-left-color: var(--color-primary-500);
+        border-top-right-radius: 0.5rem;
+        /* lg */
+        border-bottom-right-radius: 0.5rem;
+        /* lg */
+        font-weight: 700;
+        color: #18181b;
+        /* zinc-900 */
+        letter-spacing: -0.025em;
+        /* tracking-tight */
+    }
+
+    @media (min-width: 768px) {
+        .post-content h2 {
+            font-size: 1.875rem;
+            /* 3xl */
+            line-height: 2.25rem;
+        }
+    }
+
+    .post-content h3 {
+        font-size: 1.25rem;
+        /* xl */
+        line-height: 1.75rem;
+        margin-top: 2.5rem;
+        /* 10 */
+        margin-bottom: 1.25rem;
+        /* 5 */
+        padding-bottom: 0.5rem;
+        /* 2 */
+        border-bottom-width: 2px;
+        border-bottom-color: var(--color-primary-200);
+        font-weight: 700;
+        color: #18181b;
+        /* zinc-900 */
+        letter-spacing: -0.025em;
+        /* tracking-tight */
+    }
+
+    @media (min-width: 768px) {
+        .post-content h3 {
+            font-size: 1.5rem;
+            /* 2xl */
+            line-height: 2rem;
+        }
+    }
+
+    .post-content p {
+        line-height: 2rem;
+        /* leading-8 */
+        font-size: 16px;
+        color: #3f3f46;
+        /* zinc-700 */
+        margin-top: 2rem;
+        /* 8 */
+        margin-bottom: 2rem;
+        /* 8 */
+        font-feature-settings: "palt";
+    }
+
+    @media (min-width: 768px) {
+        .post-content p {
+            font-size: 17px;
+        }
+    }
+
+    .post-content ul {
+        margin-top: 1.5rem;
+        /* 6 */
+        margin-bottom: 1.5rem;
+        /* 6 */
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        /* 6 */
+    }
+
+    .post-content ol {
+        margin-top: 1.5rem;
+        /* 6 */
+        margin-bottom: 1.5rem;
+        /* 6 */
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+        /* 6 */
+    }
+
+    .post-content li {
+        margin-top: 0.5rem;
+        /* 2 */
+        margin-bottom: 0.5rem;
+        /* 2 */
+    }
+
+    .post-content li::marker {
+        color: var(--color-primary-500);
+    }
+
+    .post-content strong {
+        color: #18181b;
+        /* zinc-900 */
+        font-weight: 700;
+        background-color: rgba(254, 249, 195, 0.5);
+        /* yellow-100/50 */
+        padding-left: 0.25rem;
+        /* 1 */
+        padding-right: 0.25rem;
+        /* 1 */
+        border-radius: 0.25rem;
+        /* rounded */
+    }
+
+    .post-content a {
+        color: var(--color-primary-600);
+        font-weight: 500;
+        text-decoration: none;
+        border-bottom: 1px solid var(--color-primary-300);
+        transition: all 0.2s;
+    }
+
+    .post-content a:hover {
+        border-bottom-color: var(--color-primary-600);
+    }
+
+    .post-content img {
+        border-radius: 1rem;
+        /* 2xl */
+        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        /* xl */
+        margin-top: 2.5rem;
+        /* 10 */
+        margin-bottom: 2.5rem;
+        /* 10 */
+    }
+
     /* Premium Gradients (Light Theme) */
     .bg-gradient-premium {
         background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-700) 100%);
@@ -148,15 +302,25 @@ body {
         transform: translateY(-20px);
     }
 }
+
 :root {
     --color-accent: #FF9D48;
     --color-accent-rgb: 255, 157, 72;
 }
 
 @layer utilities {
-    .text-accent { color: var(--color-accent); }
-c    .bg-accent { background-color: var(--color-accent); }
-    .border-accent { border-color: var(--color-accent); }
+    .text-accent {
+        color: var(--color-accent);
+    }
+
+    .bg-accent {
+        background-color: var(--color-accent);
+    }
+
+    .border-accent {
+        border-color: var(--color-accent);
+    }
+
     .shadow-accent\/25 {
         --tw-shadow-color: rgba(var(--color-accent-rgb), 0.25);
     }

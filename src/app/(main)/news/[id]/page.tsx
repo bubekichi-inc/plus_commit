@@ -32,7 +32,7 @@ export default async function NewsDetailPage({
     params: Promise<{ id: string }>
 }) {
     const { id } = await params
-    
+
     let post;
     try {
         post = await getNewsDetail(id)
@@ -58,7 +58,7 @@ export default async function NewsDetailPage({
                             <div className="flex-1 max-w-3xl">
                                 <div className="mb-8">
                                     <div className="flex items-center gap-4 mb-6">
-                                        <Link 
+                                        <Link
                                             href="/news"
                                             className="text-zinc-500 hover:text-primary-600 transition-colors text-sm font-medium"
                                         >
@@ -75,11 +75,8 @@ export default async function NewsDetailPage({
                                     </div>
                                 </div>
 
-                                <div 
-                                    className="prose prose-zinc max-w-none text-zinc-700 leading-relaxed mb-16
-                                    prose-headings:text-zinc-900 prose-headings:font-bold
-                                    prose-strong:text-zinc-900 prose-a:text-primary-600 prose-a:hover:text-primary-700
-                                    prose-img:rounded-lg prose-img:shadow-lg"
+                                <div
+                                    className="post-content prose prose-zinc max-w-none text-zinc-700"
                                     dangerouslySetInnerHTML={{ __html: post.content }}
                                 />
 

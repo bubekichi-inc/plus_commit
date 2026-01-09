@@ -81,26 +81,30 @@ export default function FAQPage() {
     return (
         <>
             {/* Hero */}
-            <section className="py-32 px-8 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/20 to-black" />
+            <section className="py-32 px-8 relative overflow-hidden bg-white border-b border-zinc-200">
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-primary-100/40 rounded-full blur-[100px] animate-pulse-slow" />
+                    <div className="absolute bottom-[-20%] left-[-10%] w-[40vw] h-[40vw] bg-accent/5 rounded-full blur-[80px]" />
+                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+                </div>
                 <div className="max-w-4xl mx-auto relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                     >
-                        <Link 
-                            href="/recruit" 
-                            className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm transition-colors mb-8"
+                        <Link
+                            href="/recruit"
+                            className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 text-sm transition-colors mb-8"
                         >
                             ← 採用トップへ戻る
                         </Link>
-                        <span className="block text-emerald-400 text-sm font-bold tracking-[0.3em] uppercase mb-4">
+                        <span className="block text-primary-600 text-sm font-bold tracking-[0.3em] uppercase mb-4">
                             FAQ
                         </span>
-                        <h1 className="text-4xl md:text-5xl font-black text-white mb-6">
+                        <h1 className="text-4xl md:text-5xl font-black text-zinc-900 mb-6">
                             よくある質問
                         </h1>
-                        <p className="text-white/60 text-lg">
+                        <p className="text-zinc-600 text-lg">
                             採用に関するよくある質問をまとめました。<br />
                             こちらに掲載されていない質問は、お気軽にお問い合わせください。
                         </p>
@@ -109,7 +113,7 @@ export default function FAQPage() {
             </section>
 
             {/* FAQ List */}
-            <section className="py-20 px-8">
+            <section className="py-20 px-8 bg-zinc-50">
                 <div className="max-w-4xl mx-auto">
                     {categories.map((category) => (
                         <motion.div
@@ -119,7 +123,7 @@ export default function FAQPage() {
                             viewport={{ once: true }}
                             className="mb-12"
                         >
-                            <h2 className="text-xl font-bold text-emerald-400 mb-6">
+                            <h2 className="text-xl font-bold text-primary-600 mb-6">
                                 {category}
                             </h2>
                             <div className="space-y-4">
@@ -132,17 +136,17 @@ export default function FAQPage() {
                                         return (
                                             <div
                                                 key={index}
-                                                className="bg-white/5 border border-white/10 rounded-xl overflow-hidden"
+                                                className="bg-white border border-zinc-200 rounded-xl overflow-hidden shadow-sm"
                                             >
                                                 <button
                                                     onClick={() => setOpenIndex(isOpen ? null : globalIndex)}
-                                                    className="w-full p-6 flex items-center justify-between text-left"
+                                                    className="w-full p-6 flex items-center justify-between text-left hover:bg-zinc-50 transition-colors"
                                                 >
-                                                    <span className="text-white font-medium pr-4">
+                                                    <span className="text-zinc-900 font-medium pr-4">
                                                         {item.question}
                                                     </span>
                                                     <ChevronDown
-                                                        className={`w-5 h-5 text-emerald-400 shrink-0 transition-transform ${
+                                                        className={`w-5 h-5 text-primary-600 shrink-0 transition-transform ${
                                                             isOpen ? "rotate-180" : ""
                                                         }`}
                                                     />
@@ -152,7 +156,7 @@ export default function FAQPage() {
                                                         isOpen ? "max-h-96" : "max-h-0"
                                                     }`}
                                                 >
-                                                    <div className="px-6 pb-6 text-white/60 leading-relaxed">
+                                                    <div className="px-6 pb-6 text-zinc-600 leading-relaxed border-t border-zinc-100">
                                                         {item.answer}
                                                     </div>
                                                 </div>
@@ -166,30 +170,30 @@ export default function FAQPage() {
             </section>
 
             {/* CTA */}
-            <section className="py-20 px-8 border-t border-white/10">
+            <section className="py-20 px-8 bg-white border-t border-zinc-200">
                 <div className="max-w-4xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="text-2xl font-bold text-white mb-4">
+                        <h2 className="text-2xl font-bold text-zinc-900 mb-4">
                             その他のご質問
                         </h2>
-                        <p className="text-white/50 mb-8">
+                        <p className="text-zinc-600 mb-8">
                             上記以外のご質問は、エントリーフォームまたはお問い合わせフォームからお気軽にどうぞ。
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
                                 href="/recruit/entry"
-                                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-bold px-8 py-4 rounded-full hover:from-emerald-400 hover:to-teal-400 transition-all"
+                                className="inline-flex items-center justify-center gap-2 bg-primary-600 text-white font-bold px-8 py-4 rounded-full hover:bg-primary-700 transition-all shadow-sm"
                             >
                                 エントリーする
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-bold px-8 py-4 rounded-full hover:bg-white/10 transition-all"
+                                className="inline-flex items-center justify-center gap-2 border border-zinc-300 text-zinc-700 font-bold px-8 py-4 rounded-full hover:bg-zinc-50 transition-all"
                             >
                                 お問い合わせ
                             </Link>
@@ -199,24 +203,24 @@ export default function FAQPage() {
             </section>
 
             {/* Navigation */}
-            <section className="py-20 px-8 border-t border-white/10">
+            <section className="py-20 px-8 bg-zinc-50 border-t border-zinc-200">
                 <div className="max-w-4xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-6">
                         <Link
                             href="/recruit/jobs"
-                            className="group p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-emerald-500/50 transition-all"
+                            className="group p-8 bg-white border border-zinc-200 rounded-2xl hover:border-primary-500 hover:bg-primary-50/30 transition-all shadow-sm"
                         >
-                            <span className="text-white/40 text-sm">Previous</span>
-                            <h3 className="text-xl font-bold text-white mt-2 group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+                            <span className="text-zinc-500 text-sm">Previous</span>
+                            <h3 className="text-xl font-bold text-zinc-900 mt-2 group-hover:text-primary-600 transition-colors flex items-center gap-2">
                                 ← 募集職種
                             </h3>
                         </Link>
                         <Link
                             href="/recruit/entry"
-                            className="group p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-emerald-500/50 transition-all"
+                            className="group p-8 bg-white border border-zinc-200 rounded-2xl hover:border-primary-500 hover:bg-primary-50/30 transition-all shadow-sm"
                         >
-                            <span className="text-white/40 text-sm">Next</span>
-                            <h3 className="text-xl font-bold text-white mt-2 group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+                            <span className="text-zinc-500 text-sm">Next</span>
+                            <h3 className="text-xl font-bold text-zinc-900 mt-2 group-hover:text-primary-600 transition-colors flex items-center gap-2">
                                 エントリー
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </h3>

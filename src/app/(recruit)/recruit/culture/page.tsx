@@ -8,26 +8,30 @@ export default function CulturePage() {
     return (
         <>
             {/* Hero */}
-            <section className="py-32 px-8 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-teal-950/20 to-black" />
+            <section className="py-32 px-8 relative overflow-hidden bg-white border-b border-zinc-200">
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-primary-100/40 rounded-full blur-[100px] animate-pulse-slow" />
+                    <div className="absolute bottom-[-20%] left-[-10%] w-[40vw] h-[40vw] bg-accent/5 rounded-full blur-[80px]" />
+                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+                </div>
                 <div className="max-w-4xl mx-auto relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                     >
-                        <Link 
-                            href="/recruit" 
-                            className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm transition-colors mb-8"
+                        <Link
+                            href="/recruit"
+                            className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 text-sm transition-colors mb-8"
                         >
                             ← 採用トップへ戻る
                         </Link>
-                        <span className="block text-emerald-400 text-sm font-bold tracking-[0.3em] uppercase mb-4">
+                        <span className="block text-primary-600 text-sm font-bold tracking-[0.3em] uppercase mb-4">
                             Culture
                         </span>
-                        <h1 className="text-4xl md:text-5xl font-black text-white mb-6">
+                        <h1 className="text-4xl md:text-5xl font-black text-zinc-900 mb-6">
                             カルチャー
                         </h1>
-                        <p className="text-white/60 text-lg">
+                        <p className="text-zinc-600 text-lg">
                             私たちの働き方、大切にしている価値観、そしてチームの文化をご紹介します。
                         </p>
                     </motion.div>
@@ -35,7 +39,7 @@ export default function CulturePage() {
             </section>
 
             {/* Work Style */}
-            <section className="py-20 px-8">
+            <section className="py-20 px-8 bg-zinc-50">
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -43,10 +47,10 @@ export default function CulturePage() {
                         viewport={{ once: true }}
                         className="mb-12"
                     >
-                        <span className="text-emerald-400 text-sm font-bold tracking-[0.3em] uppercase">
+                        <span className="text-primary-600 text-sm font-bold tracking-[0.3em] uppercase">
                             Work Style
                         </span>
-                        <h2 className="text-3xl font-black text-white mt-4">
+                        <h2 className="text-3xl font-black text-zinc-900 mt-4">
                             働き方
                         </h2>
                     </motion.div>
@@ -80,11 +84,11 @@ export default function CulturePage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="p-6 bg-white/5 border border-white/10 rounded-xl"
+                                className="p-6 bg-white border border-zinc-200 rounded-xl shadow-sm"
                             >
-                                <item.icon className="w-10 h-10 text-emerald-400 mb-4" />
-                                <h3 className="text-white font-bold text-lg mb-2">{item.title}</h3>
-                                <p className="text-white/50 text-sm">{item.description}</p>
+                                <item.icon className="w-10 h-10 text-primary-600 mb-4" />
+                                <h3 className="text-zinc-900 font-bold text-lg mb-2">{item.title}</h3>
+                                <p className="text-zinc-600 text-sm">{item.description}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -92,7 +96,7 @@ export default function CulturePage() {
             </section>
 
             {/* Team Culture */}
-            <section className="py-20 px-8 border-t border-white/10">
+            <section className="py-20 px-8 bg-white border-t border-zinc-200">
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -100,10 +104,10 @@ export default function CulturePage() {
                         viewport={{ once: true }}
                         className="mb-12"
                     >
-                        <span className="text-emerald-400 text-sm font-bold tracking-[0.3em] uppercase">
+                        <span className="text-primary-600 text-sm font-bold tracking-[0.3em] uppercase">
                             Team Culture
                         </span>
-                        <h2 className="text-3xl font-black text-white mt-4">
+                        <h2 className="text-3xl font-black text-zinc-900 mt-4">
                             チームの文化
                         </h2>
                     </motion.div>
@@ -137,16 +141,16 @@ export default function CulturePage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="flex gap-6 p-6 bg-white/5 border border-white/10 rounded-xl"
+                                className="flex gap-6 p-6 bg-zinc-50 border border-zinc-200 rounded-xl shadow-sm"
                             >
                                 <div className="shrink-0">
-                                    <div className="w-14 h-14 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                                        <item.icon className="w-7 h-7 text-emerald-400" />
+                                    <div className="w-14 h-14 rounded-xl bg-primary-100 flex items-center justify-center">
+                                        <item.icon className="w-7 h-7 text-primary-600" />
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className="text-white font-bold text-lg mb-2">{item.title}</h3>
-                                    <p className="text-white/50">{item.description}</p>
+                                    <h3 className="text-zinc-900 font-bold text-lg mb-2">{item.title}</h3>
+                                    <p className="text-zinc-600">{item.description}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -155,7 +159,7 @@ export default function CulturePage() {
             </section>
 
             {/* Benefits */}
-            <section className="py-20 px-8 border-t border-white/10">
+            <section className="py-20 px-8 bg-zinc-50 border-t border-zinc-200">
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -163,10 +167,10 @@ export default function CulturePage() {
                         viewport={{ once: true }}
                         className="mb-12"
                     >
-                        <span className="text-emerald-400 text-sm font-bold tracking-[0.3em] uppercase">
+                        <span className="text-primary-600 text-sm font-bold tracking-[0.3em] uppercase">
                             Benefits
                         </span>
-                        <h2 className="text-3xl font-black text-white mt-4">
+                        <h2 className="text-3xl font-black text-zinc-900 mt-4">
                             福利厚生
                         </h2>
                     </motion.div>
@@ -175,7 +179,7 @@ export default function CulturePage() {
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="bg-white/5 border border-white/10 rounded-2xl p-8"
+                        className="bg-white border border-zinc-200 rounded-2xl p-8 shadow-sm"
                     >
                         <div className="grid md:grid-cols-2 gap-6">
                             {[
@@ -191,8 +195,8 @@ export default function CulturePage() {
                                 "健康診断",
                             ].map((benefit) => (
                                 <div key={benefit} className="flex items-center gap-3">
-                                    <div className="w-2 h-2 bg-emerald-400 rounded-full" />
-                                    <span className="text-white/70">{benefit}</span>
+                                    <div className="w-2 h-2 bg-primary-600 rounded-full" />
+                                    <span className="text-zinc-700">{benefit}</span>
                                 </div>
                             ))}
                         </div>
@@ -201,24 +205,24 @@ export default function CulturePage() {
             </section>
 
             {/* Navigation */}
-            <section className="py-20 px-8 border-t border-white/10">
+            <section className="py-20 px-8 bg-white border-t border-zinc-200">
                 <div className="max-w-4xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-6">
                         <Link
                             href="/recruit/company"
-                            className="group p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-emerald-500/50 transition-all"
+                            className="group p-8 bg-zinc-50 border border-zinc-200 rounded-2xl hover:border-primary-500 hover:bg-primary-50/30 transition-all shadow-sm"
                         >
-                            <span className="text-white/40 text-sm">Previous</span>
-                            <h3 className="text-xl font-bold text-white mt-2 group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+                            <span className="text-zinc-500 text-sm">Previous</span>
+                            <h3 className="text-xl font-bold text-zinc-900 mt-2 group-hover:text-primary-600 transition-colors flex items-center gap-2">
                                 ← 会社を知る
                             </h3>
                         </Link>
                         <Link
                             href="/recruit/jobs"
-                            className="group p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-emerald-500/50 transition-all"
+                            className="group p-8 bg-zinc-50 border border-zinc-200 rounded-2xl hover:border-primary-500 hover:bg-primary-50/30 transition-all shadow-sm"
                         >
-                            <span className="text-white/40 text-sm">Next</span>
-                            <h3 className="text-xl font-bold text-white mt-2 group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+                            <span className="text-zinc-500 text-sm">Next</span>
+                            <h3 className="text-xl font-bold text-zinc-900 mt-2 group-hover:text-primary-600 transition-colors flex items-center gap-2">
                                 募集職種
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </h3>

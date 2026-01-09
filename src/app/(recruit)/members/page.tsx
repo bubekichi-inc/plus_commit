@@ -30,49 +30,49 @@ const members = [
 
 export default function MembersPage() {
     return (
-        <div className="bg-black">
+        <div className="bg-white">
             <RecruitHeader />
             <main className="min-h-screen pt-20">
                 {/* Hero Section */}
-                <section className="py-24 border-b border-zinc-800">
+                <section className="py-24 border-b border-zinc-200 bg-white">
                     <div className="container mx-auto px-4">
-                        <h1 className="text-5xl md:text-6xl font-black italic tracking-tighter mb-6">
-                            <span className="text-emerald-500">メンバー</span>紹介
+                        <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-6">
+                            <span className="text-primary-600">メンバー</span>紹介
                         </h1>
-                        <p className="text-xl text-zinc-400 max-w-2xl">
+                        <p className="text-xl text-zinc-600 max-w-2xl">
                             共に未来を創る、プロフェッショナルな仲間たち。
                         </p>
                     </div>
                 </section>
 
                 {/* Members Grid */}
-                <section className="py-20">
+                <section className="py-20 bg-zinc-50">
                     <div className="container mx-auto px-4">
                         <div className="grid md:grid-cols-2 gap-8">
                             {members.map((member, index) => (
-                                <div 
+                                <div
                                     key={index}
-                                    className="bg-zinc-900 border border-zinc-800 p-8 hover:border-primary-500/50 transition-colors group"
+                                    className="bg-white border border-zinc-200 p-8 hover:border-primary-500 transition-colors group rounded-xl shadow-sm"
                                 >
                                     <div className="flex items-start gap-6">
-                                        <div className="w-20 h-20 bg-zinc-800 border-2 border-primary-500 flex items-center justify-center text-2xl font-black italic text-primary-500 shrink-0">
+                                        <div className="w-20 h-20 bg-primary-50 border-2 border-primary-500 flex items-center justify-center text-2xl font-black text-primary-600 shrink-0 rounded-lg">
                                             {member.name.charAt(0)}
                                         </div>
                                         <div className="flex-1">
-                                            <div className="text-primary-500 text-sm font-bold uppercase tracking-wider mb-1">
+                                            <div className="text-primary-600 text-sm font-bold uppercase tracking-wider mb-1">
                                                 {member.role}
                                             </div>
-                                            <h3 className="text-2xl font-bold mb-3 group-hover:text-primary-500 transition-colors">
+                                            <h3 className="text-2xl font-bold text-zinc-900 mb-3 group-hover:text-primary-600 transition-colors">
                                                 {member.name}
                                             </h3>
-                                            <p className="text-zinc-400 text-sm leading-relaxed mb-4">
+                                            <p className="text-zinc-600 text-sm leading-relaxed mb-4">
                                                 {member.description}
                                             </p>
                                             <div className="flex flex-wrap gap-2">
                                                 {member.skills.map((skill, skillIndex) => (
-                                                    <span 
+                                                    <span
                                                         key={skillIndex}
-                                                        className="px-3 py-1 bg-zinc-800 text-zinc-400 text-xs font-bold uppercase tracking-wider"
+                                                        className="px-3 py-1 bg-zinc-100 text-zinc-700 text-xs font-bold uppercase tracking-wider rounded"
                                                     >
                                                         {skill}
                                                     </span>
@@ -87,19 +87,19 @@ export default function MembersPage() {
                 </section>
 
                 {/* Join Us Section */}
-                <section className="py-20 border-t border-zinc-800 bg-zinc-900/50">
+                <section className="py-20 border-t border-zinc-200 bg-white">
                     <div className="container mx-auto px-4 text-center">
-                        <h2 className="text-3xl font-black italic tracking-tighter mb-6">
-                            <span className="text-primary-500">一緒に</span>働きませんか？
+                        <h2 className="text-3xl font-black tracking-tight mb-6">
+                            <span className="text-primary-600">一緒に</span>働きませんか？
                         </h2>
-                        <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
+                        <p className="text-zinc-600 mb-8 max-w-xl mx-auto">
                             プラスコミットでは、本気で人の成長をサポートしたい仲間を募集しています。
                         </p>
-                        <a 
+                        <a
                             href="/contact"
-                            className="inline-block bg-primary-600 hover:bg-primary-500 text-white font-bold italic uppercase px-8 py-4 skew-x-[-10deg] border-2 border-primary-600 hover:border-primary-400 transition-colors"
+                            className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold uppercase px-8 py-4 rounded-full border-2 border-primary-600 hover:border-primary-700 transition-colors shadow-sm"
                         >
-                            <span className="skew-x-[10deg] block">採用情報を見る</span>
+                            採用情報を見る
                         </a>
                     </div>
                 </section>

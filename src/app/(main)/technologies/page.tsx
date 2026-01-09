@@ -2,9 +2,9 @@ import { Header } from "@/components/sections/Header"
 import { Footer } from "@/components/sections/Footer"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { technologies, categories } from "@/lib/technologies"
 import { Metadata } from 'next'
-import { getPageSetting } from "@/lib/microcms"
+import { getPageSetting, getAllTechnologies } from "@/lib/microcms"
+import { News, NewsCategory } from "@/types/microcms"
 
 export async function generateMetadata(): Promise<Metadata> {
     const setting = await getPageSetting('technologies')
@@ -14,7 +14,47 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 }
 
-export default function TechnologiesPage() {
+type GroupedTechnologies = {
+    category: NewsCategory;
+    items: News[];
+}
+
+export default async function TechnologiesPage() {
+    const { contents: technologies } = await getAllTechnologies();
+
+    // 子カテゴリーごとにグルーピング
+    const groupedTechnologies: GroupedTechnologies[] = [];
+    const processedChildCategoryIds = new Set<string>();
+
+    technologies.forEach(tech => {
+        if (tech.child_categories && tech.child_categories.length > 0) {
+            tech.child_categories.forEach(childCat => {
+                if (!processedChildCategoryIds.has(childCat.id)) {
+                    // この子カテゴリーを持つ技術を全て抽出
+                    const items = technologies.filter(t =>
+                        t.child_categories?.some(c => c.id === childCat.id)
+                    );
+
+                    groupedTechnologies.push({
+                        category: childCat,
+                        items: items
+                    });
+                    processedChildCategoryIds.add(childCat.id);
+                }
+            });
+        } else {
+            // 子カテゴリーがない場合は「その他」などにまとめるか、除外するか、
+            // 今回の要件では子カテゴリー(child-categories)で分けて表示とのことなので、
+            // 子カテゴリーが付与されていないものは表示されない可能性があるが、
+            // 一旦「その他」として扱う実装も考えられる。
+            // ここでは要件に従い、明示的に子カテゴリーがあるものをベースにループするロジックにしているため
+            // 子カテゴリなしはスキップされる形になる（または要件定義次第）。
+            // もし「その他」も必要なら別途ロジックが必要。
+        }
+    });
+
+    // 必要に応じてソート（例: カテゴリ作成順など。ここでは取得順/出現順）
+
     return (
         <>
             <Header />
@@ -34,68 +74,70 @@ export default function TechnologiesPage() {
                 <section className="py-8 border-b border-zinc-100 sticky top-20 bg-white/95 backdrop-blur-md z-40">
                     <div className="container mx-auto px-4">
                         <div className="flex flex-wrap gap-2">
-                            <Link 
-                                href="#all" 
+                            <Link
+                                href="#all"
                                 className="px-4 py-2 bg-zinc-900 text-white text-sm font-bold rounded"
                             >
                                 すべて
                             </Link>
-                            {categories.map((cat) => (
-                                <Link 
-                                    key={cat.id}
-                                    href={`#${cat.id}`}
+                            {groupedTechnologies.map((group) => (
+                                <Link
+                                    key={group.category.id}
+                                    href={`#${group.category.id}`}
                                     className="px-4 py-2 bg-zinc-50 text-zinc-600 text-sm font-medium hover:bg-zinc-100 hover:text-zinc-900 transition-colors rounded"
                                 >
-                                    {cat.label}
+                                    {group.category.name}
                                 </Link>
                             ))}
                         </div>
                     </div>
                 </section>
 
-                {categories.map((category) => {
-                    const categoryTechs = technologies.filter(t => t.category === category.id)
+                {groupedTechnologies.map((group) => {
                     return (
-                        <section key={category.id} id={category.id} className="py-16 border-b border-zinc-100">
+                        <section key={group.category.id} id={group.category.id} className="py-16 border-b border-zinc-100">
                             <div className="container mx-auto px-4">
                                 <div className="flex items-center gap-4 mb-8">
                                     <h2 className="text-2xl font-black tracking-tight text-zinc-900">
-                                        {category.label}
+                                        {group.category.name}
                                     </h2>
                                     <span className="text-sm text-zinc-400">
-                                        {categoryTechs.length} technologies
+                                        {group.items.length} technologies
                                     </span>
                                 </div>
                                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {categoryTechs.map((tech) => (
-                                        <div 
-                                            key={tech.slug}
-                                            className="group p-6 bg-white border border-zinc-100 transition-all rounded-lg shadow-sm"
+                                    {group.items.map((tech) => (
+                                        <div
+                                            key={tech.id}
+                                            className="group p-6 bg-white border border-zinc-100 transition-all rounded-lg shadow-sm hover:shadow-md"
                                         >
                                             <div className="flex items-start gap-4 mb-4">
-                                                <span className="text-4xl">{tech.icon}</span>
+                                                <span className="text-4xl">{tech.icon || "🔧"}</span>
                                                 <div>
                                                     <div className="text-xs text-zinc-400 font-medium mb-1">
-                                                        {tech.categoryLabel}
+                                                        {group.category.name}
                                                     </div>
                                                     <h3 className="text-xl font-bold text-zinc-900 transition-colors">
-                                                        {tech.name}
+                                                        {tech.title}
                                                     </h3>
                                                 </div>
                                             </div>
-                                            <p className="text-zinc-600 text-sm leading-relaxed mb-4 line-clamp-2">
-                                                {tech.description}
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {tech.features.slice(0, 3).map((feature, i) => (
-                                                    <span 
-                                                        key={i}
-                                                        className="px-2 py-1 bg-zinc-50 text-zinc-500 text-xs rounded"
-                                                    >
-                                                        {feature}
-                                                    </span>
-                                                ))}
-                                            </div>
+                                            <div
+                                                className="text-zinc-600 text-sm leading-relaxed mb-4 line-clamp-2"
+                                                dangerouslySetInnerHTML={{ __html: tech.content }}
+                                            />
+                                            {tech.features && (
+                                                <div className="flex flex-wrap gap-2">
+                                                    {tech.features.split('\n').slice(0, 3).map((feature, i) => (
+                                                        <span
+                                                            key={i}
+                                                            className="px-2 py-1 bg-zinc-50 text-zinc-500 text-xs rounded"
+                                                        >
+                                                            {feature}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
