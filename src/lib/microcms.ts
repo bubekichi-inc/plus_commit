@@ -70,28 +70,34 @@ export const getPageSetting = async (slug: string, queries?: MicroCMSQueries) =>
 // 技術スタック一覧を取得（blogの中からcategory.slug=technologiesのもの）
 export const getAllTechnologies = async (queries?: MicroCMSQueries) => {
   // 1. まず 'technologies' というslugを持つカテゴリーのIDを取得
-  const categoriesResponse = await client.getList<NewsCategory>({
-    endpoint: 'categories',
-    queries: {
-      filters: 'slug[equals]technologies',
-      fields: 'id',
-      limit: 1,
-    },
-  });
+  let technologyCategoryId: string | undefined;
 
-  const technologyCategoryId = categoriesResponse.contents[0]?.id;
-
-  if (!technologyCategoryId) {
-    console.warn("Category with slug 'technologies' not found.");
-    return { contents: [], totalCount: 0, offset: 0, limit: 0 };
+  try {
+    const categoriesResponse = await client.getList<NewsCategory>({
+      endpoint: 'categories',
+      queries: {
+        filters: 'slug[equals]technologies',
+        fields: 'id',
+        limit: 1,
+      },
+    });
+    technologyCategoryId = categoriesResponse.contents[0]?.id;
+  } catch (e) {
+    console.error("Failed to fetch category by slug:", e);
   }
 
-  // 2. 取得したカテゴリIDでフィルタリングしてブログ記事を取得
+  // 2. 取得したカテゴリIDでフィルタリング、もしくはIDが取得できなければ 'technologies' というID/文字列でフィルタリング試行
+  const filterQuery = technologyCategoryId
+    ? `category[equals]${technologyCategoryId}`
+    : 'category[equals]technologies';
+
+  console.log(`Fetching technologies with filter: ${filterQuery}`);
+
   return await client.getList<News>({
     endpoint: 'blog',
     queries: {
       ...queries,
-      filters: `category[equals]${technologyCategoryId}`,
+      filters: filterQuery,
       limit: 100,
     },
   });

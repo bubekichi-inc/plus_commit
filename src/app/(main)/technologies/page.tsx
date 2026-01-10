@@ -26,13 +26,16 @@ export default async function TechnologiesPage() {
     const groupedTechnologies: GroupedTechnologies[] = [];
     const processedChildCategoryIds = new Set<string>();
 
+    const uncategorizedItems: News[] = [];
+
     technologies.forEach(tech => {
-        if (tech.child_categories && tech.child_categories.length > 0) {
-            tech.child_categories.forEach(childCat => {
+        const childCategories = tech["child-category"];
+        if (childCategories && childCategories.length > 0) {
+            childCategories.forEach(childCat => {
                 if (!processedChildCategoryIds.has(childCat.id)) {
                     // この子カテゴリーを持つ技術を全て抽出
                     const items = technologies.filter(t =>
-                        t.child_categories?.some(c => c.id === childCat.id)
+                        t["child-category"]?.some(c => c.id === childCat.id)
                     );
 
                     groupedTechnologies.push({
@@ -43,15 +46,26 @@ export default async function TechnologiesPage() {
                 }
             });
         } else {
-            // 子カテゴリーがない場合は「その他」などにまとめるか、除外するか、
-            // 今回の要件では子カテゴリー(child-categories)で分けて表示とのことなので、
-            // 子カテゴリーが付与されていないものは表示されない可能性があるが、
-            // 一旦「その他」として扱う実装も考えられる。
-            // ここでは要件に従い、明示的に子カテゴリーがあるものをベースにループするロジックにしているため
-            // 子カテゴリなしはスキップされる形になる（または要件定義次第）。
-            // もし「その他」も必要なら別途ロジックが必要。
+            // 子カテゴリーがない場合は「その他」にまとめる
+            uncategorizedItems.push(tech);
         }
     });
+
+    // 「その他」カテゴリーを追加
+    if (uncategorizedItems.length > 0) {
+        groupedTechnologies.push({
+            category: {
+                id: 'others',
+                name: 'その他',
+                slug: 'others',
+                createdAt: '',
+                updatedAt: '',
+                publishedAt: '',
+                revisedAt: ''
+            },
+            items: uncategorizedItems
+        });
+    }
 
     // 必要に応じてソート（例: カテゴリ作成順など。ここでは取得順/出現順）
 
@@ -107,9 +121,10 @@ export default async function TechnologiesPage() {
                                 </div>
                                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {group.items.map((tech) => (
-                                        <div
+                                        <Link
+                                            href={`/technologies/${tech.id}`}
                                             key={tech.id}
-                                            className="group p-6 bg-white border border-zinc-100 transition-all rounded-lg shadow-sm hover:shadow-md"
+                                            className="group p-6 bg-white border border-zinc-100 transition-all rounded-lg shadow-sm hover:shadow-md block"
                                         >
                                             <div className="flex items-start gap-4 mb-4">
                                                 <span className="text-4xl">{tech.icon || "🔧"}</span>
@@ -117,7 +132,7 @@ export default async function TechnologiesPage() {
                                                     <div className="text-xs text-zinc-400 font-medium mb-1">
                                                         {group.category.name}
                                                     </div>
-                                                    <h3 className="text-xl font-bold text-zinc-900 transition-colors">
+                                                    <h3 className="text-xl font-bold text-zinc-900 transition-colors group-hover:text-primary-600">
                                                         {tech.title}
                                                     </h3>
                                                 </div>
@@ -138,7 +153,7 @@ export default async function TechnologiesPage() {
                                                     ))}
                                                 </div>
                                             )}
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
