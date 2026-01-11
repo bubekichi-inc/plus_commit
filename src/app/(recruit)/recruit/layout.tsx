@@ -16,18 +16,12 @@ type NavItem = {
 
 const navItems: NavItem[] = [
     { id: "top", label: "ホーム", href: "/recruit", icon: Home },
-    { id: "about", label: "1ページでわかるプラスコミット", href: "/recruit/about", icon: HelpCircle },
-    { id: "company", label: "会社", href: "/recruit/company", icon: Building2 },
-    { id: "jobs", label: "仕事", href: "/recruit/jobs", icon: Briefcase },
-    { id: "members", label: "社員", href: "/recruit/members", icon: Heart },
-    { id: "culture", label: "職場", href: "/recruit/culture", icon: Building2 },
-    { id: "process", label: "選考", href: "/recruit/process", icon: HelpCircle },
+    { id: "process", label: "選考について", href: "/recruit/selection", icon: HelpCircle },
 ]
 
 const bottomNavItems = [
     { id: "jobs-list", label: "募集要項", href: "/recruit/jobs", variant: "outline" },
     { id: "casual", label: "カジュアル面談", href: "/recruit/casual", variant: "outline" },
-    { id: "entry", label: "エントリー", href: "/recruit/entry", variant: "solid" },
 ]
 
 function RecruitLayoutContent({ children }: { children: ReactNode }) {
@@ -70,7 +64,7 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
             <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-64 bg-white border-r border-zinc-200 flex-col z-50 overflow-y-auto">
                 {/* Logo */}
                 <div className="p-6">
-                    <Link href="/recruit" className="flex items-center gap-2">
+                    <Link href="/recruit" className="flex flex-col gap-2">
                         <Image
                             src="/general/logo.svg"
                             alt="プラスコミット"
@@ -79,7 +73,7 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
                             className="h-8 w-auto"
                             priority
                         />
-                        <span className="text-sm font-bold text-primary-600">採用情報</span>
+                        <span className="text-sm font-bold text-center text-primary-600">マイページ</span>
                     </Link>
                 </div>
 
@@ -125,7 +119,7 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
                                 </Link>
                                 <Link
                                     href="/recruit/register"
-                                    className="block w-full text-center py-2.5 bg-primary-600 rounded text-sm font-bold text-white hover:bg-primary-700 transition-colors shadow-sm"
+                                    className="block w-full text-center py-2.5 bg-gray-600 rounded text-sm font-bold text-white hover:bg-primary-700 transition-colors shadow-sm"
                                 >
                                     会員登録
                                 </Link>
@@ -146,8 +140,8 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
                                     <Link
                                         href={item.href}
                                         className={`w-full flex items-center gap-3 px-6 py-3 text-left transition-all duration-200 group ${isActive
-                                                ? "bg-primary-50 text-primary-600 border-r-2 border-primary-600"
-                                                : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
+                                            ? "bg-primary-50 text-primary-600 border-r-2 border-primary-600"
+                                            : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
                                             }`}
                                     >
                                         <Icon className={`w-4 h-4 ${isActive ? "text-primary-600" : "text-zinc-400 group-hover:text-zinc-600"}`} />
@@ -188,8 +182,8 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
                                     <Link
                                         href={item.href}
                                         className={`block w-full text-center py-2.5 rounded text-sm font-bold transition-all ${item.variant === "solid"
-                                                ? "bg-primary-600 text-white hover:bg-primary-700 shadow-sm"
-                                                : "bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300"
+                                            ? "bg-primary-600 text-white hover:bg-primary-700 shadow-sm"
+                                            : "bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300"
                                             }`}
                                     >
                                         {item.label}

@@ -13,7 +13,6 @@ type NavItem = {
 
 const navItems: NavItem[] = [
     { id: "top", label: "TOP", icon: Home },
-    { id: "about", label: "私たちについて", icon: Users },
     { id: "culture", label: "カルチャー", icon: Users },
     { id: "jobs", label: "募集職種", icon: Briefcase },
     { id: "faq", label: "FAQ", icon: HelpCircle },

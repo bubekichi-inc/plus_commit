@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
-import { getRecruitUrl, isRecruitExternal } from "@/lib/site-config"
+import { getRecruitUrl } from "@/lib/site-config"
 
 type MenuItem = {
     label: string
@@ -15,13 +15,6 @@ type MenuItem = {
 }
 
 const menuItems: MenuItem[] = [
-    {
-        label: "NEWS",
-        href: "/news",
-        submenu: [
-            { label: "お知らせ", href: "/news" },
-        ],
-    },
     {
         label: "事業紹介",
         href: "/services",
@@ -50,7 +43,6 @@ const menuItems: MenuItem[] = [
         label: "採用情報",
         href: getRecruitUrl(),
         isRecruit: true,
-        external: isRecruitExternal(),
     },
 ]
 
@@ -146,7 +138,7 @@ export function Header() {
                     <div className="ml-4 flex items-center gap-3">
                         <Button size="sm" className="bg-primary-500 hover:bg-primary-600 text-white font-bold px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary-500/20" asChild>
                             <Link href="/contact">
-                                Contact Us
+                                お問い合わせ
                             </Link>
                         </Button>
                     </div>

@@ -6,7 +6,7 @@ import { BusinessHero } from "@/components/business/BusinessHero"
 import { MissionVisionValue } from "@/components/sections/MissionVisionValue"
 import { ArrowRight, ChevronRight, Check, Zap, ExternalLink, Mail } from "lucide-react"
 import { getNewsList, getPageSetting } from "@/lib/microcms"
-import { getRecruitUrl, isRecruitExternal } from "@/lib/site-config"
+import { getRecruitUrl } from "@/lib/site-config"
 import { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -193,7 +193,7 @@ export default async function HomePage() {
                                         )}
                                     </div>
                                     <div className="flex items-center gap-4 mb-3">
-                                        <span className="text-xs font-bold text-primary-600">{item.category?.name || "Tech"}</span>
+                                        <span className="text-xs font-bold text-primary-600">{item.category?.name || "ブログ"}</span>
                                         <span className="text-xs text-zinc-400 font-mono">{new Date(item.publishedAt).toLocaleDateString('en-US').replace(/\//g, '.')}</span>
                                     </div>
                                     <h3 className="text-lg font-bold text-zinc-900 group-hover:text-primary-600 transition-colors leading-relaxed line-clamp-2">
@@ -240,8 +240,9 @@ export default async function HomePage() {
                             PlusCommitでは、熱い想いを持った仲間を募集しています。
                         </p>
                         <Button size="lg" className="bg-white text-primary-600 hover:bg-zinc-100 font-bold px-12 h-14 rounded-full shadow-lg shadow-black/10" asChild>
-                            <Link href={getRecruitUrl()} target={isRecruitExternal() ? "_blank" : undefined}>
+                            <Link href={getRecruitUrl()} target="_blank">
                                 View Open Positions
+                                <ExternalLink className="ml-2 w-4 h-4" />
                             </Link>
                         </Button>
                     </div>

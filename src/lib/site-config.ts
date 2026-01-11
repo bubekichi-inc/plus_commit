@@ -36,12 +36,6 @@ export function getRecruitUrl(path: string = ''): string {
     return `${cleanBaseUrl}${path}`
 }
 
-/**
- * 採用サイトが外部リンクかどうかを判定
- * @returns true: 外部リンク（絶対URL）、false: 内部リンク（相対パス）
- */
-export function isRecruitExternal(): boolean {
-    return siteConfig.recruitUrl.startsWith('http')
-}
+
 
 

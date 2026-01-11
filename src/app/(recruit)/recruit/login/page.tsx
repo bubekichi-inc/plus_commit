@@ -10,7 +10,7 @@ import { Mail, Lock, Eye, EyeOff, AlertCircle, ArrowLeft } from "lucide-react"
 
 export default function RecruitLoginPage() {
     const router = useRouter()
-    const { user, signIn, signInWithOAuth, loading, isConfigured } = useAuth()
+    const { user, profile, signIn, signInWithOAuth, loading, isConfigured } = useAuth()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
@@ -18,10 +18,14 @@ export default function RecruitLoginPage() {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     useEffect(() => {
-        if (!loading && user) {
-            router.push("/recruit/mypage")
+        if (!loading && user && profile) {
+            if (profile.role === 'RECRUITER' || profile.role === 'ADMIN') {
+                router.push("/recruit/admin")
+            } else {
+                router.push("/recruit/mypage")
+            }
         }
-    }, [user, loading, router])
+    }, [user, profile, loading, router])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -31,12 +35,11 @@ export default function RecruitLoginPage() {
         try {
             const { error } = await signIn(email, password)
             if (error) {
-                setError(error.message === "Invalid login credentials" 
-                    ? "メールアドレスまたはパスワードが正しくありません" 
+                setError(error.message === "Invalid login credentials"
+                    ? "メールアドレスまたはパスワードが正しくありません"
                     : error.message)
-            } else {
-                router.push("/recruit/mypage")
             }
+            // Redirection is handled by useEffect when auth state changes
         } catch {
             setError("ログインに失敗しました")
         } finally {
@@ -54,11 +57,11 @@ export default function RecruitLoginPage() {
 
     if (!isConfigured) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+            <div className="min-h-screen flex items-center justify-center bg-zinc-50">
                 <div className="text-center">
-                    <p className="text-white/60 mb-4">認証機能は現在準備中です</p>
+                    <p className="text-zinc-600 mb-4">認証機能は現在準備中です</p>
                     <Link href="/recruit">
-                        <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                        <Button variant="outline" className="border-zinc-300 text-zinc-700 hover:bg-zinc-100">
                             トップへ戻る
                         </Button>
                     </Link>
@@ -68,19 +71,19 @@ export default function RecruitLoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4 py-12">
+        <div className="min-h-screen flex items-center justify-center bg-zinc-50 px-4 py-12">
             <div className="w-full max-w-md">
                 {/* Back Link */}
-                <Link 
-                    href="/recruit" 
-                    className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors"
+                <Link
+                    href="/recruit"
+                    className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 text-sm mb-8 transition-colors"
                 >
                     <ArrowLeft className="w-4 h-4" />
                     採用トップへ戻る
                 </Link>
 
                 {/* Card */}
-                <div className="bg-[#111] border border-white/10 rounded-2xl p-8">
+                <div className="bg-white border border-zinc-200 rounded-2xl p-8 shadow-sm">
                     {/* Logo */}
                     <div className="text-center mb-8">
                         <Image
@@ -88,17 +91,17 @@ export default function RecruitLoginPage() {
                             alt="プラスコミット"
                             width={160}
                             height={40}
-                            className="h-10 w-auto mx-auto invert mb-4"
+                            className="h-10 w-auto mx-auto mb-4"
                         />
-                        <h1 className="text-2xl font-bold text-white mb-2">ログイン</h1>
-                        <p className="text-white/50 text-sm">
+                        <h1 className="text-2xl font-bold text-zinc-900 mb-2">ログイン</h1>
+                        <p className="text-zinc-600 text-sm">
                             会員限定コンテンツを閲覧できます
                         </p>
                     </div>
 
                     {/* Error */}
                     {error && (
-                        <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-3 text-red-400">
+                        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3 text-red-600">
                             <AlertCircle className="w-5 h-5 flex-shrink-0" />
                             <p className="text-sm">{error}</p>
                         </div>
@@ -107,40 +110,40 @@ export default function RecruitLoginPage() {
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label className="block text-white/70 text-sm font-medium mb-2">
+                            <label className="block text-zinc-700 text-sm font-medium mb-2">
                                 メールアドレス
                             </label>
                             <div className="relative">
-                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
                                 <input
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-12 pr-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-500 transition-colors"
+                                    className="w-full bg-white border border-zinc-200 rounded-lg pl-12 pr-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-primary-500 transition-colors"
                                     placeholder="example@email.com"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-white/70 text-sm font-medium mb-2">
+                            <label className="block text-zinc-700 text-sm font-medium mb-2">
                                 パスワード
                             </label>
                             <div className="relative">
-                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-12 pr-12 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-emerald-500 transition-colors"
+                                    className="w-full bg-white border border-zinc-200 rounded-lg pl-12 pr-12 py-3 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-primary-500 transition-colors"
                                     placeholder="••••••••"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/50 transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 transition-colors"
                                 >
                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                 </button>
@@ -148,9 +151,9 @@ export default function RecruitLoginPage() {
                         </div>
 
                         <div className="flex justify-end">
-                            <Link 
-                                href="/auth/reset-password" 
-                                className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+                            <Link
+                                href="/auth/reset-password"
+                                className="text-sm text-primary-600 hover:text-primary-700 transition-colors"
                             >
                                 パスワードをお忘れですか？
                             </Link>
@@ -159,7 +162,7 @@ export default function RecruitLoginPage() {
                         <Button
                             type="submit"
                             disabled={isSubmitting}
-                            className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-6 rounded-lg transition-colors"
+                            className="w-full bg-primary-600 hover:bg-primary-700 !text-white font-bold py-6 rounded-lg transition-colors"
                         >
                             {isSubmitting ? "ログイン中..." : "ログイン"}
                         </Button>
@@ -168,10 +171,10 @@ export default function RecruitLoginPage() {
                     {/* Divider */}
                     <div className="relative my-8">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/10" />
+                            <div className="w-full border-t border-zinc-200" />
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="px-4 bg-[#111] text-white/40">または</span>
+                            <span className="px-4 bg-white text-zinc-500">または</span>
                         </div>
                     </div>
 
@@ -203,9 +206,9 @@ export default function RecruitLoginPage() {
                     </div>
 
                     {/* Register Link */}
-                    <p className="mt-8 text-center text-white/50 text-sm">
+                    <p className="mt-8 text-center text-zinc-600 text-sm">
                         アカウントをお持ちでないですか？{" "}
-                        <Link href="/recruit/register" className="text-emerald-400 hover:text-emerald-300 font-medium transition-colors">
+                        <Link href="/recruit/register" className="text-primary-600 hover:text-primary-700 font-medium transition-colors">
                             新規会員登録
                         </Link>
                     </p>

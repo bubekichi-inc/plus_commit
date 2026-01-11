@@ -123,8 +123,8 @@ export default function RegisterPage() {
                         <span className="text-white underline decoration-zinc-500">次のレベル</span>へ
                     </h1>
                     <p className="text-zinc-400 text-lg leading-relaxed">
-                        会員登録で限定コンテンツにアクセス。<br />
-                        あなたのスキルアップをサポートします。
+                        マイページへの登録でカジュアル面談に申し込むことができます。<br />
+                        
                     </p>
                     <div className="mt-12 space-y-4">
                         {[

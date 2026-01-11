@@ -102,3 +102,38 @@ export const getAllTechnologies = async (queries?: MicroCMSQueries) => {
     },
   });
 };
+
+// 採用情報一覧を取得（blogの中からcategory.slug=recruitmentのもの）
+export const getRecruitmentJobs = async (queries?: MicroCMSQueries) => {
+  // 1. まず 'recruitment' というslugを持つカテゴリーのIDを取得
+  let recruitmentCategoryId: string | undefined;
+
+  try {
+    const categoriesResponse = await client.getList<NewsCategory>({
+      endpoint: 'categories',
+      queries: {
+        filters: 'slug[equals]recruitment',
+        fields: 'id',
+        limit: 1,
+      },
+    });
+    recruitmentCategoryId = categoriesResponse.contents[0]?.id;
+  } catch (e) {
+    console.error("Failed to fetch category by slug:", e);
+  }
+
+  // 2. 取得したカテゴリIDでフィルタリング
+  const filterQuery = recruitmentCategoryId
+    ? `category[equals]${recruitmentCategoryId}`
+    : 'category[equals]recruitment';
+
+  console.log(`Fetching recruitment jobs with filter: ${filterQuery}`);
+
+  return await client.getList<News>({
+    endpoint: 'blog',
+    queries: {
+      ...queries,
+      filters: filterQuery,
+    },
+  });
+};

@@ -14,7 +14,7 @@ export type UserProfile = {
   company: string | null
   position: string | null
   website: string | null
-  role: 'USER' | 'PREMIUM' | 'ADMIN'
+  role: 'USER' | 'PREMIUM' | 'ADMIN' | 'RECRUITER'
   plan: 'FREE' | 'BASIC' | 'PRO' | 'ENTERPRISE'
 }
 
@@ -42,10 +42,10 @@ const AuthContext = createContext<AuthContextType>({
   signUp: async () => ({ error: null }),
   signIn: async () => ({ error: null }),
   signInWithOAuth: async () => ({ error: null }),
-  signOut: async () => {},
+  signOut: async () => { },
   resetPassword: async () => ({ error: null }),
   updatePassword: async () => ({ error: null }),
-  refreshProfile: async () => {},
+  refreshProfile: async () => { },
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -100,7 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const { data: { session } } = await supabase.auth.getSession()
         setSession(session)
         setUser(session?.user ?? null)
-        
+
         if (session?.user) {
           await fetchProfile(session.user.id)
         }
@@ -117,13 +117,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       async (_event: AuthChangeEvent, session: Session | null) => {
         setSession(session)
         setUser(session?.user ?? null)
-        
+
         if (session?.user) {
           await fetchProfile(session.user.id)
         } else {
           setProfile(null)
         }
-        
+
         setLoading(false)
       }
     )
@@ -136,7 +136,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // サインアップ
   const signUp = async (email: string, password: string, name?: string) => {
     if (!isConfigured) return { error: null }
-    
+
     const supabase = createClient()
     const { error } = await supabase.auth.signUp({
       email,
@@ -148,27 +148,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     })
-    
+
     return { error }
   }
 
   // サインイン
   const signIn = async (email: string, password: string) => {
     if (!isConfigured) return { error: null }
-    
+
     const supabase = createClient()
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
-    
+
     return { error }
   }
 
   // OAuth サインイン
   const signInWithOAuth = async (provider: 'google' | 'github') => {
     if (!isConfigured) return { error: null }
-    
+
     const supabase = createClient()
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
@@ -176,7 +176,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
     })
-    
+
     return { error }
   }
 
@@ -191,34 +191,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // パスワードリセット
   const resetPassword = async (email: string) => {
     if (!isConfigured) return { error: null }
-    
+
     const supabase = createClient()
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/auth/reset-password`,
     })
-    
+
     return { error }
   }
 
   // パスワード更新
   const updatePassword = async (newPassword: string) => {
     if (!isConfigured) return { error: null }
-    
+
     const supabase = createClient()
     const { error } = await supabase.auth.updateUser({
       password: newPassword,
     })
-    
+
     return { error }
   }
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      session, 
+    <AuthContext.Provider value={{
+      user,
+      session,
       profile,
-      loading, 
-      isConfigured, 
+      loading,
+      isConfigured,
       signUp,
       signIn,
       signInWithOAuth,

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { getRecruitUrl, isRecruitExternal } from "@/lib/site-config"
+import { getRecruitUrl } from "@/lib/site-config"
 import { ReactNode } from "react"
 
 interface RecruitLinkProps {
@@ -17,7 +17,7 @@ interface RecruitLinkProps {
 export function RecruitLink({ children, path = '', className }: RecruitLinkProps) {
     const href = getRecruitUrl(path)
     
-    if (isRecruitExternal()) {
+
         return (
             <a 
                 href={href} 
@@ -28,7 +28,7 @@ export function RecruitLink({ children, path = '', className }: RecruitLinkProps
                 {children}
             </a>
         )
-    }
+
     
     return (
         <Link href={href} className={className}>
