@@ -137,3 +137,37 @@ export const getRecruitmentJobs = async (queries?: MicroCMSQueries) => {
     },
   });
 };
+// 制作実績一覧を取得（blogの中からcategory.slug=worksのもの）
+export const getWorks = async (queries?: MicroCMSQueries) => {
+  // 1. まず 'works' というslugを持つカテゴリーのIDを取得
+  let worksCategoryId: string | undefined;
+
+  try {
+    const categoriesResponse = await client.getList<NewsCategory>({
+      endpoint: 'categories',
+      queries: {
+        filters: 'slug[equals]works',
+        fields: 'id',
+        limit: 1,
+      },
+    });
+    worksCategoryId = categoriesResponse.contents[0]?.id;
+  } catch (e) {
+    console.error("Failed to fetch category by slug:", e);
+  }
+
+  // 2. 取得したカテゴリIDでフィルタリング
+  const filterQuery = worksCategoryId
+    ? `category[equals]${worksCategoryId}`
+    : 'category[equals]works';
+
+  console.log(`Fetching works with filter: ${filterQuery}`);
+
+  return await client.getList<News>({
+    endpoint: 'blog',
+    queries: {
+      ...queries,
+      filters: filterQuery,
+    },
+  });
+};

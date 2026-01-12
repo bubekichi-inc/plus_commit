@@ -18,7 +18,6 @@ const sitemapData = [
         title: "メインコンテンツ",
         links: [
             { label: "ホーム", href: "/" },
-            { label: "サービス一覧", href: "/services" },
             { label: "会社概要", href: "/about" },
             { label: "技術情報", href: "/technologies" },
             { label: "制作実績", href: "/works" },

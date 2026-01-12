@@ -80,14 +80,14 @@ export default function ContactThanksPage() {
                                         <ArrowRight className="w-4 h-4 ml-2" />
                                     </Link>
                                 </Button>
-                                <Button 
-                                    size="lg" 
+                                <Button
+                                    size="lg"
                                     variant="outline"
                                     className="border-zinc-300 hover:bg-zinc-50 font-bold px-8"
                                     asChild
                                 >
-                                    <Link href="/services">
-                                        サービス一覧を見る
+                                    <Link href="/works">
+                                        制作実績を見る
                                     </Link>
                                 </Button>
                             </div>

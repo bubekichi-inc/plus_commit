@@ -28,6 +28,7 @@ export type NewsCategory = {
   publishedAt: string;
   revisedAt: string;
   name: string;
+  title?: string;
   slug: string;
 };
 

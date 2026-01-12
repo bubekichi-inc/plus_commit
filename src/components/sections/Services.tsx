@@ -86,11 +86,6 @@ export function Services() {
                     </div>
                 </div>
 
-                <div className="mt-16 text-center">
-                    <Link href="/services" className="text-primary-500 font-bold hover:underline">
-                        すべてのサービスを見る →
-                    </Link>
-                </div>
             </div>
         </section>
     )

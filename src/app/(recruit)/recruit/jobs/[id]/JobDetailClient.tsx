@@ -55,7 +55,10 @@ export default function JobDetailClient({ job, otherJobs }: JobDetailClientProps
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="prose prose-zinc prose-lg max-w-none bg-white p-8 md:p-12 rounded-2xl border border-zinc-200 shadow-sm"
+                        className="prose prose-zinc prose-lg max-w-none bg-white p-8 md:p-12 rounded-2xl border border-zinc-200 shadow-sm
+                        prose-headings:font-bold prose-headings:text-zinc-900
+                        prose-h2:text-2xl prose-h2:border-l-4 prose-h2:border-primary-500 prose-h2:pl-4 prose-h2:mt-12 prose-h2:mb-6
+                        prose-h3:text-xl prose-h3:text-primary-700 prose-h3:mt-8 prose-h3:mb-4 prose-h3:flex prose-h3:items-center prose-h3:before:content-[''] prose-h3:before:w-2 prose-h3:before:h-2 prose-h3:before:bg-primary-500 prose-h3:before:rounded-full prose-h3:before:mr-3"
                     >
                         <div dangerouslySetInnerHTML={{ __html: job.content }} />
                     </motion.div>

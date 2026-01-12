@@ -19,11 +19,7 @@ export default function RecruitLoginPage() {
 
     useEffect(() => {
         if (!loading && user && profile) {
-            if (profile.role === 'RECRUITER' || profile.role === 'ADMIN') {
-                router.push("/recruit/admin")
-            } else {
-                router.push("/recruit/mypage")
-            }
+            router.push("/recruit/mypage")
         }
     }, [user, profile, loading, router])
 
@@ -217,4 +213,3 @@ export default function RecruitLoginPage() {
         </div>
     )
 }
-

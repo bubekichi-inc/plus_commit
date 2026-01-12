@@ -38,16 +38,6 @@ export function Footer() {
                     </div>
 
                     <div>
-                        <h3 className="text-black font-bold mb-6 text-sm tracking-wider">事業紹介</h3>
-                        <ul className="space-y-4 text-sm text-zinc-600">
-                            <li><Link href="/services#coding" className="hover:text-primary-500 transition-colors">コーディング代行</Link></li>
-                            <li><Link href="/services#dx-consulting" className="hover:text-primary-500 transition-colors">DXコンサルティング</Link></li>
-                            <li><Link href="/services#web-production" className="hover:text-primary-500 transition-colors">Web制作・開発</Link></li>
-                            <li><Link href="/services#automation" className="hover:text-primary-500 transition-colors">業務自動化</Link></li>
-                        </ul>
-                    </div>
-
-                    <div>
                         <h3 className="text-black font-bold mb-6 text-sm tracking-wider">取り扱い技術</h3>
                         <ul className="space-y-4 text-sm text-zinc-600">
                             <li><Link href="/technologies#frontend" className="hover:text-primary-500 transition-colors">フロントエンド</Link></li>

@@ -16,16 +16,6 @@ type MenuItem = {
 
 const menuItems: MenuItem[] = [
     {
-        label: "事業紹介",
-        href: "/services",
-        submenu: [
-            { label: "コーディング代行", href: "/services#coding" },
-            { label: "DXコンサルティング", href: "/services#dx-consulting" },
-            { label: "Web制作・開発", href: "/services#web-production" },
-            { label: "業務自動化", href: "/services#automation" },
-        ],
-    },
-    {
         label: "取り扱い技術",
         href: "/technologies",
         submenu: [

@@ -40,10 +40,10 @@ export function BusinessHero() {
                             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                         </Link>
                         <Link
-                            href="/services"
+                            href="/works"
                             className="w-full sm:w-auto inline-flex items-center justify-center h-14 px-10 rounded-full border border-zinc-200 text-zinc-600 font-bold hover:bg-zinc-50 transition-colors"
                         >
-                            View Services
+                            View Works
                             <ChevronRight className="w-5 h-5 ml-1" />
                         </Link>
                     </div>

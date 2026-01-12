@@ -108,6 +108,11 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
                                         <LogOut className="w-3 h-3" />
                                     </button>
                                 </div>
+                                {profile?.role === 'ADMIN' && (
+                                    // Admin-only link if truly needed, but user said remove recruiter features.
+                                    // Assuming completely removing the specific Recruiter/Admin dashboard link for now.
+                                    null
+                                )}
                             </div>
                         ) : (
                             <div className="space-y-2">

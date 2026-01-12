@@ -107,6 +107,22 @@ export default function RecruitMyPage() {
                     </Link>
 
                     <Link
+                        href="/recruit/casual"
+                        className="group bg-gradient-to-br from-orange-500/20 to-amber-500/20 border border-orange-500/30 rounded-2xl p-6 hover:border-orange-500/50 transition-colors"
+                    >
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center">
+                                <Clock className="w-6 h-6 text-orange-400" />
+                            </div>
+                            <ChevronRight className="w-5 h-5 text-orange-400 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                        <h3 className="text-lg font-bold text-white mb-2">カジュアル面談</h3>
+                        <p className="text-white/50 text-sm">
+                            選考の前に、まずは気軽にお話ししませんか？
+                        </p>
+                    </Link>
+
+                    <Link
                         href="/recruit/entry"
                         className="group bg-[#111] border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-colors"
                     >

@@ -100,7 +100,7 @@ export default async function TechnologiesPage() {
                                     href={`#${group.category.id}`}
                                     className="px-4 py-2 bg-zinc-50 text-zinc-600 text-sm font-medium hover:bg-zinc-100 hover:text-zinc-900 transition-colors rounded"
                                 >
-                                    {group.category.name}
+                                    {group.category.title || group.category.name}
                                 </Link>
                             ))}
                         </div>
@@ -113,7 +113,7 @@ export default async function TechnologiesPage() {
                             <div className="container mx-auto px-4">
                                 <div className="flex items-center gap-4 mb-8">
                                     <h2 className="text-2xl font-black tracking-tight text-zinc-900">
-                                        {group.category.name}
+                                        {group.category.title || group.category.name}
                                     </h2>
                                     <span className="text-sm text-zinc-400">
                                         {group.items.length} technologies
@@ -130,7 +130,7 @@ export default async function TechnologiesPage() {
                                                 <span className="text-4xl">{tech.icon || "🔧"}</span>
                                                 <div>
                                                     <div className="text-xs text-zinc-400 font-medium mb-1">
-                                                        {group.category.name}
+                                                        {group.category.title || group.category.name}
                                                     </div>
                                                     <h3 className="text-xl font-bold text-zinc-900 transition-colors group-hover:text-primary-600">
                                                         {tech.title}

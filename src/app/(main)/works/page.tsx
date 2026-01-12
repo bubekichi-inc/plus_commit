@@ -1,60 +1,18 @@
+
 import { Header } from "@/components/sections/Header"
 import { Footer } from "@/components/sections/Footer"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { getWorks } from "@/lib/microcms"
 
-const works = [
-    {
-        id: 1,
-        title: "株式会社テックスタート",
-        category: "コーポレートサイト",
-        description: "IT企業のブランディングを強化するコーポレートサイト。モダンなデザインと高速なパフォーマンスを両立。",
-        technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
-        results: "問い合わせ数 150%増加",
-    },
-    {
-        id: 2,
-        title: "美容クリニック様",
-        category: "LP制作",
-        description: "新規顧客獲得のためのLP制作。ターゲット分析から導線設計まで一貫して対応。",
-        technologies: ["React", "GSAP", "Figma"],
-        results: "CVR 2.5倍に向上",
-    },
-    {
-        id: 3,
-        title: "オーガニック食品ECサイト",
-        category: "ECサイト",
-        description: "Shopifyをベースにしたオーガニック食品のECサイト。定期購入機能も実装。",
-        technologies: ["Shopify", "Liquid", "JavaScript"],
-        results: "月商 300万円達成",
-    },
-    {
-        id: 4,
-        title: "人材紹介サービス",
-        category: "Webアプリケーション",
-        description: "求職者と企業をマッチングするWebアプリケーション。管理画面も含めてフルスクラッチで開発。",
-        technologies: ["Next.js", "Prisma", "PostgreSQL", "AWS"],
-        results: "登録企業 500社突破",
-    },
-    {
-        id: 5,
-        title: "スタートアップ企業",
-        category: "コーポレートサイト",
-        description: "資金調達フェーズのスタートアップ向けに、投資家にアピールするコーポレートサイトを制作。",
-        technologies: ["Next.js", "Framer Motion", "Vercel"],
-        results: "シリーズA調達に貢献",
-    },
-    {
-        id: 6,
-        title: "オンラインスクール",
-        category: "LP制作",
-        description: "プログラミングスクールの集客LP。説明会予約へのCVを最大化する設計。",
-        technologies: ["React", "TypeScript", "Google Tag Manager"],
-        results: "説明会予約数 200%増",
-    },
-]
+export const metadata = {
+    title: '制作実績 | プラスコミット株式会社',
+    description: 'プラスコミット株式会社の制作実績一覧です。Web制作、システム開発、アプリケーション開発など、幅広いプロジェクトを手がけています。',
+}
 
-export default function WorksPage() {
+export default async function WorksPage() {
+    const { contents: works } = await getWorks()
+
     return (
         <>
             <Header />
@@ -74,39 +32,56 @@ export default function WorksPage() {
                 <section className="py-20">
                     <div className="container mx-auto px-4">
                         <div className="grid md:grid-cols-2 gap-8">
-                            {works.map((work) => (
-                                <div 
-                                    key={work.id}
-                                    className="bg-white border border-zinc-200 overflow-hidden hover:border-primary-200 hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-500 rounded-xl group"
-                                >
-                                    <div className="aspect-video bg-gradient-to-br from-zinc-50 to-zinc-100 flex items-center justify-center border-b border-zinc-200">
-                                        <span className="text-4xl font-black text-zinc-200">0{work.id}</span>
-                                    </div>
-                                    <div className="p-6">
-                                        <div className="text-zinc-500 text-sm font-medium mb-2">{work.category}</div>
-                                        <h3 className="text-xl font-bold text-zinc-900 mb-3 group-hover:text-primary-600 transition-colors">
-                                            {work.title}
-                                        </h3>
-                                        <p className="text-zinc-600 text-sm mb-4 leading-relaxed">
-                                            {work.description}
-                                        </p>
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                                            {work.technologies.map((tech, index) => (
-                                                <span 
-                                                    key={index}
-                                                    className="px-3 py-1 bg-zinc-50 text-zinc-600 text-xs font-medium border border-zinc-200 rounded"
-                                                >
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <div className="border-t border-zinc-100 pt-4">
-                                            <div className="text-zinc-500 text-xs mb-1">成果</div>
-                                            <div className="text-zinc-900 font-bold">{work.results}</div>
-                                        </div>
-                                    </div>
+                            {works.length === 0 ? (
+                                <div className="col-span-2 text-center py-20 bg-zinc-50 rounded-xl border border-dashed border-zinc-200">
+                                    <p className="text-zinc-500">現在公開されている実績はありません。</p>
                                 </div>
-                            ))}
+                            ) : (
+                                works.map((work, index) => (
+                                    <div
+                                        key={work.id}
+                                        className="bg-white border border-zinc-200 overflow-hidden hover:border-primary-200 hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-500 rounded-xl group"
+                                    >
+                                        <div className="aspect-video bg-gradient-to-br from-zinc-50 to-zinc-100 flex items-center justify-center border-b border-zinc-200 relative overflow-hidden">
+                                            {work.thumbnail ? (
+                                                // eslint-disable-next-line @next/next/no-img-element
+                                                <img
+                                                    src={work.thumbnail.url}
+                                                    alt={work.title}
+                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                />
+                                            ) : (
+                                                <span className="text-4xl font-black text-zinc-200">0{index + 1}</span>
+                                            )}
+                                        </div>
+                                        <div className="p-6">
+                                            <div className="text-zinc-500 text-sm font-medium mb-2">{work.category?.name || 'Uncategorized'}</div>
+                                            <h3 className="text-xl font-bold text-zinc-900 mb-3 group-hover:text-primary-600 transition-colors line-clamp-2">
+                                                {work.title}
+                                            </h3>
+                                            <p className="text-zinc-600 text-sm mb-4 leading-relaxed line-clamp-3">
+                                                {work.content.replace(/<[^>]*>?/gm, '')}
+                                            </p>
+                                            <div className="flex flex-wrap gap-2 mb-4">
+                                                {work["child-category"]?.map((tech) => (
+                                                    <span
+                                                        key={tech.id}
+                                                        className="px-3 py-1 bg-zinc-50 text-zinc-600 text-xs font-medium border border-zinc-200 rounded"
+                                                    >
+                                                        {tech.name}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                            {work.features && (
+                                                <div className="border-t border-zinc-100 pt-4">
+                                                    <div className="text-zinc-500 text-xs mb-1">成果</div>
+                                                    <div className="text-zinc-900 font-bold">{work.features}</div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))
+                            )}
                         </div>
                     </div>
                 </section>
@@ -129,8 +104,3 @@ export default function WorksPage() {
         </>
     )
 }
-
-
-
-
-
