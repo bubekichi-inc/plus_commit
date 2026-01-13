@@ -31,7 +31,11 @@ export const getNewsDetail = async (
   return await client.getListDetail<News>({
     endpoint: 'blog',
     contentId,
-    queries,
+    queries: {
+      ...queries,
+      // child-name（子カテゴリー）が展開されるように明示的に指定
+      depth: 2,
+    },
   });
 };
 
@@ -98,6 +102,7 @@ export const getAllTechnologies = async (queries?: MicroCMSQueries) => {
     queries: {
       ...queries,
       filters: filterQuery,
+      fields: 'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,child-name.id,child-name.name,child-name.slug,child-name.title,icon,features,thumbnail',
       limit: 100,
     },
   });

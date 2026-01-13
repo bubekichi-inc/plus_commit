@@ -72,9 +72,8 @@ export function Footer() {
                             &copy; {new Date().getFullYear()} PlusCommit Inc.
                         </p>
                         <div className="flex gap-6 text-xs text-zinc-500">
-                            <Link href="/privacy" className="hover:text-zinc-800 transition-colors">Privacy Policy</Link>
-                            <Link href="/terms" className="hover:text-zinc-800 transition-colors">Terms of Service</Link>
-                            <Link href="/legal" className="hover:text-zinc-800 transition-colors">Legal</Link>
+                            <Link href="/privacy" className="hover:text-zinc-800 transition-colors">プライバシーポリシー</Link>
+                            <Link href="/personal-info" className="hover:text-zinc-800 transition-colors">個人情報保護方針</Link>
                         </div>
                     </div>
                 </div>

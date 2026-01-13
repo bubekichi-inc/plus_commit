@@ -29,87 +29,128 @@ export function MissionVisionValue() {
         })
 
         tl.fromTo(mission,
-            { y: 50, opacity: 0 },
+            { y: 30, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
         )
             .fromTo(vision,
-                { y: 50, opacity: 0 },
+                { y: 30, opacity: 0 },
                 { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-                "-=0.4"
+                "-=0.6"
             )
             .fromTo(value,
-                { y: 50, opacity: 0 },
+                { y: 30, opacity: 0 },
                 { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-                "-=0.4"
+                "-=0.6"
             )
 
     }, { scope: sectionRef })
 
     return (
-        <section ref={sectionRef} className="py-32 bg-zinc-50 border-t border-zinc-100 overflow-hidden">
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col items-center gap-12 max-w-4xl mx-auto">
+        <section ref={sectionRef} className="py-32 bg-zinc-50 border-t border-zinc-100 overflow-hidden relative">
+            {/* Background noise/texture if needed, kept simple for now */}
 
-                    {/* Level 1: MISSION */}
-                    <div ref={missionRef} className="w-full md:w-2/3 lg:w-1/2 opacity-0">
-                        <div className="bg-white p-10 rounded-2xl border border-zinc-200 shadow-xl shadow-primary-500/5 text-center relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-400 to-primary-600"></div>
-                            <div className="text-primary-600 font-black tracking-[0.2em] text-sm mb-4">MISSION</div>
-                            <h3 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-6 leading-relaxed">
-                                テクノロジーで、<br />
-                                ビジネスの可能性を<br />
-                                最大化する。
-                            </h3>
-                            <p className="text-zinc-600 text-sm leading-relaxed font-medium">
-                                最新技術とデザインの力で、顧客の課題を解決し、<br className="hidden md:block" />
-                                事業成長を加速させるパートナーであり続けます。
-                            </p>
+            <div className="container mx-auto px-6 max-w-6xl">
+                <div className="flex flex-col gap-24 md:gap-32">
+
+                    {/* MISSION */}
+                    <div ref={missionRef} className="flex flex-col md:flex-row md:items-start gap-8 md:gap-24 opacity-0">
+                        <div className="md:w-1/4 shrink-0">
+                            <h2 className="text-3xl md:text-4xl font-black tracking-wider text-black">MISSION</h2>
                         </div>
-                    </div>
-
-                    {/* Level 2: VISION */}
-                    <div ref={visionRef} className="w-full md:w-4/5 lg:w-3/4 opacity-0">
-                        <div className="bg-white p-10 rounded-2xl border border-zinc-200 shadow-xl shadow-accent/5 text-center relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-accent-light"></div>
-                            <div className="text-accent font-black tracking-[0.2em] text-sm mb-4">VISION</div>
-                            <h3 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-6 leading-relaxed">
-                                「1億総エンジニア社会」の実現へ。
-                            </h3>
-                            <p className="text-zinc-600 text-sm leading-relaxed font-medium">
-                                誰もがテクノロジーを自由に使いこなし、自らのアイデアを形にできる。<br className="hidden md:block" />
-                                そんな創造性あふれる社会を目指します。
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Level 3: VALUE */}
-                    <div ref={valueRef} className="w-full opacity-0">
-                        <div className="bg-white p-10 rounded-2xl border border-zinc-200 shadow-xl shadow-zinc-500/5 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-zinc-400 to-zinc-600"></div>
-                            <div className="text-center mb-10">
-                                <div className="text-zinc-500 font-black tracking-[0.2em] text-sm">VALUE</div>
+                        <div className="md:w-3/4">
+                            <div className="mb-6">
+                                <span className="text-sm font-bold text-zinc-900 tracking-wider block mb-4">社会的使命</span>
+                                <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black leading-tight mb-8">
+                                    数値改善にコミットし、<br />ビジネスの成長を加速させる。
+                                </h3>
+                                <p className="text-black font-medium leading-relaxed text-lg max-w-2xl">
+                                    プラスコミットは、単なる制作・開発会社ではありません。<br />
+                                    私たちはテクノロジーの力を駆使して企業の課題を本質から解決し、売上や効率といった確かな「成果」を生み出すことで、顧客企業のビジネス、ひいては社会経済全体を前進させる原動力となります。
+                                </p>
                             </div>
-                            <div className="grid md:grid-cols-3 gap-8">
-                                <div className="text-center px-4">
-                                    <div className="text-xl font-black text-zinc-900 mb-3 group-hover:text-primary-600 transition-colors">User First</div>
-                                    <p className="text-zinc-600 text-xs font-medium leading-relaxed">
-                                        常にユーザーの視点に立ち、<br />
-                                        本質的な価値を徹底的に追求する。
+                        </div>
+                    </div>
+
+                    {/* VISION */}
+                    <div ref={visionRef} className="flex flex-col md:flex-row md:items-start gap-8 md:gap-24 opacity-0">
+                        <div className="md:w-1/4 shrink-0">
+                            <h2 className="text-3xl md:text-4xl font-black tracking-wider text-black">VISION</h2>
+                        </div>
+                        <div className="md:w-3/4">
+                            <div className="mb-6">
+                                <span className="text-sm font-bold text-zinc-900 tracking-wider block mb-4">中長期的な理想像</span>
+                                <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black leading-tight mb-8">
+                                    テクノロジーの力で、<br />すべての企業のポテンシャルを<br />解き放つ未来。
+                                </h3>
+                                <div className="space-y-6 text-black font-medium leading-relaxed text-lg max-w-2xl">
+                                    <p>
+                                        日本には、まだ本来の力を発揮できていない素晴らしい企業や事業が数多く存在します。
+                                    </p>
+                                    <p>
+                                        私たちは、本質的なDX（デジタルトランスフォーメーション）の推進を通じて、テクノロジーが事業の障壁ではなく強力な武器となる世界を実現し、あらゆる企業が持つ可能性を最大限に解き放つ未来を創ります。
                                     </p>
                                 </div>
-                                <div className="text-center px-4 border-t md:border-t-0 md:border-l border-zinc-100 pt-6 md:pt-0">
-                                    <div className="text-xl font-black text-zinc-900 mb-3 group-hover:text-primary-600 transition-colors">Professional</div>
-                                    <p className="text-zinc-600 text-xs font-medium leading-relaxed">
-                                        プロフェッショナルとして、<br />
-                                        妥協のない最高品質を提供する。
-                                    </p>
-                                </div>
-                                <div className="text-center px-4 border-t md:border-t-0 md:border-l border-zinc-100 pt-6 md:pt-0">
-                                    <div className="text-xl font-black text-zinc-900 mb-3 group-hover:text-primary-600 transition-colors">Challenge</div>
-                                    <p className="text-zinc-600 text-xs font-medium leading-relaxed">
-                                        変化を恐れず、常に新しい<br />
-                                        技術や手法に果敢に挑戦する。
-                                    </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* VALUE */}
+                    <div ref={valueRef} className="flex flex-col md:flex-row md:items-start gap-8 md:gap-24 opacity-0">
+                        <div className="md:w-1/4 shrink-0">
+                            <h2 className="text-3xl md:text-4xl font-black tracking-wider text-black">VALUE</h2>
+                        </div>
+                        <div className="md:w-3/4">
+                            <div className="mb-16">
+                                <span className="text-sm font-bold text-zinc-900 tracking-wider block mb-4">行動指針</span>
+                                <p className="text-black font-medium leading-relaxed text-lg mb-12">
+                                    プラスコミットでは、ミッションの実現のために、私たちが大切にする独自の価値観を行動指針として定めています。
+                                </p>
+
+                                <div className="space-y-20">
+                                    {/* Value Item 1 */}
+                                    <div>
+                                        <h4 className="text-4xl md:text-6xl font-black text-primary-500 mb-6 tracking-tight leading-none break-words">
+                                            OBSESS OVER RESULTS
+                                        </h4>
+                                        <h5 className="text-xl md:text-2xl font-bold text-black mb-6">
+                                            数字から目をそらさず、成果で語ろう
+                                        </h5>
+                                        <div className="text-black font-medium leading-relaxed space-y-2">
+                                            <p>私たちの仕事は、「作る」ことではなく「事業を伸ばす」ことだ。</p>
+                                            <p>それがビジネスにどう貢献したか、数字という客観的事実に向き合う勇気を持とう。</p>
+                                            <p>プロフェッショナルとして、常に期待を超える「プラス」の成果にコミットし続ける。</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Value Item 2 */}
+                                    <div>
+                                        <h4 className="text-4xl md:text-6xl font-black text-primary-500 mb-6 tracking-tight leading-none break-words">
+                                            TECHNOLOGY AS A MEANS
+                                        </h4>
+                                        <h5 className="text-xl md:text-2xl font-bold text-black mb-6">
+                                            最先端の技術を、最適な武器に変える
+                                        </h5>
+                                        <div className="text-black font-medium leading-relaxed space-y-2">
+                                            <p>モダンな技術を追求するのは、流行だからではない。</p>
+                                            <p>それがクライアントの事業成長を最速で実現するための「手段」だからだ。</p>
+                                            <p>常に学び続け、技術の本質を見極め、ビジネスの現場で使いこなすエンジニアリングを目指そう。</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Value Item 3 */}
+                                    <div>
+                                        <h4 className="text-4xl md:text-6xl font-black text-primary-500 mb-6 tracking-tight leading-none break-words">
+                                            RESPECT THE INDIVIDUAL,<br className="hidden md:block" /> BUILD TOGETHER
+                                        </h4>
+                                        <h5 className="text-xl md:text-2xl font-bold text-black mb-6">
+                                            「個」を磨き、「共」に創る
+                                        </h5>
+                                        <div className="text-black font-medium leading-relaxed space-y-2">
+                                            <p>わたしたちは、自律したプロフェッショナルの集団だ。</p>
+                                            <p>一人ひとりが自身のスキルと市場価値を高める挑戦を尊重しよう。</p>
+                                            <p>そして、互いの知見をオープンに共有し、フラットに議論し、助け合うことで、一人では到達できない高みを目指す最強のチームであろう。</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

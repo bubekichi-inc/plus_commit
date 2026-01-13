@@ -47,7 +47,7 @@ export type News = {
   title: string;
   content: string;
   category?: NewsCategory;
-  "child-category"?: NewsCategory[]; // 子カテゴリー
+  "child-name"?: NewsCategory[]; // 子カテゴリー
   icon?: string; // アイコン（絵文字など）
   features?: string; // 特徴（改行区切りテキストなど）
   special?: SpecialField;

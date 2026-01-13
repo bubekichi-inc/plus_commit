@@ -26,7 +26,6 @@ type AuthContextType = {
   isConfigured: boolean
   signUp: (email: string, password: string, name?: string) => Promise<{ error: AuthError | null }>
   signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>
-  signInWithOAuth: (provider: 'google' | 'github') => Promise<{ error: AuthError | null }>
   signOut: () => Promise<void>
   resetPassword: (email: string) => Promise<{ error: AuthError | null }>
   updatePassword: (newPassword: string) => Promise<{ error: AuthError | null }>
@@ -41,7 +40,6 @@ const AuthContext = createContext<AuthContextType>({
   isConfigured: false,
   signUp: async () => ({ error: null }),
   signIn: async () => ({ error: null }),
-  signInWithOAuth: async () => ({ error: null }),
   signOut: async () => { },
   resetPassword: async () => ({ error: null }),
   updatePassword: async () => ({ error: null }),
@@ -165,21 +163,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error }
   }
 
-  // OAuth サインイン
-  const signInWithOAuth = async (provider: 'google' | 'github') => {
-    if (!isConfigured) return { error: null }
-
-    const supabase = createClient()
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider,
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-
-    return { error }
-  }
-
   // サインアウト
   const signOut = async () => {
     if (!isConfigured) return
@@ -221,7 +204,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isConfigured,
       signUp,
       signIn,
-      signInWithOAuth,
       signOut,
       resetPassword,
       updatePassword,

@@ -63,7 +63,7 @@ export default async function WorksPage() {
                                                 {work.content.replace(/<[^>]*>?/gm, '')}
                                             </p>
                                             <div className="flex flex-wrap gap-2 mb-4">
-                                                {work["child-category"]?.map((tech) => (
+                                                {work["child-name"]?.map((tech) => (
                                                     <span
                                                         key={tech.id}
                                                         className="px-3 py-1 bg-zinc-50 text-zinc-600 text-xs font-medium border border-zinc-200 rounded"

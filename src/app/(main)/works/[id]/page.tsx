@@ -99,13 +99,13 @@ export default async function WorksDetailPage({
                                 {/* Sidebar / Meta Info */}
                                 <aside className="space-y-8">
                                     {/* Technologies */}
-                                    {post["child-category"] && post["child-category"].length > 0 && (
+                                    {post["child-name"] && post["child-name"].length > 0 && (
                                         <div className="bg-zinc-50 rounded-2xl p-6 border border-zinc-100">
                                             <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-wider mb-4">
                                                 Technologies
                                             </h3>
                                             <div className="flex flex-wrap gap-2">
-                                                {post["child-category"].map((tech) => (
+                                                {post["child-name"].map((tech) => (
                                                     <span
                                                         key={tech.id}
                                                         className="px-3 py-1.5 bg-white text-zinc-600 text-xs font-bold rounded border border-zinc-200 shadow-sm"
