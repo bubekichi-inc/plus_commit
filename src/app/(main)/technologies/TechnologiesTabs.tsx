@@ -6,8 +6,7 @@ import Link from "next/link"
 
 type CategoryItem = {
     id: string
-    name: string
-    title?: string
+    "child-name": string  // カテゴリー名（child-categories APIのフィールド）
     slug?: string
 }
 
@@ -17,7 +16,7 @@ type TechnologyItem = {
     content: string
     icon?: string
     features?: string
-    "child-name"?: CategoryItem[]
+    "child-category"?: CategoryItem[]
 }
 
 type GroupedTechnologies = {
@@ -45,8 +44,8 @@ export function TechnologiesTabs({ groupedTechnologies }: TechnologiesTabsProps)
                         <button
                             onClick={() => setActiveTab("all")}
                             className={`px-4 py-2 text-sm font-bold rounded transition-colors ${activeTab === "all"
-                                    ? "bg-zinc-900 text-white"
-                                    : "bg-zinc-50 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
+                                ? "bg-zinc-900 text-white"
+                                : "bg-zinc-50 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
                                 }`}
                         >
                             すべて
@@ -56,11 +55,11 @@ export function TechnologiesTabs({ groupedTechnologies }: TechnologiesTabsProps)
                                 key={group.category.id}
                                 onClick={() => setActiveTab(group.category.id)}
                                 className={`px-4 py-2 text-sm font-medium rounded transition-colors ${activeTab === group.category.id
-                                        ? "bg-zinc-900 text-white"
-                                        : "bg-zinc-50 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
+                                    ? "bg-zinc-900 text-white"
+                                    : "bg-zinc-50 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
                                     }`}
                             >
-                                {group.category.title || group.category.name}
+                                {group.category["child-name"]}
                             </button>
                         ))}
                     </div>
@@ -73,7 +72,7 @@ export function TechnologiesTabs({ groupedTechnologies }: TechnologiesTabsProps)
                     <div className="container mx-auto px-4">
                         <div className="flex items-center gap-4 mb-8">
                             <h2 className="text-2xl font-black tracking-tight text-zinc-900">
-                                {group.category.title || group.category.name}
+                                {group.category["child-name"]}
                             </h2>
                             <span className="text-sm text-zinc-400">
                                 {group.items.length} technologies
@@ -90,7 +89,7 @@ export function TechnologiesTabs({ groupedTechnologies }: TechnologiesTabsProps)
                                         <span className="text-4xl">{tech.icon || "🔧"}</span>
                                         <div>
                                             <div className="text-xs text-zinc-400 font-medium mb-1">
-                                                {group.category.title || group.category.name}
+                                                {group.category["child-name"]}
                                             </div>
                                             <h3 className="text-xl font-bold text-zinc-900 transition-colors group-hover:text-primary-600">
                                                 {tech.title}

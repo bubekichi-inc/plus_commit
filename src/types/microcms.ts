@@ -38,6 +38,18 @@ export type SpecialField = boolean | {
   special: boolean;
 };
 
+// 子カテゴリー型（child-categories APIのスキーマ）
+export type ChildCategory = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  "child-name": string; // カテゴリー名（テキストフィールド）
+  slug: string; // URLスラッグ
+  parent?: NewsCategory; // 親カテゴリーへの参照
+};
+
 export type News = {
   id: string;
   createdAt: string;
@@ -47,7 +59,7 @@ export type News = {
   title: string;
   content: string;
   category?: NewsCategory;
-  "child-name"?: NewsCategory[]; // 子カテゴリー
+  "child-category"?: ChildCategory[]; // 子カテゴリーへの参照（正しいフィールドID）
   icon?: string; // アイコン（絵文字など）
   features?: string; // 特徴（改行区切りテキストなど）
   special?: SpecialField;

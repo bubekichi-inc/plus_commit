@@ -102,7 +102,7 @@ export const getAllTechnologies = async (queries?: MicroCMSQueries) => {
     queries: {
       ...queries,
       filters: filterQuery,
-      fields: 'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,child-name.id,child-name.name,child-name.slug,child-name.title,icon,features,thumbnail',
+      fields: 'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,child-category.id,child-category.child-name,child-category.slug,icon,features,thumbnail',
       limit: 100,
     },
   });

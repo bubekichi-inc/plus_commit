@@ -45,7 +45,7 @@ export default async function TechnologyDetailPage({
     }
 
     // 子カテゴリーの1つ目を取得（表示用）
-    const categoryLabel = post["child-name"]?.[0]?.name || "Technologies";
+    const categoryLabel = post["child-category"]?.[0]?.["child-name"] || "Technologies";
 
     return (
         <>
@@ -82,14 +82,14 @@ export default async function TechnologyDetailPage({
                                                 {post.title}
                                             </h1>
                                             {/* 子カテゴリーを表示 */}
-                                            {post["child-name"] && post["child-name"].length > 0 && (
+                                            {post["child-category"] && post["child-category"].length > 0 && (
                                                 <div className="flex flex-wrap gap-2 mb-4">
-                                                    {post["child-name"].map((childCat) => (
+                                                    {post["child-category"].map((childCat) => (
                                                         <span
                                                             key={childCat.id}
                                                             className="inline-block px-3 py-1 bg-primary-50 text-primary-600 text-sm font-bold rounded-full border border-primary-100"
                                                         >
-                                                            {childCat.name}
+                                                            {childCat["child-name"]}
                                                         </span>
                                                     ))}
                                                 </div>

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Metadata } from 'next'
 import { getPageSetting, getAllTechnologies } from "@/lib/microcms"
-import { News, NewsCategory } from "@/types/microcms"
+import { News, ChildCategory } from "@/types/microcms"
 import { TechnologiesTabs } from "./TechnologiesTabs"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 type GroupedTechnologies = {
-    category: NewsCategory;
+    category: ChildCategory;
     items: News[];
 }
 
@@ -30,13 +30,13 @@ export default async function TechnologiesPage() {
     const uncategorizedItems: News[] = [];
 
     technologies.forEach(tech => {
-        const childCategories = tech["child-name"];
+        const childCategories = tech["child-category"];
         if (childCategories && childCategories.length > 0) {
             childCategories.forEach(childCat => {
                 if (!processedChildCategoryIds.has(childCat.id)) {
                     // この子カテゴリーを持つ技術を全て抽出
                     const items = technologies.filter(t =>
-                        t["child-name"]?.some(c => c.id === childCat.id)
+                        t["child-category"]?.some(c => c.id === childCat.id)
                     );
 
                     groupedTechnologies.push({
@@ -57,7 +57,7 @@ export default async function TechnologiesPage() {
         groupedTechnologies.push({
             category: {
                 id: 'others',
-                name: 'その他',
+                "child-name": 'その他',
                 slug: 'others',
                 createdAt: '',
                 updatedAt: '',
@@ -67,6 +67,7 @@ export default async function TechnologiesPage() {
             items: uncategorizedItems
         });
     }
+
 
     return (
         <>
