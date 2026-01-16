@@ -62,16 +62,18 @@ export default async function WorksPage() {
                                             <p className="text-zinc-600 text-sm mb-4 leading-relaxed line-clamp-3">
                                                 {work.content.replace(/<[^>]*>?/gm, '')}
                                             </p>
-                                            <div className="flex flex-wrap gap-2 mb-4">
-                                                {work["child-name"]?.map((tech) => (
-                                                    <span
-                                                        key={tech.id}
-                                                        className="px-3 py-1 bg-zinc-50 text-zinc-600 text-xs font-medium border border-zinc-200 rounded"
-                                                    >
-                                                        {tech.name}
-                                                    </span>
-                                                ))}
-                                            </div>
+                                            {work["child-category"] && work["child-category"].length > 0 && (
+                                                <div className="flex flex-wrap gap-2 mb-4">
+                                                    {work["child-category"].map((tech) => (
+                                                        <span
+                                                            key={tech.id}
+                                                            className="px-3 py-1 bg-zinc-50 text-zinc-600 text-xs font-medium border border-zinc-200 rounded"
+                                                        >
+                                                            {tech["child-name"]}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
                                             {work.features && (
                                                 <div className="border-t border-zinc-100 pt-4">
                                                     <div className="text-zinc-500 text-xs mb-1">成果</div>
