@@ -15,11 +15,36 @@ export const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY,
 });
 
-// ニュース一覧を取得
+// ニュース一覧を取得（newsカテゴリーのみ）
 export const getNewsList = async (queries?: MicroCMSQueries) => {
+  // 1. まず 'news' というslugを持つカテゴリーのIDを取得
+  let newsCategoryId: string | undefined;
+
+  try {
+    const categoriesResponse = await client.getList<NewsCategory>({
+      endpoint: 'categories',
+      queries: {
+        filters: 'slug[equals]news',
+        fields: 'id',
+        limit: 1,
+      },
+    });
+    newsCategoryId = categoriesResponse.contents[0]?.id;
+  } catch (e) {
+    console.error("Failed to fetch news category by slug:", e);
+  }
+
+  // 2. 取得したカテゴリIDでフィルタリング
+  const filterQuery = newsCategoryId
+    ? `category[equals]${newsCategoryId}`
+    : 'category[equals]news';
+
   return await client.getList<News>({
     endpoint: 'blog',
-    queries,
+    queries: {
+      ...queries,
+      filters: queries?.filters ? `${queries.filters}[and]${filterQuery}` : filterQuery,
+    },
   });
 };
 

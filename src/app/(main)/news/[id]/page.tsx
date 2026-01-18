@@ -15,9 +15,23 @@ export async function generateMetadata({
     const { id } = await params
     try {
         const post = await getNewsDetail(id)
+        const ogImage = post.thumbnail?.url || "/general/ogp.png"
         return {
             title: `${post.title} | 株式会社PLUS-COMMIT`,
             description: post.content ? post.content.replace(/<[^>]*>?/gm, '').substring(0, 160) : '',
+            openGraph: {
+                title: `${post.title} | 株式会社PLUS-COMMIT`,
+                description: post.content ? post.content.replace(/<[^>]*>?/gm, '').substring(0, 160) : '',
+                images: [ogImage],
+                type: "article",
+                publishedTime: post.publishedAt,
+            },
+            twitter: {
+                card: "summary_large_image",
+                title: `${post.title} | 株式会社PLUS-COMMIT`,
+                description: post.content ? post.content.replace(/<[^>]*>?/gm, '').substring(0, 160) : '',
+                images: [ogImage],
+            },
         }
     } catch {
         return {
@@ -70,8 +84,9 @@ export default async function NewsDetailPage({
                                     <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900 mb-6 leading-tight">
                                         {post.title}
                                     </h1>
-                                    <div className="text-zinc-500 text-sm">
-                                        公開日: {new Date(post.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                    <div className="text-zinc-500 text-sm space-y-1">
+                                        <div>作成日: {new Date(post.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}</div>
+                                        <div>更新日: {new Date(post.updatedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}</div>
                                     </div>
                                 </div>
 

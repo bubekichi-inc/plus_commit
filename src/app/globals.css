@@ -32,6 +32,11 @@ body {
     font-feature-settings: "palt";
 }
 
+button,
+[role="button"] {
+    cursor: pointer;
+}
+
 @layer utilities {
     .text-balance {
         text-wrap: balance;

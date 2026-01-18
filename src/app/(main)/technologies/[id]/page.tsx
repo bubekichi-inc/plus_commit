@@ -15,9 +15,23 @@ export async function generateMetadata({
     const { id } = await params
     try {
         const post = await getNewsDetail(id)
+        const ogImage = post.thumbnail?.url || "/general/ogp.png"
         return {
             title: `${post.title} | 株式会社PLUS-COMMIT`,
             description: post.content ? post.content.replace(/<[^>]*>?/gm, '').substring(0, 160) : '',
+            openGraph: {
+                title: `${post.title} | 株式会社PLUS-COMMIT`,
+                description: post.content ? post.content.replace(/<[^>]*>?/gm, '').substring(0, 160) : '',
+                images: [ogImage],
+                type: "article",
+                publishedTime: post.publishedAt,
+            },
+            twitter: {
+                card: "summary_large_image",
+                title: `${post.title} | 株式会社PLUS-COMMIT`,
+                description: post.content ? post.content.replace(/<[^>]*>?/gm, '').substring(0, 160) : '',
+                images: [ogImage],
+            },
         }
     } catch {
         return {
@@ -53,6 +67,21 @@ export default async function TechnologyDetailPage({
             <main className="min-h-screen pt-20 bg-white">
                 <article className="py-24">
                     <div className="container mx-auto px-4">
+                        {/* 子カテゴリーをh3として表示 */}
+                        {post["child-category"] && post["child-category"].length > 0 && (
+                            <div className="max-w-5xl mx-auto mb-8">
+                                <h3 className="text-2xl font-bold text-zinc-900 flex flex-wrap gap-3 items-center">
+                                    {post["child-category"].map((childCat, index) => (
+                                        <span key={childCat.id}>
+                                            {childCat["child-name"]}
+                                            {index < post["child-category"]!.length - 1 && (
+                                                <span className="text-zinc-300 mx-2">/</span>
+                                            )}
+                                        </span>
+                                    ))}
+                                </h3>
+                            </div>
+                        )}
                         <div className="flex gap-8 max-w-5xl mx-auto">
                             <aside className="hidden lg:block w-16 shrink-0">
                                 <ShareButtons title={post.title} id={post.id} />
@@ -102,8 +131,9 @@ export default async function TechnologyDetailPage({
                                         </div>
                                     </div>
 
-                                    <div className="text-zinc-500 text-sm border-b border-zinc-100 pb-8">
-                                        公開日: {new Date(post.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                    <div className="text-zinc-500 text-sm border-b border-zinc-100 pb-8 space-y-1">
+                                        <div>作成日: {new Date(post.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}</div>
+                                        <div>更新日: {new Date(post.updatedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}</div>
                                     </div>
                                 </div>
 

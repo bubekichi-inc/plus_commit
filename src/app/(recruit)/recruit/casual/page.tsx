@@ -170,7 +170,7 @@ export default function CasualInterviewPage() {
                                 </p>
                                 <div className="flex flex-col gap-3">
                                     <Link href="/recruit/register?next=/recruit/casual" className="w-full">
-                                        <Button className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3">
+                                        <Button className="w-full bg-primary-600 hover:bg-primary-700 text-black font-bold py-3">
                                             <UserPlus className="w-4 h-4 mr-2" />
                                             新規会員登録
                                         </Button>

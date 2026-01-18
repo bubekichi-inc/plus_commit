@@ -20,7 +20,7 @@ export type Technology = {
 
 export type TechnologyResponse = MicroCMSListResponse<Technology>;
 
-// カテゴリ型（コンテンツ参照で設定されている場合）
+// カテゴリ型(コンテンツ参照で設定されている場合)
 export type NewsCategory = {
   id: string;
   createdAt: string;
@@ -30,24 +30,13 @@ export type NewsCategory = {
   name: string;
   title?: string;
   slug: string;
+  "child-name"?: string; // 子カテゴリーの名前
 };
 
 // microCMSのカスタムフィールド（真偽値）の型
 export type SpecialField = boolean | {
   fieldId: string;
   special: boolean;
-};
-
-// 子カテゴリー型（child-categories APIのスキーマ）
-export type ChildCategory = {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  "child-name": string; // カテゴリー名（テキストフィールド）
-  slug: string; // URLスラッグ
-  parent?: NewsCategory; // 親カテゴリーへの参照
 };
 
 export type News = {
@@ -59,7 +48,7 @@ export type News = {
   title: string;
   content: string;
   category?: NewsCategory;
-  "child-category"?: ChildCategory[]; // 子カテゴリーへの参照（正しいフィールドID）
+  "child-category"?: NewsCategory[]; // 子カテゴリー
   icon?: string; // アイコン（絵文字など）
   features?: string; // 特徴（改行区切りテキストなど）
   special?: SpecialField;

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { BusinessHero } from "@/components/business/BusinessHero"
 import { MissionVisionValue } from "@/components/sections/MissionVisionValue"
-import { ArrowRight, ChevronRight, Check, Zap, ExternalLink, Mail } from "lucide-react"
+import { ArrowRight, ChevronRight, Check, Zap, ExternalLink, Mail, Calendar, RefreshCw } from "lucide-react"
 import { getNewsList, getPageSetting, getWorks } from "@/lib/microcms"
 import { getRecruitUrl } from "@/lib/site-config"
 import { Metadata } from 'next'
@@ -14,6 +14,18 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
         title: setting?.title,
         description: setting?.description,
+        openGraph: {
+            title: setting?.title,
+            description: setting?.description,
+            images: ["/general/ogp.png"],
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: setting?.title,
+            description: setting?.description,
+            images: ["/general/ogp.png"],
+        },
     }
 }
 
@@ -31,18 +43,16 @@ export default async function HomePage() {
                     <div className="container mx-auto px-6">
                         <div className="flex flex-col md:flex-row items-start justify-between gap-12 mb-16">
                             <div className="max-w-2xl">
-                                <div className="text-accent font-bold tracking-widest text-xs mb-6">WORKS</div>
                                 <h2 className="text-4xl md:text-5xl font-black text-black mb-6 leading-tight tracking-tight">
-                                    <span className="block mb-2">Creating Value</span>
-                                    <span className="text-zinc-400">Through Technology.</span>
+                                    <span className="block mb-2">Works</span>
                                 </h2>
                                 <p className="text-zinc-600 font-medium leading-relaxed text-lg max-w-xl">
-                                    大手企業からスタートアップまで、様々な業界・規模のプロジェクト実績があります。
-                                    課題解決に向けた最適なソリューションを提供します。
+                                    様々な業界・規模のプロジェクト実績があります。
+                                    数値の変化だけでなく、結果を出すまでの過程も可能な限り公開しています。
                                 </p>
                             </div>
                             <Button asChild variant="outline" className="rounded-full px-8 h-12 border-zinc-300 text-zinc-900 hover:bg-black hover:text-white font-bold transition-all hidden md:flex">
-                                <Link href="/works">
+                                <Link href="/works/">
                                     View All Works
                                     <ArrowRight className="ml-2 w-4 h-4" />
                                 </Link>
@@ -52,22 +62,27 @@ export default async function HomePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                             {works.map((work) => (
                                 <Link key={work.id} href={`/works/${work.id}`} className="group relative block aspect-video overflow-hidden rounded-2xl bg-zinc-100 border border-zinc-100 shadow-sm transition-all hover:shadow-xl">
-                                    {work.thumbnail ? (
-                                        <img
-                                            src={work.thumbnail.url}
-                                            alt={work.title}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-zinc-300 font-bold bg-zinc-50">
-                                            NO IMAGE
-                                        </div>
-                                    )}
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={work.thumbnail?.url || "/general/ogp.png"}
+                                        alt={work.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                                     <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                                         <div className="flex items-center gap-3 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                                             <span className="px-3 py-1 bg-white/10 backdrop-blur-sm text-white text-xs font-bold rounded-full border border-white/20">
                                                 {work.category?.name || "Works"}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-3 mb-2 opacity-80">
+                                            <span className="text-xs text-white/90 flex items-center gap-1">
+                                                <Calendar className="w-3 h-3" />
+                                                {new Date(work.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                            </span>
+                                            <span className="text-xs text-white/90 flex items-center gap-1">
+                                                <RefreshCw className="w-3 h-3" />
+                                                {new Date(work.updatedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
                                             </span>
                                         </div>
                                         <h3 className="text-2xl font-bold text-white leading-tight mb-2 group-hover:text-primary-300 transition-colors">
@@ -94,9 +109,8 @@ export default async function HomePage() {
                     <div className="container mx-auto px-6">
                         <div className="flex items-end justify-between mb-12">
                             <div>
-                                <div className="text-primary-600 font-bold tracking-widest text-xs mb-4">LATEST NEWS</div>
                                 <h2 className="text-3xl md:text-4xl font-black tracking-tight text-black">
-                                    News & Topics
+                                    News
                                 </h2>
                             </div>
                             <Link href="/news" className="group text-sm text-zinc-500 hover:text-primary-600 transition-colors flex items-center gap-2 font-bold hidden md:flex">
@@ -107,7 +121,14 @@ export default async function HomePage() {
                             {news.map((item) => (
                                 <Link key={item.id} href={`/news/${item.id}`} className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-8 py-6 border-b border-zinc-100 hover:bg-zinc-50 transition-all px-6 rounded-2xl">
                                     <div className="flex items-center gap-4 shrink-0">
-                                        <span className="text-sm text-zinc-400 font-mono font-medium">{new Date(item.publishedAt).toLocaleDateString('en-US').replace(/\//g, '.')}</span>
+                                        <span className="text-xs text-zinc-400 font-mono font-medium flex items-center gap-1">
+                                            <Calendar className="w-3 h-3" />
+                                            {new Date(item.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                        </span>
+                                        <span className="text-xs text-zinc-400 font-mono font-medium flex items-center gap-1">
+                                            <RefreshCw className="w-3 h-3" />
+                                            {new Date(item.updatedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                        </span>
                                         <span className="px-3 py-1 bg-zinc-100 text-zinc-600 text-xs font-bold rounded-full min-w-[80px] text-center group-hover:bg-primary-50 group-hover:text-primary-600 transition-colors">
                                             {item.category?.name || "お知らせ"}
                                         </span>

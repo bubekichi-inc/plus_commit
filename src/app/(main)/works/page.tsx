@@ -4,10 +4,23 @@ import { Footer } from "@/components/sections/Footer"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { getWorks } from "@/lib/microcms"
+import { Calendar, RefreshCw } from "lucide-react"
 
 export const metadata = {
     title: '制作実績 | プラスコミット株式会社',
     description: 'プラスコミット株式会社の制作実績一覧です。Web制作、システム開発、アプリケーション開発など、幅広いプロジェクトを手がけています。',
+    openGraph: {
+        title: '制作実績 | プラスコミット株式会社',
+        description: 'プラスコミット株式会社の制作実績一覧です。Web制作、システム開発、アプリケーション開発など、幅広いプロジェクトを手がけています。',
+        images: ["/general/ogp.png"],
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: '制作実績 | プラスコミット株式会社',
+        description: 'プラスコミット株式会社の制作実績一覧です。Web制作、システム開発、アプリケーション開発など、幅広いプロジェクトを手がけています。',
+        images: ["/general/ogp.png"],
+    },
 }
 
 export default async function WorksPage() {
@@ -37,25 +50,34 @@ export default async function WorksPage() {
                                     <p className="text-zinc-500">現在公開されている実績はありません。</p>
                                 </div>
                             ) : (
-                                works.map((work, index) => (
-                                    <div
+                                works.map((work) => (
+                                    <Link
                                         key={work.id}
-                                        className="bg-white border border-zinc-200 overflow-hidden hover:border-primary-200 hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-500 rounded-xl group"
+                                        href={`/works/${work.id}`}
+                                        className="bg-white border border-zinc-200 overflow-hidden hover:border-primary-200 hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-500 rounded-xl group block"
                                     >
                                         <div className="aspect-video bg-gradient-to-br from-zinc-50 to-zinc-100 flex items-center justify-center border-b border-zinc-200 relative overflow-hidden">
-                                            {work.thumbnail ? (
-                                                // eslint-disable-next-line @next/next/no-img-element
-                                                <img
-                                                    src={work.thumbnail.url}
-                                                    alt={work.title}
-                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                                />
-                                            ) : (
-                                                <span className="text-4xl font-black text-zinc-200">0{index + 1}</span>
-                                            )}
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img
+                                                src={work.thumbnail?.url || "/general/ogp.png"}
+                                                alt={work.title}
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            />
                                         </div>
                                         <div className="p-6">
-                                            <div className="text-zinc-500 text-sm font-medium mb-2">{work.category?.name || 'Uncategorized'}</div>
+                                            <div className="flex items-center justify-between mb-2">
+                                                <div className="text-zinc-500 text-sm font-medium">{work.category?.name || 'Uncategorized'}</div>
+                                                <div className="flex items-center gap-3 text-right">
+                                                    <span className="text-xs text-zinc-400 flex items-center gap-1">
+                                                        <Calendar className="w-3 h-3" />
+                                                        {new Date(work.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                                    </span>
+                                                    <span className="text-xs text-zinc-400 flex items-center gap-1">
+                                                        <RefreshCw className="w-3 h-3" />
+                                                        {new Date(work.updatedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                                    </span>
+                                                </div>
+                                            </div>
                                             <h3 className="text-xl font-bold text-zinc-900 mb-3 group-hover:text-primary-600 transition-colors line-clamp-2">
                                                 {work.title}
                                             </h3>
@@ -81,7 +103,7 @@ export default async function WorksPage() {
                                                 </div>
                                             )}
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))
                             )}
                         </div>

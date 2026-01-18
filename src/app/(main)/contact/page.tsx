@@ -1,11 +1,10 @@
 "use client"
 
-import { Header } from "@/components/sections/Header"
-import { Footer } from "@/components/sections/Footer"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { CheckCircle, AlertCircle, Loader2 } from "lucide-react"
+import Image from "next/image"
 
 type FormData = {
     company: string
@@ -112,7 +111,21 @@ export default function ContactPage() {
 
     return (
         <>
-            <Header />
+            {/* シンプルなヘッダー（ロゴのみ、リンクなし） */}
+            <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-zinc-100">
+                <div className="container mx-auto px-4">
+                    <div className="h-20 flex items-center justify-center">
+                        <Image
+                            src="/general/logo.svg"
+                            alt="プラスコミット"
+                            width={160}
+                            height={40}
+                            className="h-8 w-auto"
+                            priority
+                        />
+                    </div>
+                </div>
+            </header>
             <main className="min-h-screen pt-20 bg-white">
                 <section className="py-24 border-b border-zinc-100">
                     <div className="container mx-auto px-4">
@@ -356,7 +369,6 @@ export default function ContactPage() {
                     </div>
                 </section>
             </main>
-            <Footer />
         </>
     )
 }

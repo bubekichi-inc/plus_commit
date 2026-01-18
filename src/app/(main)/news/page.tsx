@@ -11,6 +11,18 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
         title: setting?.title,
         description: setting?.description,
+        openGraph: {
+            title: setting?.title,
+            description: setting?.description,
+            images: ["/general/ogp.png"],
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: setting?.title,
+            description: setting?.description,
+            images: ["/general/ogp.png"],
+        },
     }
 }
 
@@ -23,11 +35,11 @@ export default async function NewsListPage({
 }) {
     const params = await searchParams
     const searchQuery = params.q || ""
-    
+
     const { contents: news } = await getNewsList({
         q: searchQuery || undefined,
     })
-    
+
     // 特選記事かどうかを判定するヘルパー関数
     // microCMSのカスタムフィールドはオブジェクト形式 {fieldId: "special", special: true/false} で返される
     const isSpecialArticle = (item: typeof news[0]) => {
@@ -39,7 +51,7 @@ export default async function NewsListPage({
         }
         return false
     }
-    
+
     const specialNews = searchQuery ? [] : news.filter(isSpecialArticle)
 
     return (
@@ -70,15 +82,18 @@ export default async function NewsListPage({
                                 </div>
                                 <div className="grid gap-4">
                                     {specialNews.map((item) => (
-                                        <Link 
+                                        <Link
                                             key={item.id}
                                             href={`/news/${item.id}`}
                                             className="group flex flex-col md:flex-row md:items-center gap-4 p-6 bg-white border border-zinc-200 hover:border-primary-200 hover:shadow-lg hover:shadow-primary-500/10 transition-all relative overflow-hidden rounded-lg"
                                         >
                                             <div className="absolute top-0 left-0 w-1 h-full bg-primary-500" />
-                                            <div className="flex items-center gap-4 shrink-0 pl-4">
-                                                <span className="text-sm text-zinc-500 min-w-[100px]">
-                                                    {new Date(item.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                            <div className="flex flex-col gap-1 shrink-0 pl-4">
+                                                <span className="text-xs text-zinc-500">
+                                                    作成: {new Date(item.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                                </span>
+                                                <span className="text-xs text-zinc-500">
+                                                    更新: {new Date(item.updatedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
                                                 </span>
                                                 <span className="px-3 py-1 bg-zinc-100 text-zinc-600 text-xs font-bold border border-zinc-200 rounded">
                                                     {item.category?.name || "お知らせ"}
@@ -103,7 +118,7 @@ export default async function NewsListPage({
                                 {searchQuery && (
                                     <div className="mb-8 p-4 bg-zinc-50 border border-zinc-200 rounded-lg">
                                         <p className="text-zinc-600">
-                                            <span className="text-zinc-900 font-bold">&ldquo;{searchQuery}&rdquo;</span> の検索結果: 
+                                            <span className="text-zinc-900 font-bold">&ldquo;{searchQuery}&rdquo;</span> の検索結果:
                                             <span className="text-zinc-900 font-bold ml-2">{news.length}件</span>
                                         </p>
                                     </div>
@@ -116,14 +131,17 @@ export default async function NewsListPage({
                                 {news.length > 0 ? (
                                     <div className="grid gap-6">
                                         {news.map((item) => (
-                                            <Link 
+                                            <Link
                                                 key={item.id}
                                                 href={`/news/${item.id}`}
                                                 className="group flex flex-col md:flex-row md:items-center gap-4 p-6 bg-white border border-zinc-200 hover:border-primary-200 hover:shadow-lg hover:shadow-primary-500/10 transition-all rounded-lg"
                                             >
-                                                <div className="flex items-center gap-4 shrink-0">
-                                                    <span className="text-sm text-zinc-500 min-w-[100px]">
-                                                        {new Date(item.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                                <div className="flex flex-col gap-1 shrink-0">
+                                                    <span className="text-xs text-zinc-500">
+                                                        作成: {new Date(item.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                                                    </span>
+                                                    <span className="text-xs text-zinc-500">
+                                                        更新: {new Date(item.updatedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
                                                     </span>
                                                     <span className="px-3 py-1 bg-zinc-100 text-zinc-600 text-xs font-bold border border-zinc-200 rounded">
                                                         {item.category?.name || "お知らせ"}
@@ -148,7 +166,7 @@ export default async function NewsListPage({
                                         <p className="text-zinc-500 text-sm">
                                             別のキーワードで検索してみてください
                                         </p>
-                                        <Link 
+                                        <Link
                                             href="/news"
                                             className="inline-block mt-6 px-6 py-2 bg-zinc-900 hover:bg-zinc-800 text-white transition-colors rounded-lg"
                                         >
