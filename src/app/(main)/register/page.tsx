@@ -157,7 +157,7 @@ export default function RegisterPage() {
                     </h2>
                     <p className="text-zinc-400 mb-8">
                         既にアカウントをお持ちですか？{" "}
-                        <Link href="/login" className="text-white hover:underline">
+                        <Link href="/login" className="text-black hover:underline">
                             ログイン
                         </Link>
                     </p>

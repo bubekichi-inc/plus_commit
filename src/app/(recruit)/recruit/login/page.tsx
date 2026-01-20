@@ -150,7 +150,7 @@ export default function RecruitLoginPage() {
                         <Button
                             type="submit"
                             disabled={isSubmitting}
-                            className="w-full bg-primary-600 hover:bg-primary-700 !text-white font-bold py-6 rounded-lg transition-colors"
+                            className="w-full bg-primary-600 hover:bg-primary-700 !text-black font-bold py-6 rounded-lg transition-colors"
                         >
                             {isSubmitting ? "ログイン中..." : "ログイン"}
                         </Button>

@@ -90,14 +90,14 @@ export default function RecruitRegisterPage() {
                         <div className="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mx-auto mb-6">
                             <CheckCircle className="w-8 h-8 text-primary-600" />
                         </div>
-                        <h1 className="text-2xl font-bold text-zinc-900 mb-4">登録完了</h1>
+                        <h1 className="text-2xl font-bold text-black-900 mb-4">登録完了</h1>
                         <p className="text-zinc-600 mb-6">
                             確認メールを送信しました。<br />
                             メール内のリンクをクリックして、<br />
                             アカウントを有効化してください。
                         </p>
                         <Link href="/recruit/login">
-                            <Button className="w-full bg-primary-600 hover:bg-primary-700 !text-white font-bold py-6 rounded-lg">
+                            <Button className="w-full bg-primary-600 hover:bg-primary-700 text-black font-bold py-6 rounded-lg">
                                 ログインページへ
                             </Button>
                         </Link>
@@ -130,7 +130,7 @@ export default function RecruitRegisterPage() {
                             height={40}
                             className="h-10 w-auto mx-auto mb-4"
                         />
-                        <h1 className="text-2xl font-bold text-zinc-900 mb-2">会員登録</h1>
+                        <h1 className="text-2xl font-bold text-black-900 mb-2">会員登録</h1>
                         <p className="text-zinc-600 text-sm">
                             会員限定コンテンツを閲覧できます
                         </p>
@@ -243,7 +243,7 @@ export default function RecruitRegisterPage() {
                         <Button
                             type="submit"
                             disabled={isSubmitting}
-                            className="w-full bg-primary-600 hover:bg-primary-700 !text-white font-bold py-6 rounded-lg transition-colors"
+                            className="w-full bg-primary-600 hover:bg-primary-700 !text-black font-bold py-6 rounded-lg transition-colors"
                         >
                             {isSubmitting ? "登録中..." : "会員登録"}
                         </Button>
