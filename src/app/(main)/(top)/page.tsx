@@ -31,7 +31,17 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
     const { contents: news } = await getNewsList({ limit: 3 })
-    const { contents: works } = await getWorks({ limit: 4 })
+    // すべての実績から、thumbnail があるものを優先して上位を表示
+    const { contents: allWorks } = await getWorks({ limit: 50 })
+    const works = allWorks
+        .slice() // 元配列を破壊しないようコピー
+        .sort((a, b) => {
+            const aHasThumb = !!a.thumbnail?.url
+            const bHasThumb = !!b.thumbnail?.url
+            if (aHasThumb === bHasThumb) return 0
+            return aHasThumb ? -1 : 1
+        })
+        .slice(0, 4)
 
     return (
         <>

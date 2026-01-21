@@ -40,7 +40,7 @@ export function LoginModal({ isOpen, onClose, onSuccess }: LoginModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
             onClick={handleClose}
           />
 
@@ -53,18 +53,19 @@ export function LoginModal({ isOpen, onClose, onSuccess }: LoginModalProps) {
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-8 relative shadow-2xl">
+            <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-8 relative shadow-2xl">
               {/* Close Button */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 text-slate-500 hover:text-white transition-colors"
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 transition-colors"
+                aria-label="閉じる"
               >
                 <X className="w-5 h-5" />
               </button>
 
               {/* Header */}
               <div className="text-center mb-8">
-                <h2 className="text-2xl font-black text-white mb-2">
+                <h2 className="text-2xl font-black text-slate-900 mb-2">
                   認証
                 </h2>
                 <p className="text-slate-500 text-sm">
@@ -84,19 +85,19 @@ export function LoginModal({ isOpen, onClose, onSuccess }: LoginModalProps) {
                           brand: '#3b82f6',
                           brandAccent: '#2563eb',
                           brandButtonText: 'white',
-                          defaultButtonBackground: '#1e293b',
-                          defaultButtonBackgroundHover: '#334155',
-                          defaultButtonBorder: '#334155',
-                          defaultButtonText: 'white',
-                          dividerBackground: '#334155',
-                          inputBackground: '#1e293b',
-                          inputBorder: '#334155',
-                          inputBorderHover: '#475569',
+                          defaultButtonBackground: 'white',
+                          defaultButtonBackgroundHover: '#f8fafc',
+                          defaultButtonBorder: '#e2e8f0',
+                          defaultButtonText: '#0f172a',
+                          dividerBackground: '#e2e8f0',
+                          inputBackground: 'white',
+                          inputBorder: '#e2e8f0',
+                          inputBorderHover: '#cbd5e1',
                           inputBorderFocus: '#3b82f6',
-                          inputText: 'white',
-                          inputLabelText: '#94a3b8',
-                          inputPlaceholder: '#64748b',
-                          messageText: '#f1f5f9',
+                          inputText: '#0f172a',
+                          inputLabelText: '#64748b',
+                          inputPlaceholder: '#94a3b8',
+                          messageText: '#64748b',
                           messageTextDanger: '#ef4444',
                           anchorTextColor: '#3b82f6',
                           anchorTextHoverColor: '#2563eb',
