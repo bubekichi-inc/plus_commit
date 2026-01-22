@@ -28,10 +28,11 @@ export type GroupedTechnologies = {
 
 export interface TechnologiesTabsProps {
     groupedTechnologies: GroupedTechnologies[]
+    initialActiveCategoryId?: string
 }
 
-export function TechnologiesTabs({ groupedTechnologies }: TechnologiesTabsProps) {
-    const [activeTab, setActiveTab] = useState<string>("all")
+export function TechnologiesTabs({ groupedTechnologies, initialActiveCategoryId }: TechnologiesTabsProps) {
+    const [activeTab, setActiveTab] = useState<string>(initialActiveCategoryId || "all")
 
     const filteredGroups = activeTab === "all"
         ? groupedTechnologies

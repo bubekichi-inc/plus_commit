@@ -1,5 +1,4 @@
 import { RecruitHeader } from "@/components/recruit/RecruitHeader"
-import { RecruitFooter } from "@/components/recruit/RecruitFooter"
 
 const members = [
     {
@@ -104,7 +103,6 @@ export default function MembersPage() {
                     </div>
                 </section>
             </main>
-            <RecruitFooter />
         </div>
     )
 }

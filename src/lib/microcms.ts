@@ -64,26 +64,6 @@ export const getNewsDetail = async (
   });
 };
 
-// 会員限定コンテンツ一覧を取得（採用ページ用）
-export const getMemberContentList = async (queries?: MicroCMSQueries) => {
-  return await client.getList<MemberContent>({
-    endpoint: 'recruit',
-    queries,
-  });
-};
-
-// 会員限定コンテンツ詳細を取得（採用ページ用）
-export const getMemberContentDetail = async (
-  contentId: string,
-  queries?: MicroCMSQueries
-) => {
-  return await client.getListDetail<MemberContent>({
-    endpoint: 'recruit',
-    contentId,
-    queries,
-  });
-};
-
 // ページ設定を取得
 export const getPageSetting = async (slug: string, queries?: MicroCMSQueries) => {
   const response = await client.getList<PageSetting>({

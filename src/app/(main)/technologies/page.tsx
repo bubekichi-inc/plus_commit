@@ -20,7 +20,11 @@ type GroupedTechnologies = {
     items: News[];
 }
 
-export default async function TechnologiesPage() {
+export default async function TechnologiesPage({
+    searchParams,
+}: {
+    searchParams?: { category?: string }
+}) {
     const { contents: technologies } = await getAllTechnologies();
 
     // 子カテゴリーごとにグルーピング
@@ -91,6 +95,10 @@ export default async function TechnologiesPage() {
         })),
     }))
 
+    const initialCategoryId = searchParams?.category && tabGroups.some(group => group.category.id === searchParams.category)
+        ? searchParams.category
+        : "all"
+
     return (
         <>
             <Header />
@@ -106,7 +114,7 @@ export default async function TechnologiesPage() {
                         </p>
                     </div>
                 </section>
-                <TechnologiesTabs groupedTechnologies={tabGroups} />
+                <TechnologiesTabs groupedTechnologies={tabGroups} initialActiveCategoryId={initialCategoryId} />
 
                 <section className="py-24 bg-zinc-50">
                     <div className="container mx-auto px-4 text-center">

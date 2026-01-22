@@ -14,16 +14,19 @@ type MenuItem = {
     submenu?: { label: string; href: string }[]
 }
 
+type TechnologyCategory = {
+    id: string
+    name: string
+}
+
 const menuItems: MenuItem[] = [
+    {
+        label: "会社概要",
+        href: "/company",
+    },
     {
         label: "取り扱い技術",
         href: "/technologies",
-        submenu: [
-            { label: "フロントエンド", href: "/technologies#frontend" },
-            { label: "バックエンド", href: "/technologies#backend" },
-            { label: "インフラ", href: "/technologies#infrastructure" },
-            { label: "CMS", href: "/technologies#cms" },
-        ],
     },
     {
         label: "制作実績",
@@ -40,6 +43,7 @@ export function Header() {
     const [activeMenu, setActiveMenu] = useState<string | null>(null)
     const [isVisible, setIsVisible] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
+    const [techCategories, setTechCategories] = useState<TechnologyCategory[]>([])
 
     // スクロール制御
     useEffect(() => {
@@ -58,6 +62,29 @@ export function Header() {
         return () => window.removeEventListener('scroll', controlNavbar)
     }, [lastScrollY])
 
+    // 取り扱い技術のサブメニューをmicroCMSベースで動的取得
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await fetch("/api/technologies/categories")
+                if (!res.ok) return
+                const data = await res.json()
+                if (Array.isArray(data.categories)) {
+                    setTechCategories(
+                        data.categories.map((cat: any) => ({
+                            id: cat.id,
+                            name: cat.name,
+                        }))
+                    )
+                }
+            } catch (e) {
+                console.error("Failed to load technology categories for header", e)
+            }
+        }
+
+        fetchCategories()
+    }, [])
+
     return (
         <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'} ${lastScrollY > 50 ? 'glass-header py-2' : 'bg-transparent py-5'}`}>
             <div className="container mx-auto px-6 h-16 flex items-center justify-between">
@@ -75,55 +102,68 @@ export function Header() {
                 </div>
 
                 <nav className="hidden md:flex items-center">
-                    {menuItems.map((item) => (
-                        <div
-                            key={item.label}
-                            className="relative group/menu"
-                            onMouseEnter={() => item.submenu && setActiveMenu(item.label)}
-                            onMouseLeave={() => setActiveMenu(null)}
-                        >
-                            {item.external ? (
-                                <a
-                                    href={item.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-5 py-6 text-sm font-bold text-zinc-600 hover:text-primary-500 transition-colors flex items-center gap-1 tracking-wide"
-                                >
-                                    {item.label}
-                                    <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                    </svg>
-                                </a>
-                            ) : (
-                                <Link
-                                    href={item.href}
-                                    className="px-5 py-6 text-sm font-bold text-zinc-600 hover:text-primary-500 transition-colors flex items-center gap-1 tracking-wide"
-                                >
-                                    {item.label}
-                                    {item.submenu && (
-                                        <svg className="w-3 h-3 ml-1 transition-transform duration-300 group-hover/menu:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    )}
-                                </Link>
-                            )}
+                    {menuItems.map((item) => {
+                        const isTechnologiesMenu = item.label === "取り扱い技術"
+                        const submenuItems = isTechnologiesMenu
+                            ? techCategories.map((cat) => ({
+                                label: cat.name,
+                                href: `/technologies?category=${encodeURIComponent(cat.id)}`,
+                            }))
+                            : item.submenu ?? []
 
-                            {/* Dropdown menu */}
-                            {item.submenu && activeMenu === item.label && (
-                                <div className="absolute top-full left-0 w-64 bg-white border border-zinc-100 shadow-[0_10px_40px_rgba(0,0,0,0.05)] rounded-xl overflow-hidden animate-fade-in-up" style={{ animationDuration: '0.2s' }}>
-                                    {item.submenu.map((subitem) => (
-                                        <Link
-                                            key={subitem.label}
-                                            href={subitem.href}
-                                            className="block px-6 py-4 text-sm font-medium text-zinc-500 hover:text-primary-500 hover:bg-zinc-50 transition-all border-b border-zinc-50 last:border-0"
-                                        >
-                                            {subitem.label}
-                                        </Link>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                        const hasSubmenu = submenuItems.length > 0
+
+                        return (
+                            <div
+                                key={item.label}
+                                className="relative group/menu"
+                                onMouseEnter={() => {
+                                    if (hasSubmenu) setActiveMenu(item.label)
+                                }}
+                                onMouseLeave={() => setActiveMenu(null)}
+                            >
+                                {item.external ? (
+                                    <a
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-5 py-6 text-sm font-bold text-zinc-600 hover:text-primary-500 transition-colors flex items-center gap-1 tracking-wide"
+                                    >
+                                        {item.label}
+                                        <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                ) : (
+                                    <Link
+                                        href={item.href}
+                                        className="px-5 py-6 text-sm font-bold text-zinc-600 hover:text-primary-500 transition-colors flex items-center gap-1 tracking-wide"
+                                    >
+                                        {item.label}
+                                        {hasSubmenu && (
+                                            <svg className="w-3 h-3 ml-1 transition-transform duration-300 group-hover/menu:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        )}
+                                    </Link>
+                                )}
+
+                                {hasSubmenu && activeMenu === item.label && (
+                                    <div className="absolute top-full left-0 w-64 bg-white border border-zinc-100 shadow-[0_10px_40px_rgba(0,0,0,0.05)] rounded-xl overflow-hidden animate-fade-in-up" style={{ animationDuration: '0.2s' }}>
+                                        {submenuItems.map((subitem) => (
+                                            <Link
+                                                key={subitem.label}
+                                                href={subitem.href}
+                                                className="block px-6 py-4 text-sm font-medium text-zinc-500 hover:text-primary-500 hover:bg-zinc-50 transition-all border-b border-zinc-50 last:border-0"
+                                            >
+                                                {subitem.label}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )
+                    })}
 
                     <div className="ml-4 flex items-center gap-3">
                         <Button size="sm" className="bg-primary-500 hover:bg-primary-600 text-white font-bold px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary-500/20" asChild>

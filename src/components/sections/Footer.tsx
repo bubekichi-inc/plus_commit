@@ -25,11 +25,11 @@ export function Footer() {
                     </div>
 
                     <div>
-                        <h3 className="text-black font-bold mb-6 text-sm tracking-wider">取り扱い技術</h3>
+<Link href="/technologies" className="space-y-4 text-sm text-zinc-600">取り扱い技術</Link>
+
                     </div>
 
                     <div>
-                        <h3 className="text-black font-bold mb-6 text-sm tracking-wider">会社情報</h3>
                         <ul className="space-y-4 text-sm text-zinc-600">
                             <li><Link href="/company" className="hover:text-primary-500 transition-colors">会社概要</Link></li>
                             <li><Link href="/works" className="hover:text-primary-500 transition-colors">制作実績</Link></li>
@@ -38,7 +38,14 @@ export function Footer() {
                     </div>
 
                     <div>
-                        <h3 className="text-black font-bold mb-6 text-sm tracking-wider">採用情報</h3>
+
+                        <ul className="space-y-4 text-sm text-zinc-600">
+                            <li>
+                                <RecruitLink className="hover:text-primary-500 transition-colors">
+                                    採用情報
+                                </RecruitLink>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -49,6 +56,7 @@ export function Footer() {
                             &copy; {new Date().getFullYear()} PlusCommit Inc.
                         </p>
                         <div className="flex gap-6 text-xs text-zinc-500">
+                            <Link href="/sitemap" className="hover:text-zinc-800 transition-colors">サイトマップ</Link>
                             <Link href="/privacy" className="hover:text-zinc-800 transition-colors">プライバシーポリシー</Link>
                             <Link href="/personal-info" className="hover:text-zinc-800 transition-colors">個人情報保護方針</Link>
                         </div>

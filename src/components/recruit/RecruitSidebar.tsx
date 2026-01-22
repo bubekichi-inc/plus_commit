@@ -58,7 +58,7 @@ export function RecruitSidebar({ activeSection, onNavigate }: RecruitSidebarProp
             </div>
 
             {/* Navigation */}
-            <nav className="flex-1 py-6 overflow-y-auto">
+            <nav className="flex-1 py-6">
                 <ul className="space-y-1 px-3">
                     {navItems.map((item) => {
                         const isActive = activeSection === item.id
@@ -88,14 +88,48 @@ export function RecruitSidebar({ activeSection, onNavigate }: RecruitSidebarProp
                 </ul>
             </nav>
 
-            {/* Footer */}
-            <div className="p-6 border-t border-white/10">
+            {/* Footer / Extra Links */}
+            <div className="p-6 border-t border-white/10 space-y-3 text-xs text-white/40">
                 <Link
                     href="/"
-                    className="flex items-center gap-2 text-white/40 hover:text-white/60 text-xs transition-colors"
+                    className="flex items-center gap-2 hover:text-white/60 transition-colors"
                 >
                     <span>← コーポレートサイトへ</span>
                 </Link>
+                <div className="space-y-2">
+                    <p className="text-[10px] uppercase tracking-widest text-white/30 font-bold">
+                        Company
+                    </p>
+                    <div className="space-y-1">
+                        <Link
+                            href="/privacy"
+                            className="block hover:text-white/60 transition-colors"
+                        >
+                            プライバシーポリシー
+                        </Link>
+                        <Link
+                            href="/personal-info"
+                            className="block hover:text-white/60 transition-colors"
+                        >
+                            個人情報保護方針
+                        </Link>
+                        <Link
+                            href="/terms"
+                            className="block hover:text-white/60 transition-colors"
+                        >
+                            利用規約
+                        </Link>
+                        <Link
+                            href="/legal"
+                            className="block hover:text-white/60 transition-colors"
+                        >
+                            特定商取引法に基づく表示
+                        </Link>
+                    </div>
+                </div>
+                <p className="text-[10px] text-white/30">
+                    © {new Date().getFullYear()} 株式会社プラスコミット
+                </p>
             </div>
         </aside>
     )

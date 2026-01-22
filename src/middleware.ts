@@ -4,6 +4,37 @@ import type { NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
+    // 0. Basic認証チェック（環境変数で有効化されている場合）
+    const basicAuthEnabled = process.env.BASIC_AUTH_ENABLED === 'true'
+    const basicAuthUser = process.env.BASIC_AUTH_USER
+    const basicAuthPassword = process.env.BASIC_AUTH_PASSWORD
+
+    if (basicAuthEnabled && basicAuthUser && basicAuthPassword) {
+        const authHeader = request.headers.get('authorization')
+        
+        if (!authHeader || !authHeader.startsWith('Basic ')) {
+            return new NextResponse('Authentication required', {
+                status: 401,
+                headers: {
+                    'WWW-Authenticate': 'Basic realm="Secure Area"',
+                },
+            })
+        }
+
+        const base64Credentials = authHeader.split(' ')[1]
+        const credentials = Buffer.from(base64Credentials, 'base64').toString('utf-8')
+        const [username, password] = credentials.split(':')
+
+        if (username !== basicAuthUser || password !== basicAuthPassword) {
+            return new NextResponse('Invalid credentials', {
+                status: 401,
+                headers: {
+                    'WWW-Authenticate': 'Basic realm="Secure Area"',
+                },
+            })
+        }
+    }
+
     // 1. Supabase Auth Session Handling
     // This updates the session and handles redirects for protected routes
     const authResponse = await updateSession(request)

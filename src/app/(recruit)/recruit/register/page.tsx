@@ -131,9 +131,6 @@ export default function RecruitRegisterPage() {
                             className="h-10 w-auto mx-auto mb-4"
                         />
                         <h1 className="text-2xl font-bold text-black-900 mb-2">会員登録</h1>
-                        <p className="text-zinc-600 text-sm">
-                            会員限定コンテンツを閲覧できます
-                        </p>
                     </div>
 
                     {/* Benefits */}

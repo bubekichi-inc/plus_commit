@@ -157,7 +157,7 @@ export default async function HomePage() {
                         </div>
                     </div>
                 </section>{/* Corporate CTA */}<section className="py-32 border-t border-zinc-100 bg-zinc-900 text-white relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.05] mix-blend-overlay" />
+                    
                     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                     <div className="container mx-auto px-6 relative z-10 text-center">
                         <h2 className="text-3xl md:text-5xl font-black mb-8 tracking-tight">
@@ -176,7 +176,7 @@ export default async function HomePage() {
                     </div>
                 </section>{/* Recruit CTA */}<section className="py-32 bg-gradient-premium relative overflow-hidden">
                     <div className="absolute right-0 top-0 w-1/2 h-full bg-white/10 blur-3xl rounded-full translate-x-1/2" />
-                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.1] mix-blend-overlay" />
+                    
                     <div className="container mx-auto px-6 relative z-10 text-center">
                         <div className="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-sm font-bold text-white mb-6">
                             RECRUIT

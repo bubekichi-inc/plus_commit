@@ -61,44 +61,5 @@ export type News = {
 
 export type NewsResponse = MicroCMSListResponse<News>;
 
-// 会員限定コンテンツ
-export type MemberContent = {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  title: string;
-  content: string;
-  excerpt?: string;
-  category?: {
-    id: string;
-    name: string;
-  };
-  thumbnail?: {
-    url: string;
-    height: number;
-    width: number;
-  };
-  author?: {
-    id: string;
-    name: string;
-    image?: {
-      url: string;
-    };
-  };
-};
 
-export type MemberContentResponse = MicroCMSListResponse<MemberContent>;
-
-export type PageSetting = {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  slug: string;
-  title: string;
-  description: string;
-};
 

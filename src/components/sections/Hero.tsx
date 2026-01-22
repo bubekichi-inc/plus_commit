@@ -10,7 +10,6 @@ export function Hero() {
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <div className="absolute top-0 right-0 w-[80vw] h-[80vw] bg-primary-900/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 mix-blend-screen animate-pulse-slow" />
                 <div className="absolute bottom-0 left-0 w-[60vw] h-[60vw] bg-accent/5 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4 mix-blend-screen" />
-                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
                 <Hero3D />
             </div>
 

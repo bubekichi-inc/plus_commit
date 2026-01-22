@@ -81,9 +81,12 @@ export function RecruitFooter() {
           <p className="text-white/30 text-xs">
             © {new Date().getFullYear()} 株式会社プラスコミット All rights reserved.
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6">
             <Link href="/privacy" className="text-white/30 hover:text-white/50 text-xs transition-colors">
               プライバシーポリシー
+            </Link>
+            <Link href="/personal-info" className="text-white/30 hover:text-white/50 text-xs transition-colors">
+              個人情報保護方針
             </Link>
             <Link href="/terms" className="text-white/30 hover:text-white/50 text-xs transition-colors">
               利用規約

@@ -82,9 +82,6 @@ export default function RecruitLoginPage() {
                             className="h-10 w-auto mx-auto mb-4"
                         />
                         <h1 className="text-2xl font-bold text-zinc-900 mb-2">ログイン</h1>
-                        <p className="text-zinc-600 text-sm">
-                            会員限定コンテンツを閲覧できます
-                        </p>
                     </div>
 
                     {/* Error */}

@@ -187,7 +187,7 @@ export default function EntryPage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-primary-100/40 rounded-full blur-[100px] animate-pulse-slow" />
                     <div className="absolute bottom-[-20%] left-[-10%] w-[40vw] h-[40vw] bg-accent/5 rounded-full blur-[80px]" />
-                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+                    {/* Ambient Background */}
                 </div>
                 <div className="max-w-4xl mx-auto relative z-10">
                     <motion.div

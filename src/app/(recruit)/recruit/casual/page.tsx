@@ -17,11 +17,17 @@ export default function CasualInterviewPage() {
         questions: "",
     })
 
+    // 現在は申し込み受付を停止中
+    const isStopped = true
+
     const isLoggedIn = !!user
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!isLoggedIn) return
+
+        // 受付停止中は送信処理を行わない
+        if (isStopped) return
 
         setIsSubmitting(true)
 
@@ -118,35 +124,6 @@ export default function CasualInterviewPage() {
 
             {/* Content */}
             <div className="max-w-4xl mx-auto px-6 py-12">
-                <div className="grid md:grid-cols-3 gap-6 mb-12">
-                    <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
-                        <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-4">
-                            <Users className="w-6 h-6 text-orange-500" />
-                        </div>
-                        <h3 className="font-bold text-zinc-900 mb-2">チームの雰囲気</h3>
-                        <p className="text-sm text-zinc-600">
-                            実際に働くメンバーと話すことで、Webサイトだけでは分からないチームのカルチャーを感じていただけます。
-                        </p>
-                    </div>
-                    <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
-                        <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
-                            <Building2 className="w-6 h-6 text-blue-500" />
-                        </div>
-                        <h3 className="font-bold text-zinc-900 mb-2">事業や働き方</h3>
-                        <p className="text-sm text-zinc-600">
-                            具体的な業務内容や、フルリモートワークでの働き方など、気になることを何でもご質問ください。
-                        </p>
-                    </div>
-                    <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
-                        <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4">
-                            <MessageCircle className="w-6 h-6 text-green-500" />
-                        </div>
-                        <h3 className="font-bold text-zinc-900 mb-2">選考とは別枠</h3>
-                        <p className="text-sm text-zinc-600">
-                            選考要素はありません。ご自身のキャリアについてのご相談なども歓迎です。
-                        </p>
-                    </div>
-                </div>
 
                 {/* Form */}
                 <div className="bg-white border border-zinc-200 rounded-3xl p-8 md:p-12 shadow-sm relative overflow-hidden">
@@ -184,10 +161,6 @@ export default function CasualInterviewPage() {
                             </div>
                         </div>
                     )}
-
-                    <h2 className="text-xl font-bold text-zinc-900 mb-8">
-                        申し込みフォーム
-                    </h2>
 
                     <form onSubmit={handleSubmit} className={`space-y-8 ${!isLoggedIn ? 'opacity-40 pointer-events-none select-none' : ''}`}>
                         {/* ユーザー情報（自動取得） */}
@@ -275,12 +248,16 @@ export default function CasualInterviewPage() {
                             </div>
                         </div>
 
-                        {/* 注意事項 */}
-                        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                            <p className="text-sm text-amber-800">
-                                <strong>ご注意:</strong> 面談はオンライン（Google Meet）で行います。
-                                お申し込み後、担当者より日程確定のご連絡をメールにてお送りします。
-                            </p>
+                        {/* 注意事項 / お知らせ */}
+                        <div className="space-y-3">
+                            {isStopped && (
+                                <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                                    <p className="text-sm text-red-800 font-medium">
+                                        現在、カジュアル面談のお申し込み受付は一時停止しております。
+                                        再開までしばらくお待ちください。
+                                    </p>
+                                </div>
+                            )}
                         </div>
 
                         {/* Submit */}
@@ -288,8 +265,8 @@ export default function CasualInterviewPage() {
                             <Button
                                 type="submit"
                                 size="lg"
-                                disabled={isSubmitting || !isLoggedIn}
-                                className="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-6 text-lg rounded-full shadow-lg shadow-primary-500/20 disabled:opacity-50"
+                                disabled={isSubmitting || !isLoggedIn || isStopped}
+                                className="w-full bg-primary-600 hover:bg-primary-700 text-black font-bold py-6 text-lg rounded-full shadow-lg shadow-primary-500/20 disabled:opacity-50 disabled:hover:bg-primary-600"
                             >
                                 {isSubmitting ? (
                                     <>
@@ -299,7 +276,7 @@ export default function CasualInterviewPage() {
                                 ) : (
                                     <>
                                         <Send className="w-5 h-5 mr-2" />
-                                        カジュアル面談を申し込む
+                                        現在は申し込みを停止しています
                                     </>
                                 )}
                             </Button>

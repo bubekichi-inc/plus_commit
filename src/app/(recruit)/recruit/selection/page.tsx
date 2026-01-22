@@ -14,7 +14,6 @@ export default function SelectionPage() {
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-primary-100/40 rounded-full blur-[100px] animate-pulse-slow" />
                     <div className="absolute bottom-[-20%] left-[-10%] w-[40vw] h-[40vw] bg-accent/5 rounded-full blur-[80px]" />
-                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
                 </div>
 
                 <div className="relative z-10 text-center px-8 max-w-4xl">
@@ -147,19 +146,6 @@ export default function SelectionPage() {
                     </div>
                 </section>
 
-                {/* Contact Section */}
-                <section className="text-center py-12">
-                    <h2 className="text-2xl font-bold text-zinc-900 mb-4">ご質問・お問い合わせ</h2>
-                    <p className="text-zinc-600 mb-8 max-w-2xl mx-auto">
-                        選考プロセスや採用についてのご質問があれば、お気軽にお問い合わせください。
-                    </p>
-                    <Button asChild size="lg" className="bg-primary-600 hover:bg-primary-700 text-white font-bold px-8 h-12 rounded-full">
-                        <Link href="/recruit/contact">
-                            お問い合わせ
-                            <ArrowRight className="ml-2 w-4 h-4" />
-                        </Link>
-                    </Button>
-                </section>
             </div>
         </>
     )

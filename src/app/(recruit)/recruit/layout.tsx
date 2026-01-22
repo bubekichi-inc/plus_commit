@@ -157,31 +157,11 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
                         })}
                     </ul>
 
-                    {/* 会員限定コンテンツ */}
-                    {user && (
-                        <div className="mt-6 px-6">
-                            <p className="text-[10px] font-bold text-primary-600/60 uppercase tracking-widest mb-3">
-                                会員限定コンテンツ
-                            </p>
-                            <ul className="space-y-1">
-                                <li>
-                                    <Link
-                                        href="/recruit/member-contents"
-                                        className="w-full flex items-center gap-3 px-4 py-2.5 text-left transition-all duration-200 bg-primary-50 border border-primary-100 rounded-lg text-primary-700 hover:bg-primary-100"
-                                    >
-                                        <BookOpen className="w-4 h-4" />
-                                        <span className="font-bold text-sm">限定記事を読む</span>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    )}
-
-                    <div className="mt-8 px-6">
+                    <div className="mt-8 px-6 pb-6 border-b border-zinc-100">
                         <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">
                             募集中の職種に応募する
                         </p>
-                        <ul className="space-y-2 pb-8">
+                        <ul className="space-y-2 mb-4">
                             {bottomNavItems.map((item) => (
                                 <li key={item.id}>
                                     <Link
@@ -196,6 +176,22 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
                                 </li>
                             ))}
                         </ul>
+
+                        {/* カジュアル面談ボタン直下のポリシー／コピーライト */}
+                        <div className="pt-3 border-t border-zinc-100 space-y-2">
+                            <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-zinc-400">
+                                <Link href="/privacy" className="hover:text-zinc-700 transition-colors">
+                                    プライバシーポリシー
+                                </Link>
+                                <span className="text-zinc-300">/</span>
+                                <Link href="/personal-info" className="hover:text-zinc-700 transition-colors">
+                                    個人情報保護方針
+                                </Link>
+                            </div>
+                            <p className="text-[10px] text-zinc-400">
+                                © {new Date().getFullYear()} 株式会社プラスコミット
+                            </p>
+                        </div>
                     </div>
                 </nav>
 
@@ -240,13 +236,6 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
             <main className="lg:ml-64 pt-14 lg:pt-0">
                 {children}
             </main>
-
-            {/* Footer */}
-            <footer className="lg:ml-64 border-t border-zinc-200 py-12 px-8 bg-zinc-50 text-center">
-                <p className="text-zinc-400 text-xs">
-                    © {new Date().getFullYear()} 株式会社プラスコミット All rights reserved.
-                </p>
-            </footer>
         </div>
     )
 }
