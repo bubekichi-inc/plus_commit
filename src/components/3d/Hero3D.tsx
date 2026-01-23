@@ -1,12 +1,11 @@
 "use client"
 
 import { Canvas } from "@react-three/fiber"
-import { Float, Icosahedron, Torus, Environment, Sparkles } from "@react-three/drei"
+import { Float, Icosahedron, Environment, Sparkles } from "@react-three/drei"
 
 function Geometrics() {
     return (
         <>
-
             <Float
                 speed={3}
                 rotationIntensity={1}
@@ -27,7 +26,7 @@ function Geometrics() {
     )
 }
 
-export function Hero3D() {
+export default function Hero3D() {
     return (
         <div className="absolute inset-0 z-0 pointer-events-none fade-in">
             <Canvas

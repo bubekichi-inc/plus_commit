@@ -1,4 +1,21 @@
-import type { MicroCMSQueries, MicroCMSListResponse } from "microcms-js-sdk";
+import type { MicroCMSListResponse } from "microcms-js-sdk";
+
+// ページ設定
+export type PageSetting = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  slug: string;
+  title: string;
+  description?: string;
+  ogImage?: {
+    url: string;
+    height: number;
+    width: number;
+  };
+};
 
 // 既存の Technology 型を参考に microCMS 用の型を定義
 export type Technology = {
@@ -60,6 +77,3 @@ export type News = {
 };
 
 export type NewsResponse = MicroCMSListResponse<News>;
-
-
-

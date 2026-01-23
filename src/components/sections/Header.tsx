@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 import { getRecruitUrl } from "@/lib/site-config"
 
@@ -29,7 +28,7 @@ const menuItems: MenuItem[] = [
         href: "/technologies",
     },
     {
-        label: "制作実績",
+        label: "導入事例",
         href: "/works",
     },
     {
@@ -86,7 +85,7 @@ export function Header() {
     }, [])
 
     return (
-        <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'} ${lastScrollY > 50 ? 'glass-header py-2' : 'bg-transparent py-5'}`}>
+        <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'} ${lastScrollY > 50 ? 'bg-white/95 backdrop-blur  py-3' : 'bg-white py-5'}`}>
             <div className="container mx-auto px-6 h-16 flex items-center justify-between">
                 <div className="flex items-center gap-8">
                     <Link href="/" className="flex items-center group">
@@ -138,9 +137,15 @@ export function Header() {
                                     <Link
                                         href={item.href}
                                         className="px-5 py-6 text-sm font-bold text-zinc-600 hover:text-primary-500 transition-colors flex items-center gap-1 tracking-wide"
+                                        target={item.isRecruit ? "_blank" : undefined}
+                                        rel={item.isRecruit ? "noopener noreferrer" : undefined}
                                     >
                                         {item.label}
-                                        {hasSubmenu && (
+                                        {item.isRecruit ? (
+                                            <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                            </svg>
+                                        ) : hasSubmenu && (
                                             <svg className="w-3 h-3 ml-1 transition-transform duration-300 group-hover/menu:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                             </svg>
@@ -166,11 +171,12 @@ export function Header() {
                     })}
 
                     <div className="ml-4 flex items-center gap-3">
-                        <Button size="sm" className="bg-primary-500 hover:bg-primary-600 text-white font-bold px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary-500/20" asChild>
-                            <Link href="/contact">
-                                お問い合わせ
-                            </Link>
-                        </Button>
+                        <Link
+                            href="/contact"
+                            className="inline-flex h-10 items-center justify-center rounded-[5px] bg-[#242422] px-6 text-sm font-medium text-white hover:opacity-80 transition-opacity"
+                        >
+                            お問い合わせ
+                        </Link>
                     </div>
                 </nav>
 

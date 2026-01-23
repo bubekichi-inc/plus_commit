@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+/.agents/
+
+
 # env files
 .env
 .env.local

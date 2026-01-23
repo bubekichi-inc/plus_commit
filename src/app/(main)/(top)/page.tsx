@@ -1,10 +1,10 @@
 import { Header } from "@/components/sections/Header"
 import { Footer } from "@/components/sections/Footer"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { BusinessHero } from "@/components/business/BusinessHero"
+
 import { MissionVisionValue } from "@/components/sections/MissionVisionValue"
-import { ArrowRight, ChevronRight, Check, Zap, ExternalLink, Mail, Calendar, RefreshCw } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { getNewsList, getPageSetting, getWorks } from "@/lib/microcms"
 import { getRecruitUrl } from "@/lib/site-config"
 import { Metadata } from 'next'
@@ -31,10 +31,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
     const { contents: news } = await getNewsList({ limit: 3 })
-    // すべての実績から、thumbnail があるものを優先して上位を表示
     const { contents: allWorks } = await getWorks({ limit: 50 })
     const works = allWorks
-        .slice() // 元配列を破壊しないようコピー
+        .slice()
         .sort((a, b) => {
             const aHasThumb = !!a.thumbnail?.url
             const bHasThumb = !!b.thumbnail?.url
@@ -46,154 +45,179 @@ export default async function HomePage() {
     return (
         <>
             <Header />
-            <main className="min-h-screen pt-0 bg-white">
+            <main className="min-h-screen pt-0 relative">
+                {/* Fixed Grid Background */}
+                <div className="fixed inset-0 z-[-1] pointer-events-none bg-[size:40px_40px] [mask-image:linear-gradient(to_bottom,transparent,black)] opacity-[0.03]"
+                    style={{
+                        backgroundImage: 'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)'
+                    }}
+                />
+
                 <BusinessHero />
 
-                <MissionVisionValue />{/* Works Section */}<section className="py-32 border-t border-zinc-100 bg-zinc-50/50">
-                    <div className="container mx-auto px-6">
-                        <div className="flex flex-col md:flex-row items-start justify-between gap-12 mb-16">
-                            <div className="max-w-2xl">
-                                <h2 className="text-4xl md:text-5xl font-black text-black mb-6 leading-tight tracking-tight">
-                                    <span className="block mb-2">Works</span>
+
+
+                <MissionVisionValue />
+
+                {/* Works Section - Smaller items */}
+                <section className="py-20 md:py-28 bg-white">
+                    <div className="container mx-auto px-6 max-w-7xl">
+                        {/* Header */}
+                        <div className="mb-12 md:mb-16">
+                            <p className="text-sm text-[#999999] mb-3 tracking-widest uppercase font-medium">
+                                Works
+                            </p>
+                            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                                <h2 className="text-2xl md:text-3xl font-bold text-[#242422] tracking-tight">
+                                    導入事例
                                 </h2>
-                                <p className="text-zinc-600 font-medium leading-relaxed text-lg max-w-xl">
-                                    様々な業界・規模のプロジェクト実績があります。
-                                    数値の変化だけでなく、結果を出すまでの過程も可能な限り公開しています。
-                                </p>
-                            </div>
-                            <Button asChild variant="outline" className="rounded-full px-8 h-12 border-zinc-300 text-zinc-900 hover:bg-black hover:text-white font-bold transition-all hidden md:flex">
-                                <Link href="/works/">
-                                    View All Works
-                                    <ArrowRight className="ml-2 w-4 h-4" />
+                                <Link
+                                    href="/works/"
+                                    className="hidden md:inline-flex items-center text-sm text-[#666666] hover:text-[#242422] transition-colors font-medium"
+                                >
+                                    すべての事例を見る
+                                    <ArrowRight className="w-4 h-4 ml-2" />
                                 </Link>
-                            </Button>
+                            </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        {/* Works Grid - 3 columns, smaller cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-12">
                             {works.map((work) => (
-                                <Link key={work.id} href={`/works/${work.id}`} className="group relative block aspect-video overflow-hidden rounded-2xl bg-zinc-100 border border-zinc-100 shadow-sm transition-all hover:shadow-xl">
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img
-                                        src={work.thumbnail?.url || "/general/ogp.png"}
-                                        alt={work.title}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                                    <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                                        <div className="flex items-center gap-3 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                                            <span className="px-3 py-1 bg-white/10 backdrop-blur-sm text-white text-xs font-bold rounded-full border border-white/20">
-                                                {work.category?.name || "Works"}
-                                            </span>
-                                        </div>
-                                        <div className="flex items-center gap-3 mb-2 opacity-80">
-                                            <span className="text-xs text-white/90 flex items-center gap-1">
-                                                <Calendar className="w-3 h-3" />
-                                                {new Date(work.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
-                                            </span>
-                                            <span className="text-xs text-white/90 flex items-center gap-1">
-                                                <RefreshCw className="w-3 h-3" />
-                                                {new Date(work.updatedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
-                                            </span>
-                                        </div>
-                                        <h3 className="text-2xl font-bold text-white leading-tight mb-2 group-hover:text-primary-300 transition-colors">
+                                <Link
+                                    key={work.id}
+                                    href={`/works/${work.id}`}
+                                    className="group block border border-[#E8E8E8] hover:border-[#CCCCCC] transition-colors rounded-[5px] overflow-hidden"
+                                >
+                                    <div className="relative aspect-[4/3] overflow-hidden bg-[#F8F8F8]">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img
+                                            src={work.thumbnail?.url || "/general/ogp.png"}
+                                            alt={work.title}
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        />
+                                    </div>
+                                    <div className="p-4">
+                                        <h3 className="text-base font-bold text-[#242422] leading-snug group-hover:opacity-70 transition-opacity line-clamp-2">
                                             {work.title}
                                         </h3>
                                     </div>
-                                    <div className="absolute top-6 right-6 p-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:text-black hover:scale-110">
-                                        <ArrowRight className="w-5 h-5 text-white group-hover:text-black" />
-                                    </div>
                                 </Link>
                             ))}
                         </div>
 
-                        <div className="md:hidden flex justify-center">
-                            <Button asChild variant="outline" className="rounded-full px-8 h-12 border-zinc-300 text-zinc-900 hover:bg-black hover:text-white font-bold w-full">
-                                <Link href="/works">
-                                    View All Works
-                                    <ArrowRight className="ml-2 w-4 h-4" />
-                                </Link>
-                            </Button>
-                        </div>
-                    </div>
-                </section>{/* News Section */}<section className="py-24 bg-white border-t border-zinc-50">
-                    <div className="container mx-auto px-6">
-                        <div className="flex items-end justify-between mb-12">
-                            <div>
-                                <h2 className="text-3xl md:text-4xl font-black tracking-tight text-black">
-                                    News
-                                </h2>
-                            </div>
-                            <Link href="/news" className="group text-sm text-zinc-500 hover:text-primary-600 transition-colors flex items-center gap-2 font-bold hidden md:flex">
-                                VIEW ALL <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        {/* Mobile CTA */}
+                        <div className="md:hidden text-center">
+                            <Link
+                                href="/works"
+                                className="inline-flex items-center justify-center h-14 px-10 rounded-[5px] bg-[#242422] text-white text-sm font-medium hover:opacity-80 transition-opacity"
+                            >
+                                すべての事例を見る
+                                <ArrowRight className="w-4 h-4 ml-3" />
                             </Link>
                         </div>
-                        <div className="space-y-4">
+                    </div>
+                </section>
+
+                {/* News Section - Baigie Style */}
+                <section className="py-20 md:py-28 bg-[#F8F8F8]">
+                    <div className="container mx-auto px-6">
+                        {/* Header */}
+                        <div className="mb-12 md:mb-16">
+                            <p className="text-sm text-[#999999] mb-3 tracking-widest uppercase font-medium">
+                                News
+                            </p>
+                            <h2 className="text-2xl md:text-3xl font-bold text-[#242422] tracking-tight">
+                                お知らせ
+                            </h2>
+                        </div>
+
+                        {/* News List */}
+                        <div className="space-y-0 divide-y divide-[#E8E8E8]">
                             {news.map((item) => (
-                                <Link key={item.id} href={`/news/${item.id}`} className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-8 py-6 border-b border-zinc-100 hover:bg-zinc-50 transition-all px-6 rounded-2xl">
-                                    <div className="flex items-center gap-4 shrink-0">
-                                        <span className="text-xs text-zinc-400 font-mono font-medium flex items-center gap-1">
-                                            <Calendar className="w-3 h-3" />
+                                <Link
+                                    key={item.id}
+                                    href={`/news/${item.id}`}
+                                    className="group flex flex-col md:flex-row md:items-center gap-4 py-6 hover:opacity-70 transition-opacity"
+                                >
+                                    <div className="flex items-center gap-4 shrink-0 md:w-44">
+                                        <span className="text-sm text-[#999999] font-medium">
                                             {new Date(item.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
                                         </span>
-                                        <span className="text-xs text-zinc-400 font-mono font-medium flex items-center gap-1">
-                                            <RefreshCw className="w-3 h-3" />
-                                            {new Date(item.updatedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')}
-                                        </span>
-                                        <span className="px-3 py-1 bg-zinc-100 text-zinc-600 text-xs font-bold rounded-full min-w-[80px] text-center group-hover:bg-primary-50 group-hover:text-primary-600 transition-colors">
+                                        <span className="text-xs text-[#666666] border border-[#DDDDDD] px-2 py-0.5">
                                             {item.category?.name || "お知らせ"}
                                         </span>
                                     </div>
-                                    <p className="text-base md:text-lg text-zinc-800 group-hover:text-primary-600 transition-colors flex-1 font-bold line-clamp-1">{item.title}</p>
-                                    <div className="shrink-0 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-primary-600 hidden md:block">
-                                        <ArrowRight className="w-5 h-5" />
-                                    </div>
+                                    <p className="text-[#242422] font-medium flex-1 line-clamp-1">
+                                        {item.title}
+                                    </p>
+                                    <ArrowRight className="hidden md:block w-4 h-4 text-[#999999] shrink-0" />
                                 </Link>
                             ))}
                         </div>
-                        <div className="mt-8 md:hidden flex justify-center">
-                            <Link href="/news" className="group text-sm text-zinc-500 hover:text-primary-600 transition-colors flex items-center gap-2 font-bold">
-                                VIEW ALL <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+
+                        {/* CTA */}
+                        <div className="mt-12 text-center">
+                            <Link
+                                href="/news"
+                                className="inline-flex items-center text-sm text-[#666666] hover:text-[#242422] transition-colors font-medium"
+                            >
+                                VIEW MORE
+                                <ArrowRight className="w-4 h-4 ml-2" />
                             </Link>
                         </div>
                     </div>
-                </section>{/* Corporate CTA */}<section className="py-32 border-t border-zinc-100 bg-zinc-900 text-white relative overflow-hidden">
-                    
-                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                    <div className="container mx-auto px-6 relative z-10 text-center">
-                        <h2 className="text-3xl md:text-5xl font-black mb-8 tracking-tight">
-                            お仕事のご依頼・ご相談
-                        </h2>
-                        <p className="text-zinc-400 text-lg mb-12 max-w-2xl mx-auto font-medium">
-                            Web制作、システム開発、DX支援など、<br className="md:hidden" />お気軽にご相談ください。<br />
-                            貴社の課題に合わせた最適なプランをご提案いたします。
-                        </p>
-                        <Button size="lg" className="bg-white text-black hover:bg-primary-500 hover:text-white font-bold px-12 h-16 rounded-full text-lg transition-all shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(0,140,255,0.3)]" asChild>
-                            <Link href="/contact">
-                                <Mail className="mr-2 w-5 h-5" />
-                                お問い合わせはこちら
-                            </Link>
-                        </Button>
-                    </div>
-                </section>{/* Recruit CTA */}<section className="py-32 bg-gradient-premium relative overflow-hidden">
-                    <div className="absolute right-0 top-0 w-1/2 h-full bg-white/10 blur-3xl rounded-full translate-x-1/2" />
-                    
-                    <div className="container mx-auto px-6 relative z-10 text-center">
-                        <div className="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-sm font-bold text-white mb-6">
-                            RECRUIT
+                </section>
+
+                {/* Combined CTA Section - Baigie Style */}
+                <section className="py-20 md:py-28 bg-white">
+                    <div className="container mx-auto px-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                            {/* Contact Card */}
+                            <div className="bg-[#008CFF] p-8 md:p-12 text-white rounded-[5px]">
+                                <p className="text-sm text-white/70 mb-3 tracking-widest uppercase font-medium">
+                                    Contact
+                                </p>
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 tracking-tight">
+                                    お問い合わせ
+                                </h2>
+                                <p className="text-white/80 text-sm leading-[1.8] mb-8">
+                                    Web制作、システム開発など、<br />
+                                    お気軽にお問い合わせください。<br />
+                                    最適なプランをご提案いたします。
+                                </p>
+                                <Link
+                                    href="/contact"
+                                    className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-white text-[#008CFF] text-sm font-medium hover:opacity-90 transition-opacity"
+                                >
+                                    お問い合わせ
+                                    <ArrowRight className="w-4 h-4 ml-2" />
+                                </Link>
+                            </div>
+
+                            {/* Recruit Card */}
+                            <div className="bg-[#242422] p-8 md:p-12 text-white rounded-[5px]">
+                                <p className="text-sm text-white/50 mb-3 tracking-widest uppercase font-medium">
+                                    Recruit
+                                </p>
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 tracking-tight">
+                                    採用情報
+                                </h2>
+                                <p className="text-white/70 text-sm leading-[1.8] mb-8">
+                                    採用サイトで私たちの魅力を<br />
+                                    ご覧ください。<br />
+                                    みなさまのご応募お待ちしております。
+                                </p>
+                                <Link
+                                    href={getRecruitUrl()}
+                                    target="_blank"
+                                    className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-white text-[#242422] text-sm font-medium hover:opacity-90 transition-opacity"
+                                >
+                                    採用情報を見る
+                                    <ArrowRight className="w-4 h-4 ml-2" />
+                                </Link>
+                            </div>
                         </div>
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-8">
-                            Join Our Team
-                        </h2>
-                        <p className="text-xl text-primary-100 mb-12 max-w-2xl mx-auto font-medium">
-                            自分の成長と、誰かの幸せに、本気で挑戦しませんか。<br />
-                            PlusCommitでは、熱い想いを持った仲間を募集しています。
-                        </p>
-                        <Button size="lg" className="bg-white text-primary-600 hover:bg-zinc-100 font-bold px-12 h-14 rounded-full shadow-xl shadow-black/20 hover:scale-105 transition-transform" asChild>
-                            <Link href={getRecruitUrl()} target="_blank">
-                                View Open Positions
-                                <ExternalLink className="ml-2 w-4 h-4" />
-                            </Link>
-                        </Button>
                     </div>
                 </section>
             </main>

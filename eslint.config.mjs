@@ -14,6 +14,11 @@ const eslintConfig = [
   {
     ignores: ["**/node_modules/**", ".next/**", "out/**", "build/**"],
   },
+  {
+    rules: {
+      "react-hooks/exhaustive-deps": "error",
+    },
+  },
 ];
 
 export default eslintConfig;

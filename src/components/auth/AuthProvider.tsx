@@ -1,7 +1,7 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react'
-import { User, Session, AuthChangeEvent, AuthError } from '@supabase/supabase-js'
+import { createContext, useContext, useEffect, useState, ReactNode, useCallback, useMemo } from 'react'
+import { User, Session, AuthChangeEvent, AuthError, SupabaseClient } from '@supabase/supabase-js'
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client'
 
 export type UserProfile = {
@@ -51,19 +51,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
-  const [isConfigured] = useState(() => isSupabaseConfigured())
+
+  // Supabase設定状態（初期化時に一度だけ評価）
+  const isConfigured = useMemo(() => isSupabaseConfigured(), [])
+
+  // Supabaseクライアントを一度だけ作成して再利用
+  const supabase = useMemo<SupabaseClient | null>(() => {
+    if (!isConfigured) return null
+    return createClient()
+  }, [isConfigured])
 
   // リクルートドメインかどうかを判定
-  const isRecruitDomain = useCallback(() => {
+  const isRecruitDomain = useMemo(() => {
     if (typeof window === 'undefined') return false
     const hostname = window.location.hostname
-    return hostname.startsWith('recruit.') || hostname.includes('localhost') // ローカルは開発用で許可
+    return hostname.startsWith('recruit.') || hostname.includes('localhost')
   }, [])
 
   // プロファイルを取得
   const fetchProfile = useCallback(async (userId: string) => {
     // リクルートドメイン以外ではプロフィール取得をスキップ
-    if (!isRecruitDomain()) return
+    if (!isRecruitDomain) return
 
     try {
       const response = await fetch(`/api/profile?userId=${userId}`)
@@ -74,7 +82,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       console.error('Failed to fetch profile:', error)
     }
-  }, [])
+  }, [isRecruitDomain])
 
   // プロファイルをリフレッシュ
   const refreshProfile = useCallback(async () => {
@@ -85,12 +93,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Supabaseが設定されていない場合はスキップ
-    if (!isConfigured) {
+    if (!supabase) {
       setLoading(false)
       return
     }
-
-    const supabase = createClient()
 
     // 初期セッションの取得
     const getInitialSession = async () => {
@@ -129,13 +135,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       subscription.unsubscribe()
     }
-  }, [isConfigured, fetchProfile])
+  }, [supabase, fetchProfile])
 
   // サインアップ
-  const signUp = async (email: string, password: string, name?: string) => {
-    if (!isConfigured) return { error: null }
+  const signUp = useCallback(async (email: string, password: string, name?: string) => {
+    if (!supabase) return { error: null }
 
-    const supabase = createClient()
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -148,67 +153,78 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     })
 
     return { error }
-  }
+  }, [supabase])
 
   // サインイン
-  const signIn = async (email: string, password: string) => {
-    if (!isConfigured) return { error: null }
+  const signIn = useCallback(async (email: string, password: string) => {
+    if (!supabase) return { error: null }
 
-    const supabase = createClient()
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
 
     return { error }
-  }
+  }, [supabase])
 
   // サインアウト
-  const signOut = async () => {
-    if (!isConfigured) return
-    const supabase = createClient()
+  const signOut = useCallback(async () => {
+    if (!supabase) return
     await supabase.auth.signOut()
     setProfile(null)
-  }
+  }, [supabase])
 
   // パスワードリセット
-  const resetPassword = async (email: string) => {
-    if (!isConfigured) return { error: null }
+  const resetPassword = useCallback(async (email: string) => {
+    if (!supabase) return { error: null }
 
-    const supabase = createClient()
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/auth/reset-password`,
     })
 
     return { error }
-  }
+  }, [supabase])
 
   // パスワード更新
-  const updatePassword = async (newPassword: string) => {
-    if (!isConfigured) return { error: null }
+  const updatePassword = useCallback(async (newPassword: string) => {
+    if (!supabase) return { error: null }
 
-    const supabase = createClient()
     const { error } = await supabase.auth.updateUser({
       password: newPassword,
     })
 
     return { error }
-  }
+  }, [supabase])
+
+  // Context値をメモ化して不要な再レンダリングを防ぐ
+  const contextValue = useMemo<AuthContextType>(() => ({
+    user,
+    session,
+    profile,
+    loading,
+    isConfigured,
+    signUp,
+    signIn,
+    signOut,
+    resetPassword,
+    updatePassword,
+    refreshProfile,
+  }), [
+    user,
+    session,
+    profile,
+    loading,
+    isConfigured,
+    signUp,
+    signIn,
+    signOut,
+    resetPassword,
+    updatePassword,
+    refreshProfile,
+  ])
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      session,
-      profile,
-      loading,
-      isConfigured,
-      signUp,
-      signIn,
-      signOut,
-      resetPassword,
-      updatePassword,
-      refreshProfile,
-    }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   )

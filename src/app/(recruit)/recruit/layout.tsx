@@ -149,7 +149,6 @@ function RecruitLayoutContent({ children }: { children: ReactNode }) {
                                             : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
                                             }`}
                                     >
-                                        <Icon className={`w-4 h-4 ${isActive ? "text-primary-600" : "text-zinc-400 group-hover:text-zinc-600"}`} />
                                         <span className="font-bold text-sm tracking-tight">{item.label}</span>
                                     </Link>
                                 </li>

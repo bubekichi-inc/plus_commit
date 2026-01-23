@@ -62,7 +62,7 @@ export function RecruitSidebar({ activeSection, onNavigate }: RecruitSidebarProp
                 <ul className="space-y-1 px-3">
                     {navItems.map((item) => {
                         const isActive = activeSection === item.id
-                        const Icon = item.icon
+                        const Icon = item.icon as React.ComponentType<{ className?: string }>
                         
                         return (
                             <li key={item.id}>

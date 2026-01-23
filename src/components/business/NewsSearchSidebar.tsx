@@ -104,20 +104,6 @@ export function NewsSearchSidebar() {
                     )}
                 </div>
 
-                {/* 検索のヒント */}
-                <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-5 text-sm">
-                    <h4 className="text-zinc-700 font-medium mb-3">検索のヒント</h4>
-                    <ul className="space-y-2 text-zinc-600">
-                        <li className="flex items-start gap-2">
-                            <span className="text-primary-500 mt-1">•</span>
-                            タイトルや本文からキーワード検索ができます
-                        </li>
-                        <li className="flex items-start gap-2">
-                            <span className="text-primary-500 mt-1">•</span>
-                            複数のキーワードはスペースで区切って入力できます
-                        </li>
-                    </ul>
-                </div>
             </div>
         </aside>
     )
