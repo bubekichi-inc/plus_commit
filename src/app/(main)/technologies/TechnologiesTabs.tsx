@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 
 
@@ -34,6 +34,17 @@ export interface TechnologiesTabsProps {
 export function TechnologiesTabs({ groupedTechnologies, initialActiveCategoryId }: TechnologiesTabsProps) {
     const [activeTab, setActiveTab] = useState<string>(initialActiveCategoryId || "all")
 
+    // 初期クエリで特定タブで遷移した場合、タブナビへスクロールする
+    useEffect(() => {
+        if (initialActiveCategoryId && initialActiveCategoryId !== "all") {
+            const el = document.getElementById('technologies-tabs')
+            if (el) {
+                // 少し遅らせて確実にレンダリング後にスクロール
+                setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
+            }
+        }
+    }, [initialActiveCategoryId])
+
     const filteredGroups = activeTab === "all"
         ? groupedTechnologies
         : groupedTechnologies.filter(group => group.category.id === activeTab)
@@ -41,7 +52,7 @@ export function TechnologiesTabs({ groupedTechnologies, initialActiveCategoryId 
     return (
         <>
             {/* Tab Navigation */}
-            <section className="py-8 border-b border-zinc-100 sticky top-20 bg-white/95 backdrop-blur-md z-40">
+            <section id="technologies-tabs" className="py-8 border-b border-zinc-100 bg-white/95 backdrop-blur-md z-40">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-wrap gap-2">
                         <button

@@ -1,6 +1,4 @@
-import { Header } from "@/components/sections/Header"
-import { Footer } from "@/components/sections/Footer"
-import { NewsSearchSidebar } from "@/components/business/NewsSearchSidebar"
+import { NewsSearchSidebar } from "@/app/(main)/news/_components/NewsSearchSidebar"
 import Link from "next/link"
 import { getNewsList, getPageSetting } from "@/lib/microcms"
 import { Suspense } from "react"
@@ -56,7 +54,6 @@ export default async function NewsListPage({
 
     return (
         <>
-            <Header />
             <main className="min-h-screen pt-20 bg-white">
                 {/* Hero Section */}
                 <section className="py-24 border-b border-zinc-100 relative overflow-hidden">
@@ -191,7 +188,6 @@ export default async function NewsListPage({
                     </div>
                 </section>
             </main>
-            <Footer />
         </>
     )
 }

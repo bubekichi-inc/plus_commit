@@ -1,6 +1,4 @@
 import { Metadata } from 'next'
-import { Header } from "@/components/sections/Header"
-import { Footer } from "@/components/sections/Footer"
 
 export const metadata: Metadata = {
     title: 'プライバシーポリシー | 株式会社プラスコミット',
@@ -10,7 +8,6 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
     return (
         <>
-            <Header />
             <main className="min-h-screen pt-32 pb-20 bg-white">
                 <div className="container mx-auto px-6 max-w-4xl">
                     <h1 className="text-3xl md:text-4xl font-bold text-black mb-12">
@@ -98,7 +95,6 @@ export default function PrivacyPolicyPage() {
                     </div>
                 </div>
             </main>
-            <Footer />
         </>
     )
 }

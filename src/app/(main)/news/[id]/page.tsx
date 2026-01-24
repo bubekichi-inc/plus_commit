@@ -1,6 +1,4 @@
-import { Header } from "@/components/sections/Header"
-import { Footer } from "@/components/sections/Footer"
-import { ShareButtons } from "@/components/business/ShareButtons"
+import { ShareButtons } from "@/app/(main)/news/_components/ShareButtons"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -60,7 +58,6 @@ export default async function NewsDetailPage({
 
     return (
         <>
-            <Header />
             <main className="min-h-screen pt-20 bg-white">
                 <article className="py-24">
                     <div className="container mx-auto px-4">
@@ -110,7 +107,6 @@ export default async function NewsDetailPage({
                     </div>
                 </article>
             </main>
-            <Footer />
         </>
     )
 }

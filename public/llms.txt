@@ -8,7 +8,7 @@
 
 - 会社名: 株式会社プラスコミット
 - ウェブサイト: https://plus-commit.com/
-- 採用サイト: https://recruit.plus-commit.com/
+- 採用サイト: https://plus-commit.com/recruit/
 - 事業内容: Web制作・開発、DXコンサルティング、コーディング代行、業務自動化
 
 ## サービス

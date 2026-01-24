@@ -11,7 +11,7 @@ export default function AuthSuccessPage() {
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
-          window.location.href = '/mypage'
+          window.location.href = '/recruit/mypage'
           return 0
         }
         return prev - 1
@@ -38,7 +38,7 @@ export default function AuthSuccessPage() {
         </p>
         
         <Link
-          href="/mypage"
+          href="/recruit/mypage"
           className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-lg transition-colors shadow-md hover:shadow-lg"
         >
           今すぐマイページへ

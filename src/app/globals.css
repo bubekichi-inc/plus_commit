@@ -2,12 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
-/* ===================================
-   Baigie-inspired Design System
-   =================================== */
+
 
 :root {
-    /* Baigie Color Palette */
+
     --color-text-primary: #242422;
     --color-text-secondary: #666666;
     --color-text-muted: #999999;
@@ -76,12 +74,12 @@ button,
 }
 
 /* ===================================
-   Baigie Button Styles
+   official Button Styles
    =================================== */
 
 @layer utilities {
     /* Primary Button - Dark */
-    .btn-baigie {
+    .btn-official {
         background-color: var(--color-background-dark);
         color: white;
         padding: 16px 40px;
@@ -95,7 +93,7 @@ button,
         letter-spacing: 0.02em;
     }
 
-    .btn-baigie:hover {
+    .btn-official:hover {
         opacity: 0.8;
     }
 
@@ -118,7 +116,7 @@ button,
     }
 
     /* Outline Button */
-    .btn-outline-baigie {
+    .btn-outline-official {
         background-color: transparent;
         color: var(--color-text-primary);
         border: 1px solid var(--color-border);
@@ -132,7 +130,7 @@ button,
         transition: all 0.3s ease;
     }
 
-    .btn-outline-baigie:hover {
+    .btn-outline-official:hover {
         background-color: var(--color-background-dark);
         color: white;
         border-color: var(--color-background-dark);
@@ -166,33 +164,33 @@ button,
         border-color: var(--color-accent);
     }
 
-    .text-baigie {
+    .text-official {
         color: var(--color-text-primary);
     }
 
-    .text-baigie-secondary {
+    .text-official-secondary {
         color: var(--color-text-secondary);
     }
 
-    .bg-baigie-subtle {
+    .bg-official-subtle {
         background-color: var(--color-background-subtle);
     }
 
-    .border-baigie {
+    .border-official {
         border-color: var(--color-border);
     }
 
     /* ===================================
-       Card Styles (Baigie-inspired)
+       Card Styles (official-inspired)
        =================================== */
 
-    .card-baigie {
+    .card-official {
         background: white;
         border: 1px solid var(--color-border-subtle);
         transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
 
-    .card-baigie:hover {
+    .card-official:hover {
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         transform: translateY(-2px);
     }
@@ -377,6 +375,50 @@ button,
     .animation-delay-600 { animation-delay: 0.6s; }
     .animation-delay-700 { animation-delay: 0.7s; }
     .animation-delay-1000 { animation-delay: 1s; }
+
+    /* ===================================
+       Link Hover Animations
+       =================================== */
+
+    /* Text Link - Underline animation from left to right */
+    .link-underline {
+        position: relative;
+        text-decoration: none;
+        display: inline;
+        padding-bottom: 2px;
+    }
+
+    .link-underline::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: currentColor;
+        transition: width 0.3s ease;
+    }
+
+    .link-underline:hover::after {
+        width: 100%;
+    }
+
+    /* Button Arrow Animation */
+    .btn-arrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-arrow svg,
+    .btn-arrow .arrow-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .btn-arrow:hover svg,
+    .btn-arrow:hover .arrow-icon {
+        transform: translateX(4px);
+    }
 }
 
 /* ===================================

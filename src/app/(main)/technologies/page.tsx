@@ -1,17 +1,25 @@
-import { Header } from "@/components/sections/Header"
-import { Footer } from "@/components/sections/Footer"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { Metadata } from 'next'
 import { getPageSetting, getAllTechnologies } from "@/lib/microcms"
-import { News, NewsCategory } from "@/types/microcms"
+import { Metadata } from 'next'
 import { TechnologiesTabs, type GroupedTechnologies as TabsGroupedTechnologies } from "./TechnologiesTabs"
+import type { News, NewsCategory } from "@/types/microcms"
 
 export async function generateMetadata(): Promise<Metadata> {
     const setting = await getPageSetting('technologies')
     return {
         title: setting?.title,
         description: setting?.description,
+        openGraph: {
+            title: setting?.title,
+            description: setting?.description,
+            images: ["/general/ogp.png"],
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: setting?.title,
+            description: setting?.description,
+            images: ["/general/ogp.png"],
+        },
     }
 }
 
@@ -101,36 +109,24 @@ export default async function TechnologiesPage({
 
     return (
         <>
-            <Header />
             <main className="min-h-screen pt-20 bg-white">
-                <section className="py-24 border-b border-zinc-100 relative overflow-hidden">
-                    <div className="container mx-auto px-4 relative z-10">
-                        <div className="text-zinc-500 font-bold tracking-wider text-sm mb-4">TECHNOLOGIES</div>
-                        <h1 className="text-5xl font-black tracking-tight text-zinc-900 mb-6">
+                {/* Hero Section */}
+                <section className="py-16 md:py-20 border-b border-[#E8E8E8]">
+                    <div className="container mx-auto px-6">
+                        <p className="text-sm text-[#999999] mb-3 tracking-widest uppercase font-medium">
+                            Technologies
+                        </p>
+                        <h1 className="text-3xl md:text-4xl font-bold text-[#242422] tracking-tight mb-6">
                             取り扱い技術
                         </h1>
-                        <p className="text-xl text-zinc-600 max-w-2xl">
+                        <p className="text-[#666666] text-sm md:text-base leading-[1.8] max-w-2xl">
                             最新のテクノロジーを活用し、お客様のビジネス課題に最適なソリューションを提供します。
                         </p>
                     </div>
                 </section>
-                <TechnologiesTabs groupedTechnologies={tabGroups} initialActiveCategoryId={initialCategoryId} />
 
-                <section className="py-24 bg-zinc-50">
-                    <div className="container mx-auto px-4 text-center">
-                        <h2 className="text-3xl font-black tracking-tight text-zinc-900 mb-4">
-                            技術選定からご相談ください
-                        </h2>
-                        <p className="text-zinc-600 mb-8 max-w-xl mx-auto">
-                            プロジェクトの要件に最適な技術スタックをご提案いたします。
-                        </p>
-                        <Button size="lg" className="bg-zinc-900 hover:bg-zinc-800 text-white font-bold px-12" asChild>
-                            <Link href="/contact">無料相談する</Link>
-                        </Button>
-                    </div>
-                </section>
+                <TechnologiesTabs groupedTechnologies={tabGroups} initialActiveCategoryId={initialCategoryId} />
             </main>
-            <Footer />
         </>
     )
 }

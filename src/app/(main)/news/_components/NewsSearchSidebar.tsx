@@ -103,7 +103,6 @@ export function NewsSearchSidebar() {
                         </div>
                     )}
                 </div>
-
             </div>
         </aside>
     )

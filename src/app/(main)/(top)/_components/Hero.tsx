@@ -38,7 +38,7 @@ export function BusinessHero() {
                             <span className="text-[#FF9D48]">コミット</span>
                             <span className="text-xl sm:text-4xl text-[#242422] font-semibold">する</span>
                         </span>
-                        <br />エンジニアチームです
+                        <br />DXカンパニーです
                     </h1>
 
                     {/* Description */}
@@ -52,7 +52,7 @@ export function BusinessHero() {
                     <div className="flex flex-col sm:flex-row items-start gap-4 animate-fade-in-up opacity-0 animation-delay-700">
                         <Link
                             href="/contact"
-                            className="inline-flex h-14 items-center justify-center rounded-[5px] bg-[#242422] px-10 text-sm font-medium text-white hover:opacity-80 transition-opacity"
+                            className="btn-arrow inline-flex h-14 items-center justify-center rounded-[5px] bg-[#242422] px-10 text-sm font-medium text-white hover:opacity-80 transition-opacity"
                         >
                             お問い合わせ
                             <ArrowRight className="w-4 h-4 ml-3" />

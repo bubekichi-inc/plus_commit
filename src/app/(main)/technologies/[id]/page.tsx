@@ -1,8 +1,6 @@
-import { Header } from "@/components/sections/Header"
-import { Footer } from "@/components/sections/Footer"
-import { ShareButtons } from "@/components/business/ShareButtons"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { ShareButtons } from "@/app/(main)/news/_components/ShareButtons"
+import { Button } from "@/components/ui/button"
 import { notFound } from "next/navigation"
 import { getNewsDetail } from "@/lib/microcms"
 import { Metadata } from 'next'
@@ -63,7 +61,6 @@ export default async function TechnologyDetailPage({
 
     return (
         <>
-            <Header />
             <main className="min-h-screen pt-20 bg-white">
                 <article className="py-24">
                     <div className="container mx-auto px-4">
@@ -176,7 +173,6 @@ export default async function TechnologyDetailPage({
                     </div>
                 </article>
             </main>
-            <Footer />
         </>
     )
 }

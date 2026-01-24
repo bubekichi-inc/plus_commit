@@ -36,11 +36,10 @@ export async function updateSession(request: NextRequest) {
     const path = request.nextUrl.pathname
 
     // 1. 未ログインユーザーの制限
-    // /recruit/mypage/*, /recruit/jobs/* はログインユーザーのみ
-    // /recruit/casual は未ログインでも閲覧可能（フォーム送信時にログイン必要）
+    // /recruit/mypage/* はログインユーザーのみ
+    // /recruit/jobs/*, /recruit/casual は未ログインでも閲覧可能
     if (
-        path.startsWith('/recruit/mypage') ||
-        path.startsWith('/recruit/jobs')
+        path.startsWith('/recruit/mypage')
     ) {
         if (!user) {
             const url = request.nextUrl.clone()

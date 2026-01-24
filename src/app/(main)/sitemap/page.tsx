@@ -1,5 +1,3 @@
-import { Header } from "@/components/sections/Header"
-import { Footer } from "@/components/sections/Footer"
 import Link from "next/link"
 import { Metadata } from 'next'
 import { getPageSetting } from "@/lib/microcms"
@@ -48,7 +46,6 @@ const sitemapData = [
 export default function SitemapPage() {
     return (
         <>
-            <Header />
             <main className="min-h-screen pt-20 bg-white">
                 <section className="py-24 border-b border-zinc-100">
                     <div className="container mx-auto px-4">
@@ -89,7 +86,6 @@ export default function SitemapPage() {
                     </div>
                 </section>
             </main>
-            <Footer />
         </>
     )
 }
