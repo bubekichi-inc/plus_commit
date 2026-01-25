@@ -1,4 +1,6 @@
 import { NextResponse, after } from "next/server"
+import { Ratelimit } from "@upstash/ratelimit"
+import { kv } from "@vercel/kv"
 import { sendContactNotificationEmail, sendContactAutoReplyEmail } from "@/lib/email"
 
 // お問い合わせデータの型定義
@@ -43,56 +45,25 @@ function validateContactData(data: ContactData): { valid: boolean; errors: strin
     return { valid: errors.length === 0, errors }
 }
 
-// レートリミット用のシンプルな実装（メモリベース + TTLクリーンアップ）
-const rateLimitMap = new Map<string, { count: number; timestamp: number }>()
-const RATE_LIMIT_WINDOW = 60 * 1000 // 60秒
-const RATE_LIMIT_MAX = 5 // 60秒間に5回まで
-const CLEANUP_INTERVAL = 5 * 60 * 1000 // 5分ごとにクリーンアップ
+const RATE_LIMIT_MAX = 5
+const RATE_LIMIT_WINDOW = "1 m"
 
-// 定期的なクリーンアップ関数
-function cleanupRateLimitMap() {
-    const now = Date.now()
-    let deletedCount = 0
-    
-    for (const [ip, record] of rateLimitMap.entries()) {
-        if (now - record.timestamp > RATE_LIMIT_WINDOW) {
-            rateLimitMap.delete(ip)
-            deletedCount++
+const contactRateLimiter = (() => {
+    const hasKvConfig = Boolean(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN)
+    if (!hasKvConfig) {
+        if (process.env.NODE_ENV === "development") {
+            console.warn("KV_Rest_API_* が設定されていないため、Vercel Rate Limiter は無効です")
         }
-    }
-    
-    // 開発環境でのログ出力
-    if (process.env.NODE_ENV === 'development' && deletedCount > 0) {
-        console.log(`Cleaned up ${deletedCount} expired rate limit entries. Current size: ${rateLimitMap.size}`)
-    }
-}
-
-// 前回のクリーンアップ時刻を追跡
-let lastCleanup = Date.now()
-
-function checkRateLimit(ip: string): boolean {
-    const now = Date.now()
-    
-    // 定期的なクリーンアップ実行
-    if (now - lastCleanup > CLEANUP_INTERVAL) {
-        cleanupRateLimitMap()
-        lastCleanup = now
-    }
-    
-    const record = rateLimitMap.get(ip)
-
-    if (!record || now - record.timestamp > RATE_LIMIT_WINDOW) {
-        rateLimitMap.set(ip, { count: 1, timestamp: now })
-        return true
+        return null
     }
 
-    if (record.count >= RATE_LIMIT_MAX) {
-        return false
-    }
-
-    record.count++
-    return true
-}
+    return new Ratelimit({
+        redis: kv,
+        limiter: Ratelimit.slidingWindow(RATE_LIMIT_MAX, RATE_LIMIT_WINDOW),
+        analytics: true,
+        prefix: "contact-form",
+    })
+})()
 
 export async function POST(request: Request) {
     try {
@@ -101,12 +72,24 @@ export async function POST(request: Request) {
                    request.headers.get("x-real-ip") ||
                    "unknown"
 
-        // レートリミットチェック
-        if (!checkRateLimit(ip)) {
-            return NextResponse.json(
-                { error: "リクエストが多すぎます。しばらく待ってから再度お試しください。" },
-                { status: 429 }
-            )
+        // レートリミットチェック（Vercel Rate Limiter）
+        if (contactRateLimiter) {
+            const identifier = ip || "anonymous"
+            const { success, reset, remaining } = await contactRateLimiter.limit(identifier)
+
+            if (!success) {
+                return NextResponse.json(
+                    { error: "リクエストが多すぎます。しばらく待ってから再度お試しください。" },
+                    {
+                        status: 429,
+                        headers: {
+                            "RateLimit-Limit": RATE_LIMIT_MAX.toString(),
+                            "RateLimit-Remaining": Math.max(0, remaining).toString(),
+                            "RateLimit-Reset": reset.toString(),
+                        },
+                    }
+                )
+            }
         }
 
         // リクエストボディの取得とバリデーション
@@ -132,9 +115,9 @@ export async function POST(request: Request) {
 
         // 環境変数の取得
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-        const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-        if (!supabaseUrl || !supabaseKey) {
+        if (!supabaseUrl || !supabaseServiceRoleKey) {
             console.error("Supabase environment variables are missing.")
             return NextResponse.json(
                 { error: "サーバーの設定に不備があります。" },
@@ -158,8 +141,8 @@ export async function POST(request: Request) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'apikey': supabaseKey,
-                'Authorization': `Bearer ${supabaseKey}`,
+                'apikey': supabaseServiceRoleKey,
+                'Authorization': `Bearer ${supabaseServiceRoleKey}`,
                 'Prefer': 'return=representation'
             },
             body: JSON.stringify({ ...contactData, status: "new" })

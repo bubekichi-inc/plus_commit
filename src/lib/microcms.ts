@@ -1,20 +1,73 @@
 import { createClient } from 'microcms-js-sdk';
 import { cache } from 'react';
-import type { MicroCMSQueries } from 'microcms-js-sdk';
-import type { News, PageSetting, NewsCategory } from '@/types/microcms';
+import type { MicroCMSQueries, MicroCMSListResponse, MicroCMSContentId, MicroCMSDate } from 'microcms-js-sdk';
+import type { News, PageSetting, NewsCategory, Works } from '@/types/microcms';
 
-if (!process.env.MICROCMS_SERVICE_DOMAIN) {
-  throw new Error('MICROCMS_SERVICE_DOMAIN is required');
-}
+const MICROCMS_SERVICE_DOMAIN = process.env.MICROCMS_SERVICE_DOMAIN;
+const MICROCMS_API_KEY = process.env.MICROCMS_API_KEY;
+const isMicrocmsConfigured = Boolean(MICROCMS_SERVICE_DOMAIN && MICROCMS_API_KEY);
 
-if (!process.env.MICROCMS_API_KEY) {
-  throw new Error('MICROCMS_API_KEY is required');
-}
+let hasWarnedMissingEnv = false;
+const warnMicrocmsDisabled = () => {
+  if (!isMicrocmsConfigured && !hasWarnedMissingEnv) {
+    console.warn('microCMS environment variables are not set. Returning fallback data.');
+    hasWarnedMissingEnv = true;
+  }
+};
 
-export const client = createClient({
-  serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
-  apiKey: process.env.MICROCMS_API_KEY,
+const client = isMicrocmsConfigured
+  ? createClient({
+      serviceDomain: MICROCMS_SERVICE_DOMAIN!,
+      apiKey: MICROCMS_API_KEY!,
+    })
+  : null;
+
+const getClient = () => {
+  if (!client) {
+    warnMicrocmsDisabled();
+  }
+  return client;
+};
+
+type MicroCMSBaseContent = MicroCMSContentId & MicroCMSDate;
+
+const createFallbackListResponse = <T extends MicroCMSBaseContent>(contents: T[] = []): MicroCMSListResponse<T> => ({
+  contents,
+  totalCount: contents.length,
+  limit: contents.length,
+  offset: 0,
 });
+
+const createFallbackPageSetting = (slug: string): PageSetting => {
+  const timestamp = new Date().toISOString();
+  return {
+    id: `fallback-${slug}`,
+    slug,
+    title: `${slug} (microCMS未設定)`,
+    description: 'microCMSの環境変数が設定されていないため、プレースホルダーを表示しています。',
+    createdAt: timestamp,
+    updatedAt: timestamp,
+    publishedAt: timestamp,
+    revisedAt: timestamp,
+  };
+};
+
+const createFallbackNews = (id: string): News => {
+  const timestamp = new Date().toISOString();
+  return {
+    id,
+    title: 'コンテンツを読み込めませんでした',
+    content: 'microCMSの環境変数が設定されていません。',
+    createdAt: timestamp,
+    updatedAt: timestamp,
+    publishedAt: timestamp,
+    revisedAt: timestamp,
+  };
+};
+
+const createFallbackWorks = (id: string): Works => ({
+  ...createFallbackNews(id),
+}) as Works;
 
 /**
  * キャッシュ設定の定数
@@ -33,6 +86,10 @@ const CACHE_CONFIG = {
  * - next.revalidate: クロスリクエストでのキャッシュ（1時間）
  */
 const getCategoryIdBySlug = cache(async (slug: string): Promise<string | undefined> => {
+  if (!client) {
+    warnMicrocmsDisabled();
+    return undefined;
+  }
   try {
     const response = await client.getList<NewsCategory>({
       endpoint: 'categories',
@@ -53,23 +110,30 @@ const getCategoryIdBySlug = cache(async (slug: string): Promise<string | undefin
 /**
  * カテゴリーslugでフィルタリングしてブログ一覧を取得する共通関数
  */
-type GetBlogListByCategoryOptions = {
+type GetBlogListByCategoryOptions<T extends MicroCMSBaseContent> = {
   categorySlug: string;
   queries?: MicroCMSQueries;
   fields?: string;
   limit?: number;
   mergeFilters?: boolean;
   cacheConfig?: RequestInit;
+  fallbackContents?: T[];
 };
 
-const getBlogListByCategory = async ({
+const getBlogListByCategory = async <T extends MicroCMSBaseContent = News>({
   categorySlug,
   queries,
   fields,
   limit,
   mergeFilters = false,
   cacheConfig = CACHE_CONFIG.DYNAMIC,
-}: GetBlogListByCategoryOptions) => {
+  fallbackContents = [] as T[],
+}: GetBlogListByCategoryOptions<T>): Promise<MicroCMSListResponse<T>> => {
+  const microcmsClient = getClient();
+  if (!microcmsClient) {
+    return createFallbackListResponse<T>(fallbackContents);
+  }
+
   const categoryId = await getCategoryIdBySlug(categorySlug);
 
   const filterQuery = categoryId
@@ -80,7 +144,7 @@ const getBlogListByCategory = async ({
     ? `${queries.filters}[and]${filterQuery}`
     : filterQuery;
 
-  return await client.getList<News>({
+  return await microcmsClient.getList<T>({
     endpoint: 'blog',
     queries: {
       ...queries,
@@ -102,6 +166,7 @@ export const getNewsList = cache(async (queries?: MicroCMSQueries) => {
     queries,
     mergeFilters: true,
     cacheConfig: CACHE_CONFIG.DYNAMIC,
+    fallbackContents: [createFallbackNews('fallback-news')],
   });
 });
 
@@ -113,15 +178,24 @@ export const getNewsDetail = cache(async (
   contentId: string,
   queries?: MicroCMSQueries
 ) => {
-  return await client.getListDetail<News>({
-    endpoint: 'blog',
-    contentId,
-    queries: {
-      ...queries,
-      depth: 2,
-    },
-    customRequestInit: CACHE_CONFIG.DYNAMIC,
-  });
+  const microcmsClient = getClient();
+  if (!microcmsClient) {
+    return createFallbackNews(contentId);
+  }
+  try {
+    return await microcmsClient.getListDetail<News>({
+      endpoint: 'blog',
+      contentId,
+      queries: {
+        ...queries,
+        depth: 2,
+      },
+      customRequestInit: CACHE_CONFIG.DYNAMIC,
+    });
+  } catch (error) {
+    console.error(`Failed to fetch news detail for ${contentId}:`, error);
+    return createFallbackNews(contentId);
+  }
 });
 
 /**
@@ -129,15 +203,24 @@ export const getNewsDetail = cache(async (
  * キャッシュ: 1時間（変更頻度が低い）
  */
 export const getPageSetting = cache(async (slug: string, queries?: MicroCMSQueries) => {
-  const response = await client.getList<PageSetting>({
-    endpoint: 'page-settings',
-    queries: {
-      ...queries,
-      filters: `slug[equals]${slug}`,
-    },
-    customRequestInit: CACHE_CONFIG.STATIC,
-  });
-  return response.contents[0];
+  const microcmsClient = getClient();
+  if (!microcmsClient) {
+    return createFallbackPageSetting(slug);
+  }
+  try {
+    const response = await microcmsClient.getList<PageSetting>({
+      endpoint: 'page-settings',
+      queries: {
+        ...queries,
+        filters: `slug[equals]${slug}`,
+      },
+      customRequestInit: CACHE_CONFIG.STATIC,
+    });
+    return response.contents[0] ?? createFallbackPageSetting(slug);
+  } catch (error) {
+    console.error(`Failed to fetch page setting for ${slug}:`, error);
+    return createFallbackPageSetting(slug);
+  }
 });
 
 /**
@@ -151,6 +234,7 @@ export const getAllTechnologies = cache(async (queries?: MicroCMSQueries) => {
     fields: 'id,createdAt,updatedAt,publishedAt,revisedAt,title,content,category,child-category.id,child-category.child-name,child-category.slug,icon,features,thumbnail',
     limit: 100,
     cacheConfig: CACHE_CONFIG.STATIC,
+    fallbackContents: [createFallbackNews('fallback-technologies')],
   });
 });
 
@@ -163,6 +247,7 @@ export const getRecruitmentJobs = cache(async (queries?: MicroCMSQueries) => {
     categorySlug: 'recruitment',
     queries,
     cacheConfig: CACHE_CONFIG.DYNAMIC,
+    fallbackContents: [createFallbackNews('fallback-recruitment')],
   });
 });
 
@@ -171,10 +256,11 @@ export const getRecruitmentJobs = cache(async (queries?: MicroCMSQueries) => {
  * キャッシュ: 1時間（変更頻度が低い）
  */
 export const getWorks = cache(async (queries?: MicroCMSQueries) => {
-  return getBlogListByCategory({
+  return getBlogListByCategory<Works>({
     categorySlug: 'works',
     queries,
     cacheConfig: CACHE_CONFIG.STATIC,
+    fallbackContents: [createFallbackWorks('fallback-work')],
   });
 });
 
@@ -183,7 +269,7 @@ export const getWorks = cache(async (queries?: MicroCMSQueries) => {
  * Webhook等でコンテンツ更新時に使用
  */
 export const revalidateContent = async (endpoint: string, contentId?: string) => {
-  const { revalidatePath, revalidateTag } = await import('next/cache');
+  const { revalidatePath } = await import('next/cache');
 
   // パスベースの再検証
   switch (endpoint) {

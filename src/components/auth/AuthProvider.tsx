@@ -91,6 +91,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [user, fetchProfile])
 
+  const handleAuthError = useCallback(async (error: AuthError | null) => {
+    if (!error || !supabase) return false
+
+    const message = error.message || ''
+    const isRefreshError = message.includes('Invalid Refresh Token') || message.includes('Refresh Token Not Found')
+
+    if (isRefreshError) {
+      await supabase.auth.signOut()
+      setSession(null)
+      setUser(null)
+      setProfile(null)
+      return true
+    }
+
+    console.error('Supabase auth error:', error)
+    return false
+  }, [supabase])
+
   useEffect(() => {
     // Supabaseが設定されていない場合はスキップ
     if (!supabase) {
@@ -101,7 +119,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // 初期セッションの取得
     const getInitialSession = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession()
+        const { data, error } = await supabase.auth.getSession()
+
+        if (await handleAuthError(error)) {
+          setLoading(false)
+          return
+        }
+
+        const session = data.session
         setSession(session)
         setUser(session?.user ?? null)
 
@@ -135,7 +160,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       subscription.unsubscribe()
     }
-  }, [supabase, fetchProfile])
+  }, [supabase, fetchProfile, handleAuthError])
 
   // サインアップ
   const signUp = useCallback(async (email: string, password: string, name?: string) => {
@@ -148,7 +173,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         data: {
           full_name: name,
         },
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        // PKCEフローを使用せず、自動確認を無効化
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/recruit/mypage`,
       },
     })
 

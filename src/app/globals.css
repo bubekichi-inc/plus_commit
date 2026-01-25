@@ -12,6 +12,7 @@
     --color-background: #FFFFFF;
     --color-background-subtle: #F8F8F8;
     --color-background-dark: #242422;
+    --color-background-hero: #1a1a1a;
     --color-border: #DDDDDD;
     --color-border-subtle: #E8E8E8;
 
@@ -172,12 +173,28 @@ button,
         color: var(--color-text-secondary);
     }
 
+    .text-muted {
+        color: var(--color-text-muted);
+    }
+
     .bg-official-subtle {
         background-color: var(--color-background-subtle);
     }
 
+    .bg-official-dark {
+        background-color: var(--color-background-dark);
+    }
+
+    .bg-hero-dark {
+        background-color: var(--color-background-hero);
+    }
+
     .border-official {
         border-color: var(--color-border);
+    }
+
+    .border-official-subtle {
+        border-color: var(--color-border-subtle);
     }
 
     /* ===================================

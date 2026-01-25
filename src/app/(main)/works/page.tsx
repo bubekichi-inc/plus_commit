@@ -75,7 +75,7 @@ export default async function WorksPage() {
                                                 {work.title}
                                             </h3>
                                             <p className="text-[#666666] text-sm leading-[1.8] line-clamp-2 mb-4">
-                                                {work.content.replace(/<[^>]*>?/gm, '')}
+                                                {(work.content || "").replace(/<[^>]*>?/gm, '')}
                                             </p>
                                             {work["child-category"] && work["child-category"].length > 0 && (
                                                 <div className="flex flex-wrap gap-2">

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { CheckCircle, AlertCircle, Loader2 } from "lucide-react"
+import { AlertCircle, Loader2 } from "lucide-react"
 import Image from "next/image"
 
 type FormData = {
@@ -33,8 +33,7 @@ export default function ContactPage() {
     })
     const [errors, setErrors] = useState<FormErrors>({})
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
-    const [submitMessage, setSubmitMessage] = useState("")
+    const [submitError, setSubmitError] = useState<string | null>(null)
 
     // クライアントサイドバリデーション
     const validateForm = (): boolean => {
@@ -73,8 +72,7 @@ export default function ContactPage() {
         }
 
         setIsSubmitting(true)
-        setSubmitStatus("idle")
-        setSubmitMessage("")
+        setSubmitError(null)
 
         try {
             const response = await fetch("/api/contact/", {
@@ -94,8 +92,7 @@ export default function ContactPage() {
             // 成功したらthanksページへリダイレクト
             router.push("/contact/thanks/")
         } catch (error) {
-            setSubmitStatus("error")
-            setSubmitMessage(error instanceof Error ? error.message : "予期せぬエラーが発生しました")
+            setSubmitError(error instanceof Error ? error.message : "予期せぬエラーが発生しました")
         } finally {
             setIsSubmitting(false)
         }
@@ -143,24 +140,13 @@ export default function ContactPage() {
                     <div className="container mx-auto px-4">
                         <div className="grid md:grid-cols-3 gap-12">
                             <div className="md:col-span-2">
-                                {/* 送信完了メッセージ */}
-                                {submitStatus === "success" && (
-                                    <div className="mb-8 p-6 bg-emerald-50 border border-emerald-100 rounded-lg flex items-start gap-4">
-                                        <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" />
-                                        <div>
-                                            <h3 className="text-emerald-700 font-bold mb-1">送信完了</h3>
-                                            <p className="text-emerald-600">{submitMessage}</p>
-                                        </div>
-                                    </div>
-                                )}
-
                                 {/* エラーメッセージ */}
-                                {submitStatus === "error" && (
+                                {submitError && (
                                     <div className="mb-8 p-6 bg-red-50 border border-red-100 rounded-lg flex items-start gap-4">
                                         <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
                                         <div>
                                             <h3 className="text-red-700 font-bold mb-1">エラー</h3>
-                                            <p className="text-red-600">{submitMessage}</p>
+                                            <p className="text-red-600">{submitError}</p>
                                         </div>
                                     </div>
                                 )}

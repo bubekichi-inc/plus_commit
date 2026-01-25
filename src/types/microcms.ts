@@ -77,3 +77,12 @@ export type News = {
 };
 
 export type NewsResponse = MicroCMSListResponse<News>;
+
+export type Works = News & {
+  clientName?: string;
+  industry?: string;
+  services?: string[];
+  projectUrl?: string;
+};
+
+export type WorksResponse = MicroCMSListResponse<Works>;

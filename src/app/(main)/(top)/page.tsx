@@ -1,4 +1,4 @@
-import { BusinessHero } from "@/app/(main)/(top)/_components/Hero"
+import { Hero } from "@/app/(main)/(top)/_components/Hero"
 import { MissionVisionValue } from "@/app/(main)/(top)/_components/MissionVisionValue"
 import { WorksSection } from "@/app/(main)/(top)/_components/WorksSection"
 import { NewsSection } from "@/app/(main)/(top)/_components/NewsSection"
@@ -48,7 +48,7 @@ export default async function HomePage() {
                     }}
                 />
 
-                <BusinessHero />
+                <Hero />
 
                 <MissionVisionValue />
 

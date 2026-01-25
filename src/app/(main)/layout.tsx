@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react"
 import { usePathname } from "next/navigation"
-import { Header } from "@/components/sections/Header"
+import { Header } from "@/app/(main)/_components/Header"
 import { Footer } from "@/app/(main)/_components/Footer"
 import { CTA } from "@/app/(main)/_components/CTA"
 

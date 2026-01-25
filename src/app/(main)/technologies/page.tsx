@@ -3,23 +3,50 @@ import { Metadata } from 'next'
 import { TechnologiesTabs, type GroupedTechnologies as TabsGroupedTechnologies } from "./TechnologiesTabs"
 import type { News, NewsCategory } from "@/types/microcms"
 
+const FALLBACK_META = {
+    title: '取り扱い技術 | プラスコミット株式会社',
+    description: 'プラスコミット株式会社が取り扱う最新の技術や提供可能なソリューションをご紹介します。'
+}
+
 export async function generateMetadata(): Promise<Metadata> {
-    const setting = await getPageSetting('technologies')
-    return {
-        title: setting?.title,
-        description: setting?.description,
-        openGraph: {
-            title: setting?.title,
-            description: setting?.description,
-            images: ["/general/ogp.png"],
-            type: "website",
-        },
-        twitter: {
-            card: "summary_large_image",
-            title: setting?.title,
-            description: setting?.description,
-            images: ["/general/ogp.png"],
-        },
+    try {
+        const setting = await getPageSetting('technologies')
+        const title = setting?.title || FALLBACK_META.title
+        const description = setting?.description || FALLBACK_META.description
+
+        return {
+            title,
+            description,
+            openGraph: {
+                title,
+                description,
+                images: ["/general/ogp.png"],
+                type: "website",
+            },
+            twitter: {
+                card: "summary_large_image",
+                title,
+                description,
+                images: ["/general/ogp.png"],
+            },
+        }
+    } catch (error) {
+        return {
+            title: FALLBACK_META.title,
+            description: FALLBACK_META.description,
+            openGraph: {
+                title: FALLBACK_META.title,
+                description: FALLBACK_META.description,
+                images: ["/general/ogp.png"],
+                type: "website",
+            },
+            twitter: {
+                card: "summary_large_image",
+                title: FALLBACK_META.title,
+                description: FALLBACK_META.description,
+                images: ["/general/ogp.png"],
+            },
+        }
     }
 }
 

@@ -25,8 +25,8 @@ export default function ResetPasswordPage() {
       return
     }
 
-    if (password.length < 6) {
-      setError('パスワードは6文字以上で入力してください')
+    if (password.length < 8) {
+      setError('パスワードは8文字以上で入力してください')
       return
     }
 
@@ -88,7 +88,7 @@ export default function ResetPasswordPage() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-slate-800 border border-slate-700 text-white placeholder-slate-500 rounded-lg pl-11 pr-11 py-3 focus:outline-none focus:border-blue-500 transition-colors"
               required
-              minLength={6}
+              minLength={8}
             />
             <button
               type="button"
@@ -108,7 +108,7 @@ export default function ResetPasswordPage() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full bg-slate-800 border border-slate-700 text-white placeholder-slate-500 rounded-lg pl-11 pr-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
               required
-              minLength={6}
+              minLength={8}
             />
           </div>
 

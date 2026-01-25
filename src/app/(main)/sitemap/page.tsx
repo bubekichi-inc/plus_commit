@@ -27,11 +27,6 @@ const sitemapData = [
         title: "採用情報",
         links: [
             { label: "採用トップ", href: "/recruit" },
-            { label: "会社について", href: "/recruit/company" },
-            { label: "募集要項", href: "/recruit/jobs" },
-            { label: "カルチャー", href: "/recruit/culture" },
-            { label: "よくある質問", href: "/recruit/faq" },
-            { label: "エントリー", href: "/recruit/entry" },
         ]
     },
     {

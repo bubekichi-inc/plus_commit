@@ -4,21 +4,29 @@ import { getNewsList, getPageSetting } from "@/lib/microcms"
 import { Suspense } from "react"
 import { Metadata } from 'next'
 
+const DEFAULT_META = {
+    title: 'お知らせ | プラスコミット株式会社',
+    description: 'プラスコミット株式会社からのお知らせ、最新ニュース、技術情報をお届けします。'
+}
+
 export async function generateMetadata(): Promise<Metadata> {
     const setting = await getPageSetting('news')
+    const title = setting?.title || DEFAULT_META.title
+    const description = setting?.description || DEFAULT_META.description
+
     return {
-        title: setting?.title,
-        description: setting?.description,
+        title,
+        description,
         openGraph: {
-            title: setting?.title,
-            description: setting?.description,
+            title,
+            description,
             images: ["/general/ogp.png"],
             type: "website",
         },
         twitter: {
             card: "summary_large_image",
-            title: setting?.title,
-            description: setting?.description,
+            title,
+            description,
             images: ["/general/ogp.png"],
         },
     }
@@ -51,6 +59,7 @@ export default async function NewsListPage({
     }
 
     const specialNews = searchQuery ? [] : news.filter(isSpecialArticle)
+    const regularNews = searchQuery ? news : news.filter((item) => !isSpecialArticle(item))
 
     return (
         <>
@@ -125,9 +134,9 @@ export default async function NewsListPage({
                                     <h2 className="text-lg font-bold text-zinc-500 mb-6">すべての記事</h2>
                                 )}
 
-                                {news.length > 0 ? (
+                                {regularNews.length > 0 ? (
                                     <div className="grid gap-6">
-                                        {news.map((item) => (
+                                        {regularNews.map((item) => (
                                             <Link
                                                 key={item.id}
                                                 href={`/news/${item.id}`}

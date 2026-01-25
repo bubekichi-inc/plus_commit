@@ -1,13 +1,12 @@
 import Link from "next/link"
 import Image from "next/image"
-import { RecruitLink } from "@/components/ui/RecruitLink"
 
 export function Footer() {
     return (
         <footer className="bg-white border-t border-[#E8E8E8] pt-16 pb-8">
             <div className="container mx-auto px-6">
                 {/* Main Footer */}
-                <div className="flex md:flex-row md:justify-between gap-12 mb-12">
+                <div className="flex md:flex-col md:justify-between gap-12 md:gap-0 mb-12">
                     {/* Logo & Description */}
                     <div className="md:max-w-xs">
                         <div className="mb-6">
@@ -36,9 +35,12 @@ export function Footer() {
                             <Link href="/contact" className="text-[#666666] hover:text-[#242422] transition-colors link-underline">
                                 お問い合わせ
                             </Link>
-                            <RecruitLink className="text-[#666666] hover:text-[#242422] transition-colors link-underline">
+                            <Link
+                                href="/recruit"
+                                className="text-[#666666] hover:text-[#242422] transition-colors link-underline"
+                            >
                                 採用情報
-                            </RecruitLink>
+                            </Link>
                         </div>
                     </div>
                 </div>

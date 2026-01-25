@@ -67,7 +67,7 @@ export function MissionVisionValue() {
     }, { scope: sectionRef })
 
     return (
-        <section ref={sectionRef} className="py-20 md:py-24 bg-[#1a1a1a] text-white border-t border-white/10 overflow-hidden relative">
+        <section ref={sectionRef} className="py-20 md:py-24 bg-[var(--color-background-hero)] text-white border-t border-white/10 overflow-hidden relative">
             <div className="container mx-auto px-6 max-w-6xl">
                 <div className="flex flex-col gap-16 md:gap-20">
 

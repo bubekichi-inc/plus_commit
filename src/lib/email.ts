@@ -20,6 +20,25 @@ const getNotificationEmails = (): string[] => {
 // 送信元メールアドレス
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "noreply@plus-commit.com"
 
+// HTMLエスケープ用の共通ヘルパー
+const escapeHtml = (value: string): string =>
+    value.replace(/[&<>"']/g, char => {
+        switch (char) {
+            case "&":
+                return "&amp;"
+            case "<":
+                return "&lt;"
+            case ">":
+                return "&gt;"
+            case '"':
+                return "&quot;"
+            case "'":
+                return "&#39;"
+            default:
+                return char
+        }
+    })
+
 type ContactData = {
     company: string
     name: string
@@ -70,6 +89,15 @@ export async function sendContactNotificationEmail(contact: ContactData): Promis
     const budgetName = contact.budget ? (budgetLabels[contact.budget] || contact.budget) : "未選択"
     const now = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })
 
+    const safeCompany = escapeHtml(contact.company)
+    const safeName = escapeHtml(contact.name)
+    const safeEmail = escapeHtml(contact.email)
+    const safePhone = escapeHtml(contact.phone || "未入力")
+    const safeServiceName = escapeHtml(serviceName)
+    const safeBudgetName = escapeHtml(budgetName)
+    const safeMessageHtml = escapeHtml(contact.message).replace(/\n/g, "<br>")
+    const safeSubject = `【お問い合わせ】${safeCompany} - ${safeName}様`
+
     const resend = getResend()
     if (!resend) {
         return { success: false, error: "Resend APIキーが設定されていません" }
@@ -79,7 +107,7 @@ export async function sendContactNotificationEmail(contact: ContactData): Promis
         const { error } = await resend.emails.send({
             from: `プラスコミット <${FROM_EMAIL}>`,
             to: notificationEmails,
-            subject: `【お問い合わせ】${contact.company} - ${contact.name}様`,
+            subject: safeSubject,
             html: `
 <!DOCTYPE html>
 <html>
@@ -111,31 +139,31 @@ export async function sendContactNotificationEmail(contact: ContactData): Promis
             </div>
             <div class="field">
                 <div class="label">会社名</div>
-                <div class="value">${contact.company}</div>
+                <div class="value">${safeCompany}</div>
             </div>
             <div class="field">
                 <div class="label">ご担当者名</div>
-                <div class="value">${contact.name}</div>
+                <div class="value">${safeName}</div>
             </div>
             <div class="field">
                 <div class="label">メールアドレス</div>
-                <div class="value"><a href="mailto:${contact.email}">${contact.email}</a></div>
+                <div class="value"><a href="mailto:${safeEmail}">${safeEmail}</a></div>
             </div>
             <div class="field">
                 <div class="label">電話番号</div>
-                <div class="value">${contact.phone || "未入力"}</div>
+                <div class="value">${safePhone}</div>
             </div>
             <div class="field">
                 <div class="label">ご検討中のサービス</div>
-                <div class="value">${serviceName}</div>
+                <div class="value">${safeServiceName}</div>
             </div>
             <div class="field">
                 <div class="label">ご予算</div>
-                <div class="value">${budgetName}</div>
+                <div class="value">${safeBudgetName}</div>
             </div>
             <div class="field">
                 <div class="label">プロジェクトの詳細</div>
-                <div class="message-box">${contact.message.replace(/\n/g, "<br>")}</div>
+                <div class="message-box">${safeMessageHtml}</div>
             </div>
         </div>
         <div class="footer">
@@ -193,6 +221,8 @@ export async function sendContactAutoReplyEmail(contact: ContactData): Promise<{
         return { success: false, error: "Resend APIキーが設定されていません" }
     }
 
+    const safeName = escapeHtml(contact.name)
+
     try {
         const { error } = await resend.emails.send({
             from: `プラスコミット <${FROM_EMAIL}>`,
@@ -218,7 +248,7 @@ export async function sendContactAutoReplyEmail(contact: ContactData): Promise<{
             <h1>お問い合わせありがとうございます</h1>
         </div>
         <div class="content">
-            <p>${contact.name} 様</p>
+            <p>${safeName} 様</p>
             <p>この度は、プラスコミットにお問い合わせいただき、誠にありがとうございます。</p>
             <p>お問い合わせ内容を確認させていただき、<strong>2営業日以内</strong>に担当者よりご連絡いたします。</p>
             <p>今しばらくお待ちくださいますよう、お願い申し上げます。</p>

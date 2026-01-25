@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { getRecruitUrl } from "@/lib/site-config"
 
 export function CTA() {
     return (
@@ -8,7 +7,7 @@ export function CTA() {
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                     {/* Contact Card */}
-                    <div className="bg-[#008CFF] p-8 md:p-12 text-white rounded-[5px]">
+                    <div className="bg-blue-500 p-8 md:p-12 text-white rounded-[5px]">
                         <p className="text-sm text-white/70 mb-3 tracking-widest uppercase font-medium">
                             Contact
                         </p>
@@ -22,7 +21,7 @@ export function CTA() {
                         </p>
                         <Link
                             href="/contact"
-                            className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-white text-[#008CFF] text-sm font-medium hover:opacity-90 transition-opacity"
+                            className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-white text-blue-500 text-sm font-medium hover:opacity-90 transition-opacity"
                         >
                             お問い合わせ
                             <ArrowRight className="w-4 h-4 ml-2" />
@@ -30,7 +29,7 @@ export function CTA() {
                     </div>
 
                     {/* Recruit Card */}
-                    <div className="bg-[#242422] p-8 md:p-12 text-white rounded-[5px]">
+                    <div className="bg-gray-900 p-8 md:p-12 text-white rounded-[5px]">
                         <p className="text-sm text-white/50 mb-3 tracking-widest uppercase font-medium">
                             Recruit
                         </p>
@@ -43,9 +42,8 @@ export function CTA() {
                             みなさまのご応募お待ちしております。
                         </p>
                         <Link
-                            href={getRecruitUrl()}
-                            target="_blank"
-                            className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-white text-[#242422] text-sm font-medium hover:opacity-90 transition-opacity"
+                            href="/recruit"
+                            className="inline-flex items-center justify-center h-12 px-8 rounded-[5px] bg-white text-gray-900 text-sm font-medium hover:opacity-90 transition-opacity"
                         >
                             採用情報を見る
                             <ArrowRight className="w-4 h-4 ml-2" />

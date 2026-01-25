@@ -1,11 +1,23 @@
 import { Metadata } from 'next'
 import { getPageSetting } from "@/lib/microcms"
 
+const FALLBACK_META = {
+    title: '採用情報 | 株式会社PLUS-COMMIT',
+    description: '株式会社PLUS-COMMITの採用情報ページです。'
+}
+
 export async function generateMetadata(): Promise<Metadata> {
-    const setting = await getPageSetting('recruit')
-    return {
-        title: setting?.title || '採用情報 | 株式会社PLUS-COMMIT',
-        description: setting?.description || '株式会社PLUS-COMMITの採用情報ページです。',
+    try {
+        const setting = await getPageSetting('recruit')
+        return {
+            title: setting?.title || FALLBACK_META.title,
+            description: setting?.description || FALLBACK_META.description,
+        }
+    } catch {
+        return {
+            title: FALLBACK_META.title,
+            description: FALLBACK_META.description,
+        }
     }
 }
 

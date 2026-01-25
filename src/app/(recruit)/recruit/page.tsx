@@ -1,9 +1,5 @@
-import { getRecruitmentJobs } from "@/lib/microcms"
-import RecruitTopPageClient from "./RecruitTopPageClient"
+import RecruitTopPageClient from "./_components/RecruitTopPageClient"
 
-export default async function RecruitTopPage() {
-    // Fetch recruitment jobs from microCMS
-    const { contents: jobs } = await getRecruitmentJobs()
-
-    return <RecruitTopPageClient jobs={jobs} />
+export default function RecruitTopPage() {
+    return <RecruitTopPageClient />
 }

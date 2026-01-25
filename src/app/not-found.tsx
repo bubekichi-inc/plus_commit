@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Header } from "@/components/sections/Header"
+import { Header } from "@/app/(main)/_components/Header"
 import { Footer } from "@/app/(main)/_components/Footer"
 import { Button } from "@/components/ui/button"
 import { FileQuestion } from "lucide-react"

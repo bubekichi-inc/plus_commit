@@ -1,120 +1,62 @@
-# プラスコミット
+# プロジェクト情報 — plus-commit (開発向け LLMO 用)
 
-> 「1億総エンジニア社会」を創る。
+このファイルはこのリポジトリ（プラスコミット 採用サイトを含むモノレポ）の開発者向けメモです。LLM系の自動化やプロンプトで参照されることを想定しています。以下は現行の構成と運用ルール、重要なエンドポイント・環境変数などの要点です。
 
-プラスコミットは、Web制作・開発、DXコンサルティング、業務自動化を提供するIT企業です。誰もが技術を武器に活躍できる社会の実現を目指しています。
+## 概要
 
-## 会社概要
+- リポジトリ: フロントエンドは Next.js（App Router）、TypeScript、Tailwind CSS。
+- 採用サイトは `src/app/(recruit)/recruit` 以下に格納。
+- 認証は Supabase を使用。メール認証フローを実装（`/auth/callback` に Route Handlerあり）。
+- CMS は microCMS（`src/lib/microcms.ts`）でコンテンツ取得。
+- 3D 表示は React Three Fiber を利用（`src/components/3d` にアニメーションコンポーネント）。
 
-- 会社名: 株式会社プラスコミット
-- ウェブサイト: https://plus-commit.com/
-- 採用サイト: https://plus-commit.com/recruit/
-- 事業内容: Web制作・開発、DXコンサルティング、コーディング代行、業務自動化
+## 主要パス（開発者が参照すべき）
 
-## サービス
+- アプリルート: `src/app`
+- 採用トップ: `src/app/(recruit)/recruit/RecruitTopPageClient.tsx`
+- 登録フォーム: `src/app/(recruit)/recruit/register/page.tsx`
+- 仮登録完了ページ: `src/app/(recruit)/recruit/register/pending/page.tsx`
+- 認証コールバック（サーバー処理）: `src/app/auth/callback/route.ts`
+- Auth Provider: `src/components/auth/AuthProvider.tsx`
+- Supabase server helper: `src/lib/supabase/server.ts`
+- microCMS ラッパー: `src/lib/microcms.ts`
+- メール送信ユーティリティ: `src/lib/email.ts`
 
-### コーディング代行
-デザインカンプからの正確なコーディングを代行。Figma/XD/Photoshopからのコーディング、レスポンシブ対応、CMS組み込みまで対応。
-- 料金目安: 5万円〜
-- 納期目安: 1〜2週間
+## 重要な環境変数
 
-### DXコンサルティング
-デジタル技術を活用した業務改革を支援。戦略立案から導入・運用まで伴走。
-- 料金目安: 月額10万円〜
-- 期間目安: 3ヶ月〜
+- `NEXT_PUBLIC_SUPABASE_URL` — Supabase URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Supabase anon key
+- `SUPABASE_SERVICE_ROLE_KEY` — サーバー側で必要な場合
+- `RESEND_API_KEY` — Resend（メール送信）APIキー
+- `RESEND_FROM_EMAIL` — 送信元メールアドレス
+- `CONTACT_NOTIFICATION_EMAILS` — お問い合わせ通知先（カンマ区切り）
 
-### Web制作
-コーポレートサイト、LP、ECサイトなど。企画・デザイン・開発をワンストップで対応。
-- 料金目安: 30万円〜
-- 納期目安: 4〜8週間
+## 認証／メールフローの注意点
 
-### Webアプリケーション開発
-業務システム、SaaS、会員サイトなど。モダンな技術スタックで開発。
-- 料金目安: 100万円〜
-- 納期目安: 2〜6ヶ月
+- サインアップ時に `supabase.auth.signUp` の `emailRedirectTo` を `/auth/callback` に設定しています。
+- 認証リンクは一度クリックすると無効になる（OTP 期限切れや一度使用されたリンクは `access_denied` を返す）。
+- ブラウザで `auth/callback` に到達した際は、サーバー側の `route.ts` が `exchangeCodeForSession` を呼び出してセッションを設定します。クライアント側の処理は簡略化しています。
+- 開発中はリンクの再利用やキャッシュによる誤動作に注意（ハードリロードやシークレットモードで試す）。
 
-### 業務自動化
-手作業を自動化し、生産性を向上。RPAやAPI連携で業務効率化を実現。
-- 料金目安: 20万円〜
-- 納期目安: 2〜4週間
+## LLMが利用する際の注意点（プロンプト向け）
 
-## 取り扱い技術
+- ファイルやルートを参照する場合は必ず `src/` 以下の相対パスで指定してください。
+- 機密情報（APIキー等）は `.env` にあり、リポジトリには含めないでください。外部へ出力する場合はマスクしてください。
+- メールテンプレートの変更は Supabaseダッシュボードの **Authentication → Email Templates** で行うか、`src/lib/email.ts` の Resend テンプレートを編集します。
 
-### フロントエンド
-- React
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Vue.js
+## 開発・デバッグ小技
 
-### バックエンド
-- Node.js
-- Go
-- Python
-- PHP
+- サーバーサイドの認証コールバック処理に問題が出る場合、まず `src/app/auth/callback/route.ts` のログを確認してください。
+- `npm run dev` 実行中のターミナルログが最も確実な情報源です。
+- APIのエラーログは多くが `console.error` で出ます。重要なログは開発時のみ出すよう `NODE_ENV` 条件付きにしてください。
 
-### インフラ・クラウド
-- AWS
-- Google Cloud Platform
-- Vercel
-- Docker
+## 変更履歴メモ
 
-### CMS
-- WordPress
-- microCMS
-- Contentful
+- 認証コールバックをクライアント→サーバー(Route Handler)へ移行済み。
+- 登録後の仮登録完了ページ（`/recruit/register/pending`）を追加。
+- `src/components/3d/RecruitAnimation.tsx` を追加して採用ページの3D表現を差し替え済み。
 
-## 自社プロダクト・メディア
+---
 
-### K-zoku（継続）
-意志に頼らず「仕組み」で解決する、新感覚の努力記録アプリ。
-- URL: https://k-zoku.com/
-
-### 個人開発研究所
-エンジニアの挑戦を支える技術メディア。最新の技術スタックからマネタイズ戦略まで発信。
-- URL: https://personal-dev.net/
-
-### プラスコミット
-IT転職・独立を目指す方のためのスキル習得支援サービス。
-- URL: https://plus-commit.com/career/
-
-## 採用情報
-
-プラスコミットでは、自ら考え、自ら形にする技術者を募集しています。
-
-### 募集職種
-- エンジニア（フロントエンド・バックエンド）
-- DXコンサルタント
-- ディレクター
-- デザイナー
-
-### 働き方
-- フルリモート・フレックス制導入
-- 最新MacBook Pro貸与
-- 書籍・セミナー費用全額負担
-- 副業OK（申請制）
-
-### 大切にしている価値観
-1. Output First - 完璧よりも、まずは形にすること
-2. Stay Professional - 常に最新を学び、最高を提供すること
-3. Challenge Boundaries - 既成概念にとらわれず挑戦すること
-
-詳細: https://recruit.plus-commit.com
-
-## お問い合わせ
-
-- お問い合わせフォーム: https://plus-commit.com/contact
-- メール: business@plus-commit.com
-- 営業時間: 平日 10:00 - 19:00
-
-## サイトマップ
-
-- トップページ: https://plus-commit.com
-- サービス: https://plus-commit.com/services
-- 取り扱い技術: https://plus-commit.com/technologies
-- 制作実績: https://plus-commit.com/works
-- お知らせ: https://plus-commit.com/news
-- お問い合わせ: https://plus-commit.com/contact
-- スキル習得支援: https://plus-commit.com/career
-- 採用情報: https://recruit.plus-commit.com
+必要があればこのファイルをさらに要約した短いメタ情報版を作成します。どのレベルの詳細（短い要約 / フルガイド / API一覧）を生成しましょうか？
 

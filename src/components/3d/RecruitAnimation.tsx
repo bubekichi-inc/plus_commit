@@ -4,27 +4,27 @@ import { useRef } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import * as THREE from 'three'
 
-function MetalSphere() {
+function RecruitShape() {
     const meshRef = useRef<THREE.Group>(null)
 
     useFrame((state) => {
         if (meshRef.current) {
             // ゆっくりとした回転アニメーション
-            meshRef.current.rotation.y = state.clock.elapsedTime * 0.2
-            meshRef.current.rotation.x = state.clock.elapsedTime * 0.15
+            meshRef.current.rotation.y = state.clock.elapsedTime * 0.3
+            meshRef.current.rotation.z = state.clock.elapsedTime * 0.1
             // 上下に浮遊するアニメーション
-            meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.2
+            meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.3
         }
     })
 
     return (
         <group ref={meshRef} position={[2, 0, 0]}>
-            {/* Core Solid Shape - Brighter, lighter colors */}
+            {/* Core Solid Shape - Orange accent colors */}
             <mesh>
-                <icosahedronGeometry args={[1, 0]} />
+                <octahedronGeometry args={[1, 0]} />
                 <meshStandardMaterial
-                    color="#93c5fd"
-                    metalness={0.7}
+                    color="#fb923c"
+                    metalness={0.8}
                     roughness={0.2}
                     envMapIntensity={1.5}
                     flatShading={true}
@@ -32,19 +32,19 @@ function MetalSphere() {
             </mesh>
             {/* Wireframe Overlay */}
             <mesh>
-                <icosahedronGeometry args={[1.05, 0]} />
+                <octahedronGeometry args={[1.05, 0]} />
                 <meshBasicMaterial
-                    color="#60a5fa"
+                    color="#fdba74"
                     wireframe
                     transparent
-                    opacity={0.4}
+                    opacity={0.3}
                 />
             </mesh>
         </group>
     )
 }
 
-export function MetalAnimation() {
+export function RecruitAnimation() {
     return (
         <div className="hidden md:block absolute inset-0 w-full h-full pointer-events-none">
             <Canvas
@@ -52,15 +52,16 @@ export function MetalAnimation() {
                 gl={{ alpha: true, antialias: true }}
                 dpr={[1, 1.5]}
             >
-                <ambientLight intensity={0.6} />
+                <ambientLight intensity={0.5} />
                 <directionalLight
                     position={[10, 10, 5]}
-                    intensity={1.2}
+                    intensity={1}
                     castShadow
                 />
-                <pointLight position={[-10, -10, -10]} intensity={0.5} />
+                <pointLight position={[-10, -10, -10]} intensity={0.4} color="#fb923c" />
+                <pointLight position={[10, -5, -5]} intensity={0.3} color="#fdba74" />
 
-                <MetalSphere />
+                <RecruitShape />
 
                 {/* 環境マッピング用 */}
                 <mesh position={[0, 0, -5]} visible={false}>
