@@ -10,16 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-/.agents/
-
-
 # env files
 .env
 .env.local
-
 
 # next.js
 /.next/
@@ -41,13 +34,3 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-curriculum/.DS_Store
-curriculum/**/.DS_Store
-curriculum/
