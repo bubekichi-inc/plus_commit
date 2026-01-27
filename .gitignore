@@ -47,3 +47,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+curriculum/.DS_Store
+curriculum/**/.DS_Store
+curriculum/

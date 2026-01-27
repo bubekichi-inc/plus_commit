@@ -1,62 +1,21 @@
-# プロジェクト情報 — plus-commit (開発向け LLMO 用)
+# プラスコミット — 
 
-このファイルはこのリポジトリ（プラスコミット 採用サイトを含むモノレポ）の開発者向けメモです。LLM系の自動化やプロンプトで参照されることを想定しています。以下は現行の構成と運用ルール、重要なエンドポイント・環境変数などの要点です。
+株式会社プラスコミットは「1億総エンジニア社会」を目指すIT企業です。主な提供サービスは以下の通りです。
 
-## 概要
+- Web制作・コーディング
+- DXコンサルティング
+- Webアプリケーション開発
+- 業務自動化（RPA/API連携）
+- 保守・運用サポート
 
-- リポジトリ: フロントエンドは Next.js（App Router）、TypeScript、Tailwind CSS。
-- 採用サイトは `src/app/(recruit)/recruit` 以下に格納。
-- 認証は Supabase を使用。メール認証フローを実装（`/auth/callback` に Route Handlerあり）。
-- CMS は microCMS（`src/lib/microcms.ts`）でコンテンツ取得。
-- 3D 表示は React Three Fiber を利用（`src/components/3d` にアニメーションコンポーネント）。
+公式サイト: https://plus-commit.com/
+採用サイト: https://plus-commit.com/recruit/
+お問い合わせ: https://plus-commit.com/contact/
+メール: business@plus-commit.com
 
-## 主要パス（開発者が参照すべき）
+主要技術: Next.js, React, TypeScript, Tailwind CSS, microCMS, Supabase, Vercel
 
-- アプリルート: `src/app`
-- 採用トップ: `src/app/(recruit)/recruit/RecruitTopPageClient.tsx`
-- 登録フォーム: `src/app/(recruit)/recruit/register/page.tsx`
-- 仮登録完了ページ: `src/app/(recruit)/recruit/register/pending/page.tsx`
-- 認証コールバック（サーバー処理）: `src/app/auth/callback/route.ts`
-- Auth Provider: `src/components/auth/AuthProvider.tsx`
-- Supabase server helper: `src/lib/supabase/server.ts`
-- microCMS ラッパー: `src/lib/microcms.ts`
-- メール送信ユーティリティ: `src/lib/email.ts`
+実績: 支援企業数50社以上・制作実績200件以上
 
-## 重要な環境変数
-
-- `NEXT_PUBLIC_SUPABASE_URL` — Supabase URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Supabase anon key
-- `SUPABASE_SERVICE_ROLE_KEY` — サーバー側で必要な場合
-- `RESEND_API_KEY` — Resend（メール送信）APIキー
-- `RESEND_FROM_EMAIL` — 送信元メールアドレス
-- `CONTACT_NOTIFICATION_EMAILS` — お問い合わせ通知先（カンマ区切り）
-
-## 認証／メールフローの注意点
-
-- サインアップ時に `supabase.auth.signUp` の `emailRedirectTo` を `/auth/callback` に設定しています。
-- 認証リンクは一度クリックすると無効になる（OTP 期限切れや一度使用されたリンクは `access_denied` を返す）。
-- ブラウザで `auth/callback` に到達した際は、サーバー側の `route.ts` が `exchangeCodeForSession` を呼び出してセッションを設定します。クライアント側の処理は簡略化しています。
-- 開発中はリンクの再利用やキャッシュによる誤動作に注意（ハードリロードやシークレットモードで試す）。
-
-## LLMが利用する際の注意点（プロンプト向け）
-
-- ファイルやルートを参照する場合は必ず `src/` 以下の相対パスで指定してください。
-- 機密情報（APIキー等）は `.env` にあり、リポジトリには含めないでください。外部へ出力する場合はマスクしてください。
-- メールテンプレートの変更は Supabaseダッシュボードの **Authentication → Email Templates** で行うか、`src/lib/email.ts` の Resend テンプレートを編集します。
-
-## 開発・デバッグ小技
-
-- サーバーサイドの認証コールバック処理に問題が出る場合、まず `src/app/auth/callback/route.ts` のログを確認してください。
-- `npm run dev` 実行中のターミナルログが最も確実な情報源です。
-- APIのエラーログは多くが `console.error` で出ます。重要なログは開発時のみ出すよう `NODE_ENV` 条件付きにしてください。
-
-## 変更履歴メモ
-
-- 認証コールバックをクライアント→サーバー(Route Handler)へ移行済み。
-- 登録後の仮登録完了ページ（`/recruit/register/pending`）を追加。
-- `src/components/3d/RecruitAnimation.tsx` を追加して採用ページの3D表現を差し替え済み。
-
----
-
-必要があればこのファイルをさらに要約した短いメタ情報版を作成します。どのレベルの詳細（短い要約 / フルガイド / API一覧）を生成しましょうか？
+© 株式会社プラスコミット
 
