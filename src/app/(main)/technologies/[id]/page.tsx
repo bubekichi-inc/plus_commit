@@ -91,7 +91,7 @@ export default async function TechnologyDetailPage({
                                             href="/technologies"
                                             className="text-zinc-500 hover:text-primary-600 transition-colors text-sm font-medium"
                                         >
-                                            取り扱い技術一覧
+                                            取り扱い技術
                                         </Link>
                                         <span className="text-zinc-300">/</span>
                                         <span className="text-primary-600 text-sm font-bold">{categoryLabel}</span>
