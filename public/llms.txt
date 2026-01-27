@@ -1,0 +1,21 @@
+# プラスコミット — 
+
+株式会社プラスコミットは「1億総エンジニア社会」を目指すIT企業です。主な提供サービスは以下の通りです。
+
+- Web制作・コーディング
+- DXコンサルティング
+- Webアプリケーション開発
+- 業務自動化（RPA/API連携）
+- 保守・運用サポート
+
+公式サイト: https://plus-commit.com/
+採用サイト: https://plus-commit.com/recruit/
+お問い合わせ: https://plus-commit.com/contact/
+メール: business@plus-commit.com
+
+主要技術: Next.js, React, TypeScript, Tailwind CSS, microCMS, Supabase, Vercel
+
+実績: 支援企業数50社以上・制作実績200件以上
+
+© 株式会社プラスコミット
+

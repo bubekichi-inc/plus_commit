@@ -20,11 +20,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         return (
             <Comp
                 className={cn(
-                    "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:pointer-events-none disabled:opacity-50",
+                    "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 disabled:pointer-events-none disabled:opacity-50",
                     {
-                        "bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:opacity-90 shadow-lg shadow-blue-500/25":
+                        "bg-primary-500 text-white hover:bg-primary-600 shadow-lg shadow-primary-500/25":
                             variant === "default",
-                        "border border-blue-500/30 bg-transparent text-blue-400 hover:bg-blue-500/10":
+                        "border border-primary-500/30 bg-transparent text-primary-500 hover:bg-primary-500/10":
                             variant === "outline",
                         "hover:bg-zinc-800 text-zinc-300 hover:text-white":
                             variant === "ghost",

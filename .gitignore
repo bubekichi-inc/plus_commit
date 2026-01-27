@@ -13,6 +13,14 @@
 # testing
 /coverage
 
+/.agents/
+
+
+# env files
+.env
+.env.local
+
+
 # next.js
 /.next/
 /out/
@@ -39,3 +47,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+curriculum/.DS_Store
+curriculum/**/.DS_Store
+curriculum/
