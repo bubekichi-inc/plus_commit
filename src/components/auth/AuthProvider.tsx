@@ -4,24 +4,9 @@ import { createContext, useContext, useEffect, useState, ReactNode, useCallback,
 import { User, Session, AuthChangeEvent, AuthError, SupabaseClient } from '@supabase/supabase-js'
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client'
 
-export type UserProfile = {
-  id: string
-  userId: string
-  email: string
-  name: string | null
-  avatar: string | null
-  bio: string | null
-  company: string | null
-  position: string | null
-  website: string | null
-  role: 'USER' | 'PREMIUM' | 'ADMIN' | 'RECRUITER'
-  plan: 'FREE' | 'BASIC' | 'PRO' | 'ENTERPRISE'
-}
-
 type AuthContextType = {
   user: User | null
   session: Session | null
-  profile: UserProfile | null
   loading: boolean
   isConfigured: boolean
   signUp: (email: string, password: string, name?: string) => Promise<{ error: AuthError | null }>
@@ -29,13 +14,12 @@ type AuthContextType = {
   signOut: () => Promise<void>
   resetPassword: (email: string) => Promise<{ error: AuthError | null }>
   updatePassword: (newPassword: string) => Promise<{ error: AuthError | null }>
-  refreshProfile: () => Promise<void>
+  // profile removed: use `session.user.user_metadata` or `session.user.email`
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   session: null,
-  profile: null,
   loading: true,
   isConfigured: false,
   signUp: async () => ({ error: null }),
@@ -43,13 +27,12 @@ const AuthContext = createContext<AuthContextType>({
   signOut: async () => { },
   resetPassword: async () => ({ error: null }),
   updatePassword: async () => ({ error: null }),
-  refreshProfile: async () => { },
+  // profile methods removed
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [session, setSession] = useState<Session | null>(null)
-  const [profile, setProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
 
   // Supabase設定状態（初期化時に一度だけ評価）
@@ -61,35 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return createClient()
   }, [isConfigured])
 
-  // リクルートドメインかどうかを判定
-  const isRecruitDomain = useMemo(() => {
-    if (typeof window === 'undefined') return false
-    const hostname = window.location.hostname
-    return hostname.startsWith('recruit.') || hostname.includes('localhost')
-  }, [])
-
-  // プロファイルを取得
-  const fetchProfile = useCallback(async (userId: string) => {
-    // リクルートドメイン以外ではプロフィール取得をスキップ
-    if (!isRecruitDomain) return
-
-    try {
-      const response = await fetch(`/api/profile?userId=${userId}`)
-      if (response.ok) {
-        const data = await response.json()
-        setProfile(data.profile)
-      }
-    } catch (error) {
-      console.error('Failed to fetch profile:', error)
-    }
-  }, [isRecruitDomain])
-
-  // プロファイルをリフレッシュ
-  const refreshProfile = useCallback(async () => {
-    if (user) {
-      await fetchProfile(user.id)
-    }
-  }, [user, fetchProfile])
+  // profile handling removed — use session.user.user_metadata or session.user.email where needed
 
   const handleAuthError = useCallback(async (error: AuthError | null) => {
     if (!error || !supabase) return false
@@ -101,7 +56,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await supabase.auth.signOut()
       setSession(null)
       setUser(null)
-      setProfile(null)
       return true
     }
 
@@ -129,10 +83,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const session = data.session
         setSession(session)
         setUser(session?.user ?? null)
-
-        if (session?.user) {
-          await fetchProfile(session.user.id)
-        }
       } catch {
         // エラー時は無視
       }
@@ -148,9 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(session?.user ?? null)
 
         if (session?.user) {
-          await fetchProfile(session.user.id)
-        } else {
-          setProfile(null)
+          // no-op: profile handling removed
         }
 
         setLoading(false)
@@ -160,7 +108,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       subscription.unsubscribe()
     }
-  }, [supabase, fetchProfile, handleAuthError])
+  }, [supabase, handleAuthError])
 
   // サインアップ
   const signUp = useCallback(async (email: string, password: string, name?: string) => {
@@ -174,7 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           full_name: name,
         },
         // PKCEフローを使用せず、自動確認を無効化
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/recruit/mypage`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/recruit`,
       },
     })
 
@@ -197,7 +145,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signOut = useCallback(async () => {
     if (!supabase) return
     await supabase.auth.signOut()
-    setProfile(null)
+    // profile removed
   }, [supabase])
 
   // パスワードリセット
@@ -226,7 +174,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const contextValue = useMemo<AuthContextType>(() => ({
     user,
     session,
-    profile,
     loading,
     isConfigured,
     signUp,
@@ -234,11 +181,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signOut,
     resetPassword,
     updatePassword,
-    refreshProfile,
   }), [
     user,
     session,
-    profile,
     loading,
     isConfigured,
     signUp,
@@ -246,7 +191,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signOut,
     resetPassword,
     updatePassword,
-    refreshProfile,
   ])
 
   return (

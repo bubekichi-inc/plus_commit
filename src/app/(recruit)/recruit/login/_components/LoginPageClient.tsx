@@ -11,7 +11,7 @@ import { useAuth } from "@/components/auth/AuthProvider"
 function LoginForm() {
     const searchParams = useSearchParams()
     const router = useRouter()
-    const nextUrl = searchParams.get("next") || "/recruit/mypage"
+    const nextUrl = searchParams.get("next") || "/recruit"
     const [error, setError] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
     const { signIn, isConfigured } = useAuth()

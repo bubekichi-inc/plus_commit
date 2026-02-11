@@ -48,7 +48,7 @@ export default function RecruitShell({ sidebar, children }: RecruitShellProps) {
                 </Link>
                 {isConfigured && !loading && (
                     user ? (
-                        <Link href="/recruit/mypage" className="w-8 h-8 rounded-full bg-primary-50 flex items-center justify-center border border-primary-100">
+                        <Link href="/recruit" className="w-8 h-8 rounded-full bg-primary-50 flex items-center justify-center border border-primary-100">
                             <User className="w-4 h-4 text-primary-600" />
                         </Link>
                     ) : (

@@ -11,7 +11,7 @@ export default function AuthSuccessPage() {
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
-          window.location.href = '/recruit/mypage'
+          window.location.href = '/recruit'
           return 0
         }
         return prev - 1
@@ -34,14 +34,14 @@ export default function AuthSuccessPage() {
         
         <p className="text-slate-600 mb-8">
           メールアドレスの確認が完了しました。<br />
-          {countdown}秒後にマイページへ移動します。
+          {countdown}秒後に採用トップへ移動します。
         </p>
         
         <Link
-          href="/recruit/mypage"
+          href="/recruit"
           className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-lg transition-colors shadow-md hover:shadow-lg"
         >
-          今すぐマイページへ
+          今すぐ採用トップへ
         </Link>
       </div>
     </div>

@@ -16,7 +16,7 @@ import {
 import { submitCasualInterviewRequest } from "@/lib/recruit/api"
 
 export default function CasualInterviewPageClient() {
-    const { user, profile, loading, isConfigured } = useAuth()
+    const { user, loading, isConfigured } = useAuth()
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [formData, setFormData] = useState<CasualInterviewFormData>(createCasualInterviewFormData())
@@ -25,7 +25,7 @@ export default function CasualInterviewPageClient() {
 
     const isStopped = CASUAL_INTERVIEW_APPLICATION_STOPPED
     const isLoggedIn = Boolean(user)
-    const applicantName = profile?.name || user?.email?.split("@")[0] || ""
+    const applicantName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || ""
     const applicantEmail = user?.email ?? ""
 
     const updateFormField = (field: keyof CasualInterviewFormData, value: string) => {
@@ -122,9 +122,9 @@ export default function CasualInterviewPageClient() {
                             担当者より2営業日以内にメールでご連絡いたします。
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/recruit/mypage">
+                            <Link href="/recruit">
                                 <Button variant="outline" className="w-full sm:w-auto">
-                                    マイページへ戻る
+                                    採用トップへ戻る
                                 </Button>
                             </Link>
                             <Link href="/recruit">
@@ -144,11 +144,11 @@ export default function CasualInterviewPageClient() {
             <div className="bg-white border-b border-zinc-200">
                 <div className="max-w-4xl mx-auto px-6 py-12 md:py-20">
                     <Link
-                        href={isLoggedIn ? "/recruit/mypage" : "/recruit"}
+                        href="/recruit"
                         className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 text-sm mb-8 transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4" />
-                        {isLoggedIn ? "マイページへ戻る" : "採用トップへ戻る"}
+                        採用トップへ戻る
                     </Link>
 
                     <div className="text-center max-w-2xl mx-auto">
@@ -208,7 +208,7 @@ export default function CasualInterviewPageClient() {
                                     <div>
                                         <label className="block text-zinc-500 text-xs mb-1">お名前</label>
                                         <p className="text-zinc-900 font-medium">
-                                            {isLoggedIn ? (profile?.name || user?.email?.split("@")[0] || "未設定") : "ログイン後に表示"}
+                                            {isLoggedIn ? (user?.user_metadata?.full_name || user?.email?.split("@")[0] || "未設定") : "ログイン後に表示"}
                                         </p>
                                     </div>
                                     <div>
@@ -219,7 +219,7 @@ export default function CasualInterviewPageClient() {
                                     </div>
                                 </div>
                                 <p className="text-xs text-zinc-400 mt-4">
-                                    ※ 登録情報を変更する場合はマイページからプロフィールを編集してください
+                                    ※ 登録情報の変更が必要な場合はお問い合わせください
                                 </p>
                             </div>
                         </div>
