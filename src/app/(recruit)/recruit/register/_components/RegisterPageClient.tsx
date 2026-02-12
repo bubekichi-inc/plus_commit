@@ -22,7 +22,7 @@ function RegisterForm() {
         setLoading(true)
 
         if (!isConfigured) {
-            setError("Supabaseが設定されていません。環境変数を確認してください。")
+            setError("SignUp is not configured.")
             setLoading(false)
             return
         }
