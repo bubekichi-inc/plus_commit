@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { BookOpen, ChevronDown, LogOut, User } from "lucide-react"
+import { ChevronDown, LogOut, User } from "lucide-react"
 import { useAuth } from "@/components/auth/AuthProvider"
 
 type NavItem = {
@@ -29,7 +29,8 @@ const bottomNavItems: BottomNavItem[] = [
 
 export default function RecruitSidebar() {
     const pathname = usePathname()
-    const { user, loading, isConfigured, signOut, profile } = useAuth()
+    const { user, loading, isConfigured, signOut } = useAuth()
+    const displayName = user?.user_metadata?.full_name || user?.email?.split("@")[0]
 
     const activeItem = (() => {
         if (pathname === "/recruit" || pathname === "/recruit/") return "top"
@@ -53,7 +54,7 @@ export default function RecruitSidebar() {
                         className="h-8 w-auto"
                         priority
                     />
-                    <span className="text-sm font-bold text-center text-primary-600">マイページ</span>
+                    <span className="text-sm font-bold text-center text-primary-600">採用情報</span>
                 </Link>
             </div>
 
@@ -67,27 +68,20 @@ export default function RecruitSidebar() {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-zinc-900 text-sm font-bold truncate">
-                                        {profile?.name || user.email?.split("@")[0]}
+                                        {displayName}
                                     </p>
                                     <p className="text-zinc-500 text-xs truncate">{user.email}</p>
                                 </div>
                             </div>
-                            <div className="flex gap-2">
-                                <Link
-                                    href="/recruit/mypage"
-                                    className="flex-1 flex items-center justify-center gap-1 py-2 bg-zinc-50 border border-zinc-200 rounded text-xs font-bold text-zinc-600 hover:bg-zinc-100 transition-colors"
-                                >
-                                    <BookOpen className="w-3 h-3" />
-                                    マイページ
-                                </Link>
+                            <div className="flex">
                                 <button
                                     onClick={() => signOut()}
                                     className="flex items-center justify-center gap-1 px-3 py-2 bg-zinc-50 border border-zinc-200 rounded text-xs font-bold text-zinc-600 hover:bg-zinc-100 transition-colors"
                                 >
                                     <LogOut className="w-3 h-3" />
+                                    ログアウト
                                 </button>
                             </div>
-                            {profile?.role === "ADMIN" ? null : null}
                         </div>
                     ) : (
                         <div className="space-y-2">

@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 // キャッシュを無効化
 export const dynamic = 'force-dynamic'
 
-const DEFAULT_REDIRECT_PATH = '/recruit/mypage'
+const DEFAULT_REDIRECT_PATH = '/recruit'
 
 function sanitizeNextPath(path?: string | null): string {
   if (!path) return DEFAULT_REDIRECT_PATH

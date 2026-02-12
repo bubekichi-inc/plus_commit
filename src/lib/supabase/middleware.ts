@@ -43,26 +43,12 @@ export async function updateSession(request: NextRequest) {
 
     const path = request.nextUrl.pathname
 
-    // 1. 未ログインユーザーの制限
-    // /recruit/mypage/* はログインユーザーのみ
-    // /recruit/jobs/*, /recruit/casual は未ログインでも閲覧可能
-    if (
-        path.startsWith('/recruit/mypage')
-    ) {
-        if (!user) {
-            const url = request.nextUrl.clone()
-            url.pathname = '/recruit/login'
-            url.searchParams.set('next', path)
-            return NextResponse.redirect(url)
-        }
-    }
-
-    // 2. ログイン済みユーザーのロールベース制御
+    // 1. ログイン済みユーザーのロールベース制御
     if (user) {
         // ログインページへのアクセス制御 (ログイン済みならリダイレクト)
         if (path === '/recruit/login' || path === '/recruit/register') {
             const url = request.nextUrl.clone()
-            url.pathname = '/recruit/mypage'
+            url.pathname = '/recruit'
             return NextResponse.redirect(url)
         }
     }
